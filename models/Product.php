@@ -175,12 +175,12 @@ class Product extends ActiveRecord
         return $this->meta->title ?: $this->name;
     }
 
-    public function setValue($id, $value): void
+    public function setValue($characteristicId, $value): void
     {
 
-        $val = Value::findOne(['characteristic_id' => $id, 'product_id' => $this->id]);
+        $val = Value::findOne(['characteristic_id' => $characteristicId, 'product_id' => $this->id]);
         if (!$val) {
-            $val = Value::create($this->id, $id, $value);
+            $val = Value::create($this->id, $characteristicId, $value);
             $val->save();
         } else {
             $val->change($value);

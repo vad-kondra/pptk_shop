@@ -15,7 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="user-group-view">
-
     <p>
         <?= Html::a('Редактировать', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
@@ -61,8 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'l_name',
                             'email:email',
                             'phone',
-                            [
-                                'class' => 'yii\grid\ActionColumn',
+                            ['class' => 'yii\grid\ActionColumn',
                                 'template' => '{changeGroup}',
                                 'buttons' => [
                                     'changeGroup' => function ($url, $model) {

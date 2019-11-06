@@ -8,7 +8,11 @@ use app\controllers\AppController;
 use app\models\Category;
 use app\models\Characteristic;
 use app\models\CharacteristicForm;
+use app\models\Product;
 use app\models\temp\CharacteristicTemp;
+use app\models\temp\ProductTemp;
+use app\models\temp\TempValue;
+use app\models\Value;
 use app\modules\admin\models\search\CharacteristicSearch;
 use app\services\CharacteristicManageService;
 use Yii;
@@ -136,21 +140,8 @@ class CharacteristicController extends Controller
         if (($model = Characteristic::findOne($id)) !== null) {
             return $model;
         }
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException('Запрашиваемая страница не существует.');
     }
 
 
-    //TODO     temp DELETE THIS
-    public function actionAddTemp()
-    {
-
-        $rows = CharacteristicTemp::find()->all();
-        //debug($rows);
-        foreach ($rows as $row) {
-            $this->service->createFromTemp($row);
-        }
-
-    }
-
-    //TODO     temp DELETE THIS
 }
