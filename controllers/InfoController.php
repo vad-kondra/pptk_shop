@@ -41,7 +41,9 @@ class InfoController extends AppController
     }
 
     public function actionMain(){
-        return $this->render('main', ['title' => Config::getValue(Config::MAIN_TITLE)]);
+        return $this->render('main', [
+            'title' => Config::getValue(Config::MAIN_TITLE)
+        ]);
     }
 
     public function actionNews($id){

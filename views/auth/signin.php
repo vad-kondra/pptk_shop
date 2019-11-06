@@ -1,57 +1,65 @@
 <?PHP
 $this->title = $title;
 $this->params['breadcrumbs'][] =  [
-    'template' => "<li><span>{link}</span></li>",
     'label' => $this->title,
 ];
 ?>
-<!-- CONTAIN START -->
-<section class="checkout-section ptb-70">
+
+
+<!-- LogIn Page Start -->
+<div class="log-in pb-60">
     <div class="container">
         <div class="row">
-            <div class="col-xs-12">
-                <div class="row">
-                    <div class="col-lg-6 col-md-8 col-sm-8 col-lg-offset-3 col-sm-offset-2">
-                        <?php $form = \yii\bootstrap\ActiveForm::begin(['method'=>'POST','options'=>['id'=>'authForm','class'=>'main-form full']]); ?>
-                            <div class="row">
-                                <div class="col-xs-12 mb-20">
-                                    <div class="heading-part heading-bg">
-                                        <h2 class="heading">Войти</h2>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12">
-                                    <?=$form->field($model, 'email')->textInput();?>
-                                </div>
-                                <div class="col-xs-12 mb-20">
-                                    <?=$form->field($model, 'password_hash')->passwordInput();?>
-                                </div>
-
-                                <div class="col-xs-12">
-                                    <?=$form->field($model, 'rememberMe')->checkbox([
-                                        'id' => 'remember_me',
-                                        'class'=>'checkbox',
-                                        'template' =>
-                                            "<div class=\"check-box left-side\">
+            <!-- New Customer Start -->
+            <div class="col-sm-6">
+                <div class="well">
+                    <div class="new-customer">
+                        <h3>НОВЫЙ КЛИЕНТ</h3>
+                        <p class="mtb-10"><strong>Регистрация</strong></p>
+                        <p>Создав аккаунт, вы сможете совершать покупки быстрее, быть в курсе статуса заказа и отслеживать заказы, которые вы сделали ранее.</p>
+                        <a class="customer-btn" href="<?=\yii\helpers\Url::to(['/sign-up'])?>">продолжить</a>
+                    </div>
+                </div>
+            </div>
+            <!-- New Customer End -->
+            <!-- Returning Customer Start -->
+            <div class="col-sm-6">
+                <div class="well">
+                    <div class="return-customer">
+                        <h3 class="mb-10">ПОСТОЯННЫЙ КЛИЕНТ</h3>
+                        <p class="mb-10"><strong>Я постоянный клиент</strong></p>
+                        <?php $form = \yii\bootstrap\ActiveForm::begin(['method'=>'POST','options'=>['id'=>'authForm']]); ?>
+                            <div class="form-group">
+                                <?=$form->field($model, 'email')->textInput();?>
+                            </div>
+                            <div class="form-group">
+                                <?=$form->field($model, 'password_hash')->passwordInput();?>
+                            </div>
+                            <div class="form-group">
+                                <?=$form->field($model, 'rememberMe')->checkbox([
+                                    'id' => 'remember_me',
+                                    'class'=>'checkbox',
+                                    'template' =>
+                                        "<div class=\"check-box left-side\">
                                                 <span>
                                                     {input}
                                                     {label}
                                                 </span>
                                             </div>",
-                                    ])?>
-                                    <?=\yii\helpers\Html::submitButton('Войти', ['class'=>'btn-color right-side mb-2'])?>
-                                </div>
-                                <div class="col-xs-12"> <a href="<?=\yii\helpers\Url::to('/recover')?>" class="forgot-password mtb-20">Забыли пароль?</a>
-                                <hr>
-                                </div>
-                                <div class="col-xs-12">
-                                    <div class="new-account align-center mt-20"> <span>Первый раз здесь?</span> <a class="link" title="Register with Electrro" href="<?=\yii\helpers\Url::to('/sign-up')?>">Зарегистрироваться</a> </div>
-                                </div>
+                                ])?>
                             </div>
+                            <p class="lost-password"><a href="<?=\yii\helpers\Url::to('/recover')?>">Забыли пароль?</a></p>
+                            <?=\yii\helpers\Html::submitButton('Войти', ['class'=>'return-customer-btn'])?>
                         <?php $form = \yii\bootstrap\ActiveForm::end(); ?>
                     </div>
                 </div>
             </div>
+            <!-- Returning Customer End -->
         </div>
+        <!-- Row End -->
     </div>
-</section>
-<!-- CONTAINER END -->
+    <!-- Container End -->
+</div>
+<!-- LogIn Page End -->
+
+

@@ -10,28 +10,27 @@ use yii\helpers\Url;
 
 ?>
 
-<div class="col-lg-2 col-md-3 col-lgmd-20per position-initial">
-    <div class="sidebar-menu-dropdown home">
-        <a class="btn-sidebar-menu-dropdown"><span></span> Категории</a>
-        <div id="cat" class="cat-dropdown">
-            <div class="sidebar-contant">
-                <div id="menu" class="navbar-collapse collapse" >
-                    <?php foreach ($category->children as $child): ?>
-                       <div>
-                           <?=Html::a(Html::encode($child->name), ['/catalog/category', 'id' => $child->id],
-                             ['class' => 'col-aside-production btn-submenu']) ?>
-                           <!--                         <i class="fa fa-angle-right"></i>-->
-                           <ul class="sub-catalog subcat-dropdown">
-                                <?php foreach ($child->children as $item): ?>
-                                   <li>
-                                       <a class="sub-cat-a" href="<?= Html::encode(Url::to(['/catalog/category', 'id' => $item->id])) ?>"><?= Html::encode($item->name) ?></a>
-                                   </li>
-                                <?php endforeach; ?>
-                           </ul>
-                       </div>
+
+<li><a href="<?=Url::to('/catalog')?>">Каталог товаров<i class="fa fa-angle-down"></i></a>
+    <!-- Home Version Dropdown Start -->
+    <ul class="ht-dropdown dropdown-style-two">
+    <?php foreach ($category->children as $child): ?>
+        <li>
+            <?=Html::a(Html::encode($child->name), ['/catalog/category', 'id' => $child->id],
+                ['class' => 'col-aside-production btn-submenu']) ?>
+            <?php if(count($child->children) > 0): ?>
+                <ul class="ht-dropdown dropdown-style-two sub-menu">
+                    <?php foreach ($child->children as $item): ?>
+                        <li>
+                            <?=Html::a(Html::encode($item->name), ['/catalog/category', 'id' => $item->id],
+                                ['class' => 'col-aside-production btn-submenu']) ?>
+                        </li>
                     <?php endforeach; ?>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                </ul>
+            <?php endif; ?>
+        </li>
+    <?php endforeach; ?>
+    </ul>
+    <!-- Home Version Dropdown End -->
+</li>
+

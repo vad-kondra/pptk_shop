@@ -16,23 +16,35 @@ class AppAsset extends AssetWrapper
 
 
     public $css = [
-        //'css/bootstrap.css',
-        'css/jquery-ui.css',
-        'css/owl.carousel.css',
-        'css/fotorama.css',
-        'css/magnific-popup.css',
-        'css/custom.css',
-        'css/responsive.css'
+        "css/meanmenu.min.css",
+        "css/animate.css",
+        "css/nivo-slider.css",
+        "css/owl.carousel.min.css",
+        "css/slick.css",
+        "css/jquery-ui.min.css",
+        "css/font-awesome.min.css",
+        "css/jquery.fancybox.css",
+        "css/bootstrap.min.css",
+        "css/default.css",
+        "css/style.css",
+        "css/responsive.css",
+
     ];
     public $js = [
-        //"js/jquery-1.12.3.min.js",
-        //'js/bootstrap.min.js',
-        "js/jquery.downCount.js",
-        'js/jquery-ui.min.js',
-        "js/fotorama.js",
-        "js/jquery.magnific-popup.js",
+        "js/vendor/jquery-1.12.4.min.js",
+        "js/jquery.meanmenu.min.js",
+        "js/jquery.scrollUp.js",
         "js/owl.carousel.min.js",
-        "js/custom.js",
+        "js/slick.min.js",
+        "js/wow.min.js",
+        "js/jquery-ui.min.js",
+        "js/jquery.countdown.min.js",
+        "js/jquery.nivo.slider.js",
+        "js/jquery.fancybox.min.js",
+        "js/bootstrap.min.js",
+        "js/popper.js",
+        "js/plugins.js",
+        "js/main.js",
     ];
 
     public $jsOptions = [
@@ -45,9 +57,9 @@ class AppAsset extends AssetWrapper
 
     public $depends = [
         'yii\web\YiiAsset',
-        'app\assets\FontAwesomeAsset',
-        'app\assets\MyBootstrapAsset',
-        'yii\bootstrap\BootstrapAsset',
-        '\rmrevin\yii\ionicon\AssetBundle'
+        //'app\assets\FontAwesomeAsset',
+        //'app\assets\MyBootstrapAsset',
+        //'yii\bootstrap\BootstrapAsset',
+        //'\rmrevin\yii\ionicon\AssetBundle'
     ];
 }

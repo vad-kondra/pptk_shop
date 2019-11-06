@@ -9,79 +9,77 @@ use yii\helpers\Url;
 use yii\widgets\LinkPager;
 ?>
 
-<div class="container-fluid">
-    <?php if ($dataProvider->count > 0): ?>
-        <div class="row catalog-filter">
-            <div class="col-md-6 col-sm-6 hidden-xs">
-                <div class="btn-group btn-group-sm">
-                    <button type="button" id="grid-view" class="btn btn-default" data-toggle="tooltip" title="Плитка"><i class="fa fa-th"></i></button>
-                    <button type="button" id="list-view" class="btn btn-default" data-toggle="tooltip" title="Список"><i class="fa fa-th-list"></i></button>
-                </div>
-            </div>
-            <div class="col-md-4 col-xs-6">
-                <div class="form-group input-group ">
-                    <label class="input-group-addon" for="input-sort">Cортировка:</label>
-                    <select id="input-sort" onchange="location = this.value;">
-                        <?php
-                        $values = [
-                            '' => 'По умолчанию',
-                            'name' => 'По названию (А - Я)',
-                            '-name' => 'По названию (Я - А)',
-                            'price' => 'По возрастанию цены',
-                            '-price' => 'По убыванию цены',
-                        ];
-                        $current = Yii::$app->request->get('sort');
-                        ?>
-                        <?php foreach ($values as $value => $label): ?>
-                            <option value="<?= Html::encode(Url::current(['sort' => $value ?: null])) ?>" <?php if ($current == $value): ?>selected="selected"<?php endif; ?>><?= $label ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-2 col-xs-6">
-                <div class="form-group input-group ">
-                    <label class="input-group-addon" for="input-limit">Вывести по:</label>
-                    <select id="input-limit" onchange="location = this.value;">
-                        <?php
-                        $values = [15, 18, 25, 50, 75, 100];
-                        $current = $dataProvider->getPagination()->getPageSize(); ?>
-                        <?php foreach ($values as $value): ?>
-                            <option value="<?= Html::encode(Url::current(['per-page' => $value])) ?>" <?php if ($current == $value): ?>selected="selected"<?php endif; ?>><?= $value ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="product-listing">
-            <div class="inner-listing">
-                <div class="row">
-                    <ul>
-                        <?php foreach ($dataProvider->getModels() as $product): ?>
-                            <?= $this->render('_product', [
-                                'product' => $product
-                            ]) ?>
-                        <?php endforeach; ?>
-                    </ul>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6 text-left">
-                        <?= LinkPager::widget([
-                            'pagination' => $dataProvider->getPagination(),
-                        ]) ?>
-                    </div>
-                    <div class="col-sm-6 text-right">Показано <?= $dataProvider->getCount() ?> из <?= $dataProvider->getTotalCount() ?></div>
-                </div>
-            </div>
-        </div>
-    <?php else: ?>
-        <div class="row product-listing-empty">
-            <div class="inner-listing">
-                <div class="row">
-                    <p align="center">Результатов не найдено.</p>
-                </div>
-            </div>
-        </div>
-    <?php endif; ?>
 
+
+<!-- Grid & List View Start -->
+<div class="grid-list-top border-default universal-padding fix mb-30">
+    <div class="grid-list-view f-left">
+        <ul class="list-inline nav">
+            <li><a data-toggle="tab" href="#grid-view"><i class="fa fa-th"></i></a></li>
+            <li><a  class="active" data-toggle="tab" href="#list-view"><i class="fa fa-list-ul"></i></a></li>
+            <li><span class="grid-item-list"> Показано 1-12 из 13</span></li>
+        </ul>
+    </div>
+    <!-- Toolbar Short Area Start -->
+    <div class="main-toolbar-sorter f-right">
+        <div class="toolbar-sorter">
+            <label>Сортировать</label>
+            <select class="sorter" name="sorter">
+                <option value="Position" selected="selected">position</option>
+                <option value="Product Name">Product Name</option>
+                <option value="Price">Price</option>
+            </select>
+            <span><a href="#"><i class="fa fa-arrow-up"></i></a></span>
+        </div>
+    </div>
+    <!-- Toolbar Short Area End -->
 </div>
+<!-- Grid & List View End -->
+<div class="main-categorie">
+    <!-- Grid & List Main Area End -->
+    <div class="tab-content fix">
+        <div id="grid-view" class="tab-pane ">
+            <div class="row">
+                <?php foreach ($dataProvider->getModels() as $product): ?>
+                    <?= $this->render('_product_grid_view', [
+                        'product' => $product
+                    ]) ?>
+                <?php endforeach; ?>
+            </div>
+        </div>
+        <!-- #grid view End -->
+        <div id="list-view" class="tab-pane active">
+            <div class="row">
+                <?php foreach ($dataProvider->getModels() as $product): ?>
+                    <?= $this->render('_product_list_view', [
+                        'product' => $product
+                    ]) ?>
+                <?php endforeach; ?>
+            </div>
+        </div>
+        <!-- #list view End -->
+    </div>
+    <!-- Grid & List Main Area End -->
+</div>
+<!--Breadcrumb and Page Show Start -->
+<div class="pagination-box fix">
+    <ul class="blog-pagination ">
+        <li><a href="#">1</a></li>
+        <li class="active"><a href="#">2</a></li>
+        <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+    </ul>
+    <div class="toolbar-sorter-footer">
+        <label>Вывести по</label>
+        <select class="sorter" name="sorter">
+            <option value="Position" selected="selected">12</option>
+            <option value="Product Name">15</option>
+            <option value="Price">30</option>
+        </select>
+        <span>per page</span>
+    </div>
+</div>
+<!--Breadcrumb and Page Show End -->
+
+
+
 

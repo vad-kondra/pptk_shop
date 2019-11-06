@@ -117,7 +117,6 @@ class AuthController extends AppController
     public function actionLogout()
     {
         if(!Yii::$app->session->isActive) return $this->goHome();
-
         Yii::$app->user->logout();
         return $this->redirect('/sign-in');
     }

@@ -30,40 +30,36 @@ if (!$category->isRoot()) {
 }
 ?>
 
-<section class="ptb-70">
+<!-- Shop Page Start -->
+<div class="main-shop-page pb-60">
     <div class="container">
+        <!-- Row End -->
         <div class="row">
-            <div class="col-lg-2 col-md-3 mb-sm-30 col-lgmd-20per">
-                <div class="sidebar-block">
-                    <?= $this->render('_subcategories', [
-                        'category' => $category
-                    ]) ?>
+            <!-- Sidebar Shopping Option Start -->
+            <div class="col-lg-3  order-2">
+                <div class="sidebar white-bg">
+                    <div class="single-sidebar">
+                        <?= $this->render('_subcategories', [
+                            'category' => $category
+                        ]) ?>
+                    </div>
+
                 </div>
             </div>
-            <div class="col-lg-10 col-md-9 col-lgmd-80per">
-                <?php if (trim($category->description)): ?>
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <?= Yii::$app->formatter->asHtml($category->description, [
-                                'Attr.AllowedRel' => array('nofollow'),
-                                'HTML.SafeObject' => true,
-                                'Output.FlashCompat' => true,
-                                'HTML.SafeIframe' => true,
-                                'URI.SafeIframeRegexp'=>'%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
-                            ]) ?>
-                        </div>
-                    </div>
-                <?php endif; ?>
-
+            <!-- Sidebar Shopping Option End -->
+            <!-- Product Categorie List Start -->
+            <div class="col-lg-9 order-lg-2">
                 <?= $this->render('_list', [
                     'dataProvider' => $dataProvider
                 ]) ?>
             </div>
+            <!-- product Categorie List End -->
+
         </div>
+        <!-- Row End -->
     </div>
-</section>
-
-
-
+    <!-- Container End -->
+</div>
+<!-- Shop Page End -->
 
 

@@ -292,8 +292,6 @@ class User extends ActiveRecord implements IdentityInterface
     public function sendEmailPasswordReset()
     {
 
-
-
         if ( !self::isPasswordResetTokenValid($this->password_reset_token) ){
             $this->generatePasswordResetToken();
             if ( !$this->save() ) {

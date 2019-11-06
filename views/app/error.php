@@ -1,44 +1,40 @@
 <?php
-    $this->title = $title;
+
+use app\models\search\SearchForm;
+
+$this->title = $title;
+$searchForm = new SearchForm();
 ?>
-    <!--================================
-            START 404 AREA
-    =================================-->
-<?php
-switch ($code){
-    case 404:?>
-        <!-- CONTAIN START ptb-70-->
-        <section class="ptb-70 gray-bg error-block-main">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="error-block-detail error-block-bg">
-                            <div class="row">
-                                <div class="col-lg-5 col-md-6"></div>
-                                <div class="col-lg-7 col-md-6">
-                                    <div class="main-error-text">404</div>
-                                    <div class="error-slogan">Страница которую Вы ищете не существует</div>
-                                    <div class="mt-40"> <a href="<?=Yii::$app->homeUrl?>" class="btn btn-color">На Главную</a> </div>
-                                </div>
-                            </div>
-                        </div>
+
+
+<!-- Error 404 Area Start -->
+<div class="error404-area pb-60 pt-20">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="error-wrapper text-center">
+                    <div class="error-text">
+                        <h1>404</h1>
+                        <h2>Ой! СТРАНИЦА НЕ НАЙДЕНА</h2>
+                        <p>Извините, но страницы которую вы ищите не существует. Возможно она была удалена, переименнована или временно не доступна.</p>
+                    </div>
+
+
+                    <div class="search-error">
+                        <?= \yii\helpers\Html::beginForm(['/catalog/search'], 'get', ['id' => 'search-form']) ?>
+
+                            <?=\yii\helpers\Html::input('text', 'text', $searchForm->text, ['class' => 'input-text', 'placeholder' => 'Поиск'])?>
+                            <button><i class="fa fa-search"></i></button>
+
+                        <?= \yii\helpers\Html::endForm() ?>
+                    </div>
+
+                    <div class="error-button">
+                        <a href="<?=Yii::$app->homeUrl?>">На главную</a>
                     </div>
                 </div>
             </div>
-        </section>
-        <!-- CONTAINER END -->
-        <?PHP
-        break;
-    default:?>
-        <div class="not_found">
-            <h3 class="mb-0"><?='Ошибка '.' #'.$code?></h3>
-            <h4 class="mb-2"><?=$msg?></h4>
-            <a href="<?=Yii::$app->homeUrl?>" class="btn btn-primary">На Главную</a>
         </div>
-
-    <?PHP
-}
-?>
-    <!--================================
-            END 404 AREA
-    =================================-->
+    </div>
+</div>
+<!-- Error 404 Area End -->
