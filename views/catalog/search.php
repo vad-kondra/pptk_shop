@@ -54,33 +54,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <?= $form->field($searchForm, 'brand')->dropDownList($searchForm->brandsList(), ['prompt' => '']) ?>
                                 </div>
                             </div>
-                            <!---->
-                            <!--                        --><?php //if (count($searchForm->values) > 0): ?>
-                            <!--                            <h4>Атрибуты</h4>-->
-                            <!--                            --><?php //foreach ($searchForm->values as $i => $value): ?>
-                            <!--                                <div class="row">-->
-                            <!--                                    <div class="col-md-2">-->
-                            <!--                                        --><?//= Html::encode($value->getCharacteristicName()) ?>
-                            <!--                                    </div>-->
-                            <!--                                    --><?php //if (($variants = $value->variantsList()) && $value->isString()): ?>
-                            <!--                                        <div class="col-md-6">-->
-                            <!--                                            --><?//= $form->field($value, '[' . $i . ']equal')->dropDownList($variants, ['prompt' => 'Выберите значение'])->label(false) ?>
-                            <!--                                        </div>-->
-                            <!--                                    --><?php //elseif ($value->isAttributeSafe('from') && $value->isAttributeSafe('to')): ?>
-                            <!--                                        <div class="col-md-3">-->
-                            <!--                                            --><?//= $form->field($value, '[' . $i . ']from', ['inputOptions' => [
-                            //                                                'placeholder' => 'от',
-                            //                                            ],])->textInput()->label(false) ?>
-                            <!--                                        </div>-->
-                            <!--                                        <div class="col-md-3">-->
-                            <!--                                            --><?//= $form->field($value, '[' . $i . ']to', ['inputOptions' => [
-                            //                                                'placeholder' => 'до',
-                            //                                            ],])->textInput()->label(false) ?>
-                            <!--                                        </div>-->
-                            <!--                                    --><?php //endif ?>
-                            <!--                                </div>-->
-                            <!--                            --><?php //endforeach; ?>
-                            <!--                        --><?php //endif;?>
 
                             <div class="row">
                                 <div class="col-md-6">
@@ -97,7 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <?php if ($dataProvider->count == 0 ):?>
                     <?php if ($searchForm->text != '' ):?>
-                        <h3 align="center">По вашему запросу '<?=Html::encode($searchForm->text)?>' ничего не найдено.</h3>
+                        <h3>По вашему запросу '<?=Html::encode($searchForm->text)?>' ничего не найдено.</h3>
                     <?php endif;?>
                 <?php else: ?>
                     <?= $this->render('_list', [
@@ -108,11 +81,6 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <!-- product Categorie List End -->
             <!-- Sidebar Shopping Option End -->
-
-
-
-
-
         </div>
         <!-- Row End -->
     </div>

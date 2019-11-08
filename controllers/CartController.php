@@ -28,15 +28,15 @@ class CartController extends AppController
         $this->cart = $cartService->getCart();
     }
 
-//
-//    public function actionIndex()
-//    {
-//        $cart = $this->cartService->getCart();
-//
-//        return $this->render('index', [
-//            'cart' => $cart,
-//        ]);
-//    }
+
+    public function actionIndex()
+    {
+        $cart = $this->cartService->getCart();
+
+        return $this->render('index', [
+            'cart' => $cart,
+        ]);
+    }
 
 
     public function actionShowModal()

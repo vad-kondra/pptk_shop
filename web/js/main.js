@@ -509,6 +509,26 @@ $('.brand-banner').on('changed.owl.carousel initialized.owl.carousel', function 
             }
         }
     })
-     
+
+
+    $('.cart-box > ul > li').hover(
+
+
+
+        function () {
+            $(this).find('ul.ht-dropdown').css({
+                'visibility': 'visible',
+                '-webkiit-transform' : 'scaleY(1)',
+                '-webkit-transform' : 'scaleY(1)',
+                'transform' : 'scaleY(1)',
+                'opacity' : '1'
+            });
+        },
+        function () {
+            $(this).find('ul.ht-dropdown').removeAttr( 'style' )
+        }
+    )
+
+
     
 })(jQuery);

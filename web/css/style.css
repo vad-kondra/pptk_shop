@@ -350,9 +350,10 @@ ul.ht-dropdown.dropdown-style-two li {
     right: 0;
 }
 .header-list-menu > li:hover > ul.ht-dropdown,
-.cart-box > ul > li:hover ul.ht-dropdown,
+/*.cart-box > ul > li:hover ul.ht-dropdown,*/
 .middle-menu-list  li:hover > ul.ht-dropdown,
-.cart-box > ul > li.search-bar-xs:hover .ht-dropdown {
+.cart-box > ul > li.search-bar-xs:hover .ht-dropdown
+{
     visibility: visible;
     -webkiit-transform: scaleY(1);
     -webkit-transform: scaleY(1);
@@ -1332,7 +1333,7 @@ ul.ht-dropdown.dropdown-style-two li {
     font-size: 18px;
     font-weight: 500;
     margin-bottom: 28px;
-    text-transform: capitalize;
+    text-transform: initial;
 }
 .loc-address > span {
   display: flex;
@@ -1577,7 +1578,7 @@ ul.ht-dropdown.dropdown-style-two li {
 
 .amount,
 .price-button {
-    word-spacing: 25px;
+    word-spacing: 5px;
     width: 100%;
     text-align: center;
 }
@@ -1731,7 +1732,8 @@ ul.ht-dropdown.dropdown-style-two li {
 
 .main-product-thumbnail .tab-content img,
 .product-thumbnail .thumb-menu div img {
-    width: 100%;
+    width: 250px;
+    height: 250px;
     border: 1px solid #ebebeb;
 }
 
@@ -1744,7 +1746,7 @@ ul.ht-dropdown.dropdown-style-two li {
 }
 
 .product-header {
-    text-transform: capitalize;
+    text-transform: uppercase;
     font-size: 18px;
     font-weight: 500;
 }
@@ -2752,7 +2754,7 @@ p.checkout-coupon input[type="submit"] {
 .blog-pagination li a {
     display: block;
     font-size: 16px;
-    color: 808080;
+    color: #808080;
     border: 1px solid #e7e7e7;
     width: 40px;
     text-align: center;

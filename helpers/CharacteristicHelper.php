@@ -1,12 +1,8 @@
 <?php
-
-
 namespace app\helpers;
-
 
 use app\models\Characteristic;
 use yii\helpers\ArrayHelper;
-
 
 class CharacteristicHelper
 {

@@ -18,18 +18,19 @@ use yii\helpers\Url;
         <div class="pro-img">
             <a href="<?= Html::encode(Url::to(['product', 'id' =>$product->id])) ?>">
                 <?php if($product->photo):?>
-                    <?= Yii::$app->thumbnail->img($product->photo->img_src, [
-                        'thumbnail' => [
-                            'width' => 300,
-                            'height' => 300,
-                        ],
+                    <?=Yii::$app->thumbnail->img($product->photo->img_src, [
                         'placeholder' => [
-                            'width' => 300,
-                            'height' => 300
+                            'width' => 350,
+                            'height' => 350
                         ]
                     ]); ?>
                 <?php else: ?>
-                    <?= Html::img('/images/empty-img.png') ?>
+                    <?=Yii::$app->thumbnail->img(null, [
+                        'placeholder' => [
+                            'width' => 350,
+                            'height' => 350
+                        ]
+                    ]); ?>
                 <?php endif; ?>
 
             </a>
@@ -37,13 +38,13 @@ use yii\helpers\Url;
         <!-- Product Image End -->
         <!-- Product Content Start -->
         <div class="pro-content">
-            <div class="product-rating">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-            </div>
+<!--            <div class="product-rating">-->
+<!--                <i class="fa fa-star"></i>-->
+<!--                <i class="fa fa-star"></i>-->
+<!--                <i class="fa fa-star"></i>-->
+<!--                <i class="fa fa-star"></i>-->
+<!--                <i class="fa fa-star"></i>-->
+<!--            </div>-->
             <h4><a href="<?= Html::encode(Url::to(['product', 'id' =>$product->id])) ?>"><?= Html::encode($product->name) ?></a></h4>
             <p>
                 <span class="price"><?= PriceHelper::format($product->price_new) ?></span>

@@ -2,7 +2,9 @@
 
 use app\models\Config;
 use app\models\user\User;
+use app\widgets\CartWidget;
 use app\widgets\CategoryMenuWidget;
+use app\widgets\CategoryMobileMenuWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -18,7 +20,7 @@ use yii\helpers\Url;
                 <!-- Header Top left Start -->
                 <div class="col-lg-8 col-md-12 d-center">
                     <div class="header-top-left">
-                        <img src="img/icon/call.png" alt="">
+                        <?=Html::img('@web/img/icon/call.png') ?>
                         Связаться с нами:
                         <?=Config::getValue(Config::MAIN_PHONE_1)?>,
                         <?=Config::getValue(Config::MAIN_PHONE_2)?>
@@ -82,8 +84,7 @@ use yii\helpers\Url;
                     <div class="middle-menu pull-right">
                         <nav>
                             <ul class="middle-menu-list">
-                                <li><a href="<?=Url::home()?>">Главная</a>
-                                </li>
+                                <li><a href="<?=Url::home()?>">Главная</a></li>
 
                                 <?= CategoryMenuWidget::widget() ?>
 
@@ -99,7 +100,7 @@ use yii\helpers\Url;
                 <div class="col-lg-3 col-sm-7 col-7">
                     <div class="cart-box text-right">
                         <ul>
-                            <li><a href="compare.html"><i class="fa fa-cog"></i></a>
+                            <li><a href="#"><i class="fa fa-cog"></i></a>
                                 <ul class="ht-dropdown">
                                     <?php if (Yii::$app->user->isGuest): ?>
                                         <li><a href="<?=Url::to('/sign-in')?>">Вход</a></li>
@@ -114,44 +115,7 @@ use yii\helpers\Url;
                                 </ul>
                             </li>
 <!--                            <li><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></li>-->
-                            <li><a href="#"><i class="fa fa-shopping-basket"></i><span class="cart-counter">2</span></a>
-                                <ul class="ht-dropdown main-cart-box">
-                                    <li>
-                                        <!-- Cart Box Start -->
-                                        <div class="single-cart-box">
-                                            <div class="cart-img">
-                                                <a href="#"><img src="img/menu/1.jpg" alt="cart-image"></a>
-                                            </div>
-                                            <div class="cart-content">
-                                                <h6><a href="product.html">Products Name</a></h6>
-                                                <span>1 × $399.00</span>
-                                            </div>
-                                            <a class="del-icone" href="#"><i class="fa fa-window-close-o"></i></a>
-                                        </div>
-                                        <!-- Cart Box End -->
-                                        <!-- Cart Box Start -->
-                                        <div class="single-cart-box">
-                                            <div class="cart-img">
-                                                <a href="#"><img src="img/menu/2.jpg" alt="cart-image"></a>
-                                            </div>
-                                            <div class="cart-content">
-                                                <h6><a href="product.html">Products Name</a></h6>
-                                                <span>2 × $299.00</span>
-                                            </div>
-                                            <a class="del-icone" href="#"><i class="fa fa-window-close-o"></i></a>
-                                        </div>
-                                        <!-- Cart Box End -->
-                                        <!-- Cart Footer Inner Start -->
-                                        <div class="cart-footer fix">
-                                            <h5>total :<span class="f-right">$698.00</span></h5>
-                                            <div class="cart-actions">
-                                                <a class="checkout" href="checkout.html">Checkout</a>
-                                            </div>
-                                        </div>
-                                        <!-- Cart Footer Inner End -->
-                                    </li>
-                                </ul>
-                            </li>
+                            <?=CartWidget::widget() ?>
                         </ul>
                     </div>
                 </div>
@@ -161,32 +125,7 @@ use yii\helpers\Url;
                         <nav>
                             <ul>
                                 <li><a href="<?=Url::home()?>">Главная</a></li>
-                                </li>
-                                <li><a href="<?=Url::to('/catalog')?>">Каталог товаров</a>
-                                    <!-- Mobile Menu Dropdown Start -->
-                                    <ul>
-                                        <li><a href="#">Product Category Name</a>
-                                            <ul>
-                                                <li><a href="shop.html">Product Category Name</a>
-                                                    <!-- Start Three Step -->
-                                                    <ul>
-                                                        <li><a href="shop.html">Product Category Name</a></li>
-                                                        <li><a href="shop.html">Product Category Name</a></li>
-                                                        <li><a href="shop.html">Product Category Name</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="shop.html">Product Category Name</a></li>
-                                                <li><a href="shop.html">Product Category Name</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="product.html">product details Page</a></li>
-                                        <li><a href="compare.html">Compare Page</a></li>
-                                        <li><a href="cart.html">Cart Page</a></li>
-                                        <li><a href="checkout.html">Checkout Page</a></li>
-                                        <li><a href="wishlist.html">Wishlist Page</a></li>
-                                    </ul>
-                                    <!-- Mobile Menu Dropdown End -->
-                                </li>
+                                <?=CategoryMobileMenuWidget::widget() ?>
 <!--                                <li><a href="blog.html">Blog</a>-->
 <!--                                     Mobile Menu Dropdown Start -->
 <!--                                    <ul>-->

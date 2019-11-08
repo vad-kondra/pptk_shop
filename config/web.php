@@ -22,11 +22,12 @@ $config = [
             'class' => 'sadovojav\image\Thumbnail',
             'cachePath' => '@webroot/thumbnails',
             'prefixPath' => '@web',
+            'cacheExpire' => '604800',
             'options' => [
                 'placeholder' => [
                     'type' => sadovojav\image\Thumbnail::PLACEHOLDER_TYPE_IMAGINE,
                     'textSize' => 30,
-                    'text' => 'No image'
+                    'text' => 'Нет изображения'
                 ],
                 'quality' => 100,
             ]

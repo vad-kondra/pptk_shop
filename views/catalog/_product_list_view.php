@@ -18,29 +18,34 @@ use yii\helpers\Url;
     <div class="pro-img">
         <a href="<?= Html::encode(Url::to(['product', 'id' =>$product->id])) ?>">
 
-                <?= Yii::$app->thumbnail->img($product->photo->img_src, [
-                    'thumbnail' => [
-                        'width' => 100,
-                        'height' => 100,
-                    ],
+            <?php if($product->photo):?>
+                <?=Yii::$app->thumbnail->img($product->photo->img_src, [
                     'placeholder' => [
-                        'width' => 100,
-                        'height' => 100
+                        'width' => 350,
+                        'height' => 350
                     ]
                 ]); ?>
+            <?php else: ?>
+                <?=Yii::$app->thumbnail->img(null, [
+                    'placeholder' => [
+                        'width' => 350,
+                        'height' => 350
+                    ]
+                ]); ?>
+            <?php endif; ?>
 
         </a>
     </div>
     <!-- Product Image End -->
     <!-- Product Content Start -->
     <div class="pro-content">
-        <div class="product-rating">
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-        </div>
+<!--        <div class="product-rating">-->
+<!--            <i class="fa fa-star"></i>-->
+<!--            <i class="fa fa-star"></i>-->
+<!--            <i class="fa fa-star"></i>-->
+<!--            <i class="fa fa-star"></i>-->
+<!--            <i class="fa fa-star"></i>-->
+<!--        </div>-->
         <h4><a href="<?= Html::encode(Url::to(['product', 'id' =>$product->id])) ?>"><?= Html::encode($product->name) ?></a></h4>
         <p>
             <span class="price"><?= PriceHelper::format($product->price_new) ?></span>

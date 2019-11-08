@@ -70,6 +70,7 @@ class UserController extends AppController
         }
 
         return $this->render('profile', [
+            'user' => $user,
             'orders' => $this->orderService->getAllUserOrders($user->id),
             'profileInfoForm' => $profileInfoForm,
             'profileChangePassForm' => $profileChangePassForm,

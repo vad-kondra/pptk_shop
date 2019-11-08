@@ -14,6 +14,100 @@ $this->params['breadcrumbs'][] = $this->title;
 $count = count($cart->getItems());
 
 ?>
+<!-- Cart Main Area Start -->
+<div class="cart-main-area pb-80 pb-sm-50">
+    <div class="container">
+        <h2 class="text-capitalize sub-heading">Корзина</h2>
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Form Start -->
+                <form action="#">
+                    <!-- Table Content Start -->
+                    <div class="table-content table-responsive mb-50">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th class="product-thumbnail">Изображение</th>
+                                <th class="product-name">Название</th>
+                                <th class="product-price">Цена</th>
+<!--                                <th class="product-quantity">Количество</th>-->
+<!--                                <th class="product-subtotal">Всего</th>-->
+                                <th class="product-remove">Удалить</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php if ($count > 0): ?>
+
+                                <?php foreach ($cart->getItems() as $item): ?>
+                                <?php
+                                $product = $item->getProduct();
+                                $url = Url::to(['/catalog/product', 'id' => $product->id]); ?>
+                                    <tr>
+                                        <td class="product-thumbnail">
+                                            <a href="<?=$url?>">
+                                                <?php if ($product->photo):?>
+                                                    <?= Html::img('/'.$product->photo->img_src) ?>
+                                                <?php else: ?>
+                                                    <?= Html::img('/images/empty-img.png') ?>
+                                                <?php endif; ?>
+                                            </a>
+                                        </td>
+                                        <td class="product-name"><a href="<?=$url?>"><?= Html::encode($product->name) ?></a></td>
+                                        <td class="product-price"><span class="amount"><?= PriceHelper::format($item->getPrice()) ?></span></td>
+<!--                                        <td class="product-quantity"><input type="number" value="1" /></td>-->
+<!--                                        <td class="product-subtotal">£165.00</td>-->
+                                        <td class="product-remove"> <a href="<?= Url::to(['remove', 'id' => $item->getId()]) ?>"><i class="fa fa-times" aria-hidden="true"></i></a></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif;?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Table Content Start -->
+                    <div class="row">
+                        <!-- Cart Button Start -->
+                        <div class="col-lg-8 col-md-7">
+                            <div class="buttons-cart">
+                                <a href="<?=Url::toRoute(['/catalog'])?>">Продолжить покупки</a>
+                            </div>
+                        </div>
+                        <!-- Cart Button Start -->
+                        <!-- Cart Totals Start -->
+                        <div class="col-lg-4 col-md-12">
+                            <div class="cart_totals">
+                                <h2>Итого в корзине </h2>
+                                <br />
+                                <table>
+                                    <tbody>
+<!--                                    <tr class="cart-subtotal">-->
+<!--                                        <th>Subtotal</th>-->
+<!--                                        <td><span class="amount">$215.00</span></td>-->
+<!--                                    </tr>-->
+                                    <tr class="order-total">
+                                        <th></th>
+                                        <td>
+                                            <strong><span class="amount"><?= PriceHelper::format($cart->getCost()->getTotal()) ?></span></strong>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div class="wc-proceed-to-checkout">
+                                    <a href="<?=Url::toRoute(['/checkout'])?>">Оформить заказ</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Cart Totals End -->
+                    </div>
+                    <!-- Row End -->
+                </form>
+                <!-- Form End -->
+            </div>
+        </div>
+        <!-- Row End -->
+    </div>
+</div>
+<!-- Cart Main Area End -->
+
 
 <!-- CONTAIN START -->
 <section class="ptb-70">
@@ -48,7 +142,7 @@ $count = count($cart->getItems());
                                     $url = Url::to(['/catalog/product', 'id' => $product->id]); ?>
                                     <tr>
                                         <td>
-                                            <a href="<?= $url ?>">
+                                            <a href="<?=$url?>">
                                                 <div class="product-image">
                                                     <?php if ($product->photo):?>
                                                         <?= Html::img('/'.$product->photo->img_src) ?>
