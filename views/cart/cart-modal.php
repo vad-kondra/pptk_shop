@@ -14,95 +14,51 @@ $this->params['breadcrumbs'][] = $this->title;
 $count = count($cart->getItems());
 
 ?>
-
 <?php if ($count > 0): ?>
-    <div class="table-responsive">
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th></th>
-                <th>Название</th>
-                <th>Цена</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php foreach ($cart->getItems() as $item): ?>
-                <?php
-                $product = $item->getProduct();
-                $url = Url::to(['/catalog/product', 'id' => $product->id]); ?>
-                <tr>
-                    <td>
-                        <a href="<?= $url ?>">
-                            <div class="product-image">
-                                <?php if ($product->photo):?>
-                                    <?= Yii::$app->thumbnail->img($product->photo->img_src, [
-                                        'thumbnail' => [
-                                            'width' => 100,
-                                            'height' => 100,
-                                        ],
-                                        'placeholder' => [
-                                            'width' => 100,
-                                            'height' => 100
-                                        ]
-                                    ]); ?>
-                                <?php else: ?>
-                                    <?= Html::img('/images/empty-img.png', ['width' => '100px', 'height' => '100px']) ?>
-                                <?php endif; ?>
-                            </div>
-                        </a>
-                    </td>
-                    <td><div class="product-title"> <a href="<?=$url?>"><?= Html::encode($product->name) ?></a> </div></td>
-                    <td>
-                        <div class="total-price price-box"> <span class="price"><?= PriceHelper::format($item->getCost()) ?> </span> </div>
-                    </td>
-                    <td>
-                        <span class="glyphicon glyphicon-trash text-danger del-item deleteFromCartButton" data-id="<?=$item->getId()?>" title="Удалить товар из корзины"></span>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="cart-total-table commun-table">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th colspan="2">Итого</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>Общая сумма товаров</td>
-                            <td><div class="price-box"> <span class="price"><?= PriceHelper::format($cart->getCost()->getOrigin()) ?> </span> </div></td>
-                        </tr>
-                        <tr>
-                            <td ><strong>Ваша скидка</strong></td>
-                            <td ><?= Html::encode($cart->getCost()->getDiscount()->getValue()*100) ?> %</td>
-                        </tr>
-                        <tr>
-                            <td><b>К оплате</b></td>
-                            <td><div class="price-box"> <span class="price"><b><?= PriceHelper::format($cart->getCost()->getTotal()) ?> </b></span> </div></td>
-                        </tr>
-                        </tbody>
-                    </table>
+<li>
+        <?php foreach ($cart->getItems() as $item): ?>
+            <?php
+            $product = $item->getProduct();
+            $url = Url::to(['/catalog/product', 'id' => $product->id]);
+            ?>
+            <!-- Cart Box Start -->
+            <div class="single-cart-box">
+                <div class="cart-img">
+                    <a href="#">
+                        <?php $img_src = null;
+                        if($product->photo) {
+                            $img_src = $product->photo->img_src;
+                        }?>
+                        <?=Yii::$app->thumbnail->img($img_src, [
+                            'placeholder' => [
+                                'width' => 350,
+                                'height' => 350
+                            ],
+                            'thumbnail' => [
+                                'width' => 350,
+                                'height' => 350,
+                            ]
+                        ]); ?>
+                    </a>
                 </div>
+                <div class="cart-content">
+                    <h6><a href="<?=$url?>"><?= Html::encode($product->name ) ?></a></h6>
+                    <span><?= PriceHelper::format($item->getPrice()) ?></span>
+                </div>
+<!--                <a class="del-icone" data-id="--><?//=$item->getId()?><!--"><i class="fa fa-times"></i></a>-->
             </div>
-        </div>
+            <!-- Cart Box End -->
+        <?php endforeach; ?>
+</li>
+<!-- Cart Footer Inner Start -->
+<div class="cart-footer fix">
+    <h5>Всего :<span class="f-right"><?= PriceHelper::format($cart->getCost()->getOrigin()) ?></span></h5>
+    <div class="cart-actions">
+        <a class="checkout" href="<?=Url::to('/checkout')?>">Оформить заказ</a>
     </div>
-<?php else: ?>
-    <h3 align="center">Ваша корзина пуста</h3>
-<?php endif;?>
-<div class="row">
-    <div class="col-sm-6">
-        <div> <a href="<?=Url::toRoute(['/catalog'])?>" class="btn btn-color"><span><i class="fa fa-angle-left"></i></span>Продолжить покупки</a> </div>
-    </div>
-    <?php if ($count > 0): ?>
-    <div class="col-sm-6">
-        <div class="right-side float-none-xs"> <a href="<?=Url::toRoute(['/checkout'])?>" class="btn btn-color">Оформить заказ<span><i class="fa fa-angle-right"></i></span></a> </div>
-    </div>
-    <?php endif; ?>
 </div>
+<!-- Cart Footer Inner End -->
+<?php else:?>
+    <div>Ваша корзина пуста</div>
+<?php endif;?>
+

@@ -544,7 +544,7 @@
     width: 125px;
 }
 .main-categorie #list-view .pro-img {
-    width: 300px;
+    /*width: 100px;*/
 }
 .thubnail-desc {
     margin-top: 30px;

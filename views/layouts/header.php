@@ -29,12 +29,16 @@ use yii\helpers\Url;
                 <!-- Header Top left End -->
                 <!-- Search Box Start -->
                 <div class="col-lg-4 col-md-6 ml-auto mr-auto">
-                    <div class="search-box-view">
-                        <?= \yii\helpers\Html::beginForm(['/catalog/search'], 'get') ?>
-                            <?=\yii\helpers\Html::input('text', 'text', $searchForm->text, ['class' => 'email', 'placeholder' => 'Поиск'])?>
+                    <div class="main-search">
+                        <div class="search-box-view">
+                            <?=Html::beginForm(['/catalog/search'], 'get') ?>
+                            <?=Html::input('text', 'text', $searchForm->text, ['class' => 'email', 'placeholder' => 'Поиск'])?>
                             <button type="submit" class="submit"></button>
-                        <?= \yii\helpers\Html::endForm() ?>
+                            <?=Html::endForm() ?>
+                        </div>
+                        <div class="search-fast-result" style="display: block"></div>
                     </div>
+
                 </div>
                 <!-- Search Box End -->
                 <!-- Header Top Right Start -->

@@ -508,14 +508,22 @@ $('.brand-banner').on('changed.owl.carousel initialized.owl.carousel', function 
                 items: 1
             }
         }
-    })
+    });
 
+    function loadCartbox() {
+        $.ajax({
+            url: '/cart/show-modal',
+            success: function (data) {
+                $('.main-cart-box').html(data);
+            }
+        });
+    }
 
     $('.cart-box > ul > li').hover(
 
-
-
         function () {
+            loadCartbox();
+
             $(this).find('ul.ht-dropdown').css({
                 'visibility': 'visible',
                 '-webkiit-transform' : 'scaleY(1)',
@@ -527,7 +535,93 @@ $('.brand-banner').on('changed.owl.carousel initialized.owl.carousel', function 
         function () {
             $(this).find('ul.ht-dropdown').removeAttr( 'style' )
         }
-    )
+    );
+
+
+
+    $( document ).click(function() {
+        if ( $('.search-box-view input[name="text"]').is(":focus") ) {
+            $('.search-fast-result').fadeIn('fast');
+        } else {
+            $('.search-fast-result').fadeOut('fast');
+        }
+    });
+
+    let RUSH = {} || RUSH;
+
+    RUSH.search_fast = {
+        input: $('.search-box-view input[name="text"]'),
+        result_container: $('.search-fast-result'),
+        init: function () {
+            RUSH.search_fast.input.on('keyup', function () {
+                if ($(this).val().length < 2) return false;
+
+                $.ajax({
+                    url: '/catalog/search-fast',
+                    data: {
+                        category: $('#category').val(),
+                        text: $(this).val()
+                    },
+                    success: function (data) {
+                        RUSH.search_fast.result_container.html(data);
+                    }
+                });
+
+            });
+        }
+    };
+    RUSH.search_fast.init();
+
+
+
+    $('a.add-cart').click(function () {
+        let id = this.getAttribute('data-id');
+        //alert(id);
+        $.ajax({
+            url: '/cart/add',
+            data: {id : id},
+            success: function (data) {
+                updateCartNotification();
+                loadCartbox();
+            }
+        });
+    });
+
+
+    $('a.product-remove').click(function () {
+        let id = this.getAttribute('data-id');
+        $.ajax({
+            url: '/cart/remove',
+            data: {id : id},
+            success: function (data) {
+                updateCartNotification();
+                loadCartbox();
+                location.reload();
+
+            }
+        });
+    });
+
+
+
+    $( document ).ready(function () {
+        loadCartbox();
+        updateCartNotification();
+    });
+
+    function updateCartNotification() {
+        $.ajax({
+            url: '/cart/count',
+            type: 'GET',
+            success: function (res) {
+                $('span.cart-counter').html(res);
+            },
+            error: function () {
+                alert('Error!');
+            }
+        });
+
+    }
 
 
     

@@ -17,21 +17,20 @@ use yii\helpers\Url;
         <!-- Product Image Start -->
         <div class="pro-img">
             <a href="<?= Html::encode(Url::to(['product', 'id' =>$product->id])) ?>">
-                <?php if($product->photo):?>
-                    <?=Yii::$app->thumbnail->img($product->photo->img_src, [
-                        'placeholder' => [
-                            'width' => 350,
-                            'height' => 350
-                        ]
-                    ]); ?>
-                <?php else: ?>
-                    <?=Yii::$app->thumbnail->img(null, [
-                        'placeholder' => [
-                            'width' => 350,
-                            'height' => 350
-                        ]
-                    ]); ?>
-                <?php endif; ?>
+                <?php $img_src = null;
+                if($product->photo) {
+                    $img_src = $product->photo->img_src;
+                }?>
+                <?=Yii::$app->thumbnail->img($img_src, [
+                    'placeholder' => [
+                        'width' => 350,
+                        'height' => 350
+                    ],
+                    'thumbnail' => [
+                        'width' => 350,
+                        'height' => 350,
+                    ]
+                ]); ?>
 
             </a>
         </div>

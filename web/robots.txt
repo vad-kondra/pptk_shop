@@ -1,2 +1,5 @@
 User-agent: *
-Disallow:
+Allow: / catalog
+Disallow: /search
+
+Host: http://www.pptk-lnr.ru

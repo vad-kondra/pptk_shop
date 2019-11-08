@@ -25,11 +25,23 @@ use yii\widgets\LinkPager;
     <div class="main-toolbar-sorter f-right">
         <div class="toolbar-sorter">
             <label>Сортировать</label>
-            <select class="sorter" name="sorter">
-                <option value="Product Name">Названию</option>
-                <option value="Price">Цене</option>
+
+            <select class="sorter" name="sorter" onchange="location = this.value;">
+                <?php
+                $values = [
+                    '' => 'По умолчанию',
+                    'name' => 'По названию (А - Я)',
+                    '-name' => 'По названию (Я - А)',
+                    'price' => 'По возрастанию цены',
+                    '-price' => 'По убыванию цены',
+                ];
+                $current = Yii::$app->request->get('sort');
+                ?>
+                <?php foreach ($values as $value => $label): ?>
+                    <option value="<?= Html::encode(Url::current(['sort' => $value ?: null])) ?>" <?php if ($current == $value): ?>selected="selected"<?php endif; ?>><?= $label ?></option>
+                <?php endforeach; ?>
             </select>
-            <span><a href="#"><i class="fa fa-arrow-up"></i></a></span>
+<!--            <span><a href="#"><i class="fa fa-arrow-up"></i></a></span>-->
         </div>
     </div>
     <!-- Toolbar Short Area End -->
@@ -72,15 +84,15 @@ use yii\widgets\LinkPager;
         'nextPageLabel' => '<i class="fa fa-angle-right"></i>',
         'maxButtonCount' => 5,
     ]) ?>
-    <div class="toolbar-sorter-footer">
-        <label>Вывести по</label>
-        <select class="sorter" name="sorter">
-            <option value="Position" selected="selected">12</option>
-            <option value="Product Name">15</option>
-            <option value="Price">30</option>
-        </select>
-        <span>per page</span>
-    </div>
+<!--    <div class="toolbar-sorter-footer">-->
+<!--        <label>Вывести по</label>-->
+<!--        <select class="sorter" name="sorter">-->
+<!--            <option value="Position" selected="selected">12</option>-->
+<!--            <option value="Product Name">15</option>-->
+<!--            <option value="Price">30</option>-->
+<!--        </select>-->
+<!--        <span>per page</span>-->
+<!--    </div>-->
 </div>
 <!--Breadcrumb and Page Show End -->
 

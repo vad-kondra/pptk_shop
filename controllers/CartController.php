@@ -71,9 +71,7 @@ class CartController extends AppController
 
         $this->layout = false;
 
-        return $this->render('cart-modal', [
-           'cart' => $this->cartService->getCart()
-        ]);
+        return true;
 
 
 //        $form = new AddToCartForm($product);
@@ -119,9 +117,7 @@ class CartController extends AppController
 
         $this->layout = false;
 
-        return $this->render('cart-modal', [
-            'cart' => $this->cartService->getCart()
-        ]);
+        return true;
 
     }
 

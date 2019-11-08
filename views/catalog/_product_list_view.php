@@ -17,23 +17,20 @@ use yii\helpers\Url;
     <!-- Product Image Start -->
     <div class="pro-img">
         <a href="<?= Html::encode(Url::to(['product', 'id' =>$product->id])) ?>">
-
-            <?php if($product->photo):?>
-                <?=Yii::$app->thumbnail->img($product->photo->img_src, [
-                    'placeholder' => [
-                        'width' => 350,
-                        'height' => 350
-                    ]
-                ]); ?>
-            <?php else: ?>
-                <?=Yii::$app->thumbnail->img(null, [
-                    'placeholder' => [
-                        'width' => 350,
-                        'height' => 350
-                    ]
-                ]); ?>
-            <?php endif; ?>
-
+            <?php $img_src = null;
+            if($product->photo) {
+                $img_src = $product->photo->img_src;
+            }?>
+            <?=Yii::$app->thumbnail->img($img_src, [
+                'placeholder' => [
+                    'width' => 350,
+                    'height' => 350
+                ],
+                'thumbnail' => [
+                    'width' => 350,
+                    'height' => 350,
+                ]
+            ]); ?>
         </a>
     </div>
     <!-- Product Image End -->
@@ -57,7 +54,7 @@ use yii\helpers\Url;
         <div class="pro-actions">
             <div class="actions-secondary">
 <!--                <a href="wishlist.html" data-toggle="tooltip" title="Add to Wishlist"><i class="fa fa-heart"></i></a>-->
-                <a class="add-cart" href="<?= Url::to(['/cart/add', 'id' => $product->id]) ?>" data-id="<?=$product->id?>" data-toggle="tooltip" title="В корзину">В корзину</a>
+                <a class="add-cart" data-id="<?=$product->id?>" data-toggle="tooltip" title="В корзину">В корзину</a>
 <!--                <a href="compare.html" data-toggle="tooltip" title="Add to Compare"><i class="fa fa-signal"></i></a>-->
             </div>
         </div>

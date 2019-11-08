@@ -74,7 +74,7 @@ $this->params['active_category'] = $product->category;
                             <?php if (isset($product->price_old)): ?>
                                 <del class="prev-price"><?= PriceHelper::format($product->price_old) ?></del>
                             <?php endif;?>
-                            <a class="add-cart" href="#">В корзину</a>
+                            <a class="add-cart" data-id="<?=$product->id?>">В корзину</a>
                         </p>
 
                     </div>
@@ -93,13 +93,26 @@ $this->params['active_category'] = $product->category;
         <div class="row">
             <div class="col-sm-12">
                 <ul class="main-thumb-desc nav">
-                    <li><a class="active" data-toggle="tab" href="#review">Характеристики</a></li>
-                    <li><a data-toggle="tab" href="#detail">Описание</a></li>
+                    <li><a class="active" data-toggle="tab" href="#dtail">Описание</a></li>
+                    <li><a data-toggle="tab" href="#review">Характеристики</a></li>
                 </ul>
                 <!-- Product Thumbnail Tab Content Start -->
                 <div class="tab-content thumb-content border-default">
-                    <div id="review" class="tab-pane in active">
-                        <div class="col-6">
+                    <div id="dtail" class="tab-pane in active">
+                        <p>
+                            <?php if ($product->description): ?>
+                                <?= Yii::$app->formatter->asHtml($product->description, [
+                                    'Attr.AllowedRel' => array('nofollow'),
+                                    'HTML.SafeObject' => true,
+                                    'Output.FlashCompat' => true,
+                                    'HTML.SafeIframe' => true,
+                                    'URI.SafeIframeRegexp'=>'%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
+                                ]) ?>
+                            <?php endif; ?>
+                        </p>
+                    </div>
+                    <div id="review" class="tab-pane ">
+                        <div class="review">
                             <div class="table-responsive">
                                 <table class="table">
                                     <tbody>
@@ -115,19 +128,7 @@ $this->params['active_category'] = $product->category;
                                 </table>
                             </div>
                         </div>
-                    </div>
-                    <div id="detail" class="tab-pane">
-                        <p>
-                            <?php if ($product->description): ?>
-                                <?= Yii::$app->formatter->asHtml($product->description, [
-                                    'Attr.AllowedRel' => array('nofollow'),
-                                    'HTML.SafeObject' => true,
-                                    'Output.FlashCompat' => true,
-                                    'HTML.SafeIframe' => true,
-                                    'URI.SafeIframeRegexp'=>'%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
-                                ]) ?>
-                            <?php endif; ?>
-                        </p>
+
                     </div>
                 </div>
                 <!-- Product Thumbnail Tab Content End -->

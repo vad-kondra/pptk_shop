@@ -629,9 +629,20 @@ ul.ht-dropdown.dropdown-style-two li {
 }
 
 .main-cart-box {
-    width: 278px;
+    width: 500px;
     left: auto;
     right: 0;
+
+}
+.main-cart-box> li {
+    max-height: 500px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+div.cart-img {
+    width: 70px;
+    height: 70px;
 }
 
 .single-cart-box {
@@ -715,9 +726,15 @@ ul.ht-dropdown.dropdown-style-two li {
     position: absolute;
     right: 0;
     top: 0;
-    z-index: 45;
+    z-index: 99;
     color: #666;
+    cursor: pointer;
 }
+
+a.product-remove {
+    cursor: pointer;
+}
+
 
 /*----------------------------------------*/
 /* 4. Slider CSS
@@ -837,6 +854,11 @@ ul.ht-dropdown.dropdown-style-two li {
     border-top: none;
     position: relative;
 }
+.main-categorie #list-view .single-product {
+    border: 1px solid #eee;
+}
+
+
 .slider-right-content .single-product:hover{
     border-left: none;
     border-right: none;
@@ -1070,7 +1092,7 @@ ul.ht-dropdown.dropdown-style-two li {
     -webkit-transition: all 0.5s ease-in-out;
     transition: all 0.5s ease-in-out;
     border: 1px solid transparent;
-    padding: 15px 15px 30px 15px;
+    padding: 5px 15px 5px 15px;
     overflow: hidden;
 }
 .product-area .single-product{
@@ -1459,7 +1481,7 @@ ul.ht-dropdown.dropdown-style-two li {
 
 .toolbar-sorter select,
 .toolbar-sorter-footer select {
-    width: 130px;
+    width: 200px;
     height: 35px;
     background: transparent;
     border: 1px solid #eceff8;
@@ -1643,7 +1665,7 @@ ul.ht-dropdown.dropdown-style-two li {
 }
 
 .main-categorie #list-view .single-product {
-    padding: 30px 15px;
+    padding: 5px 15px;
     width: 100%;
 }
 .main-categorie #list-view .pro-img {
@@ -1713,7 +1735,7 @@ ul.ht-dropdown.dropdown-style-two li {
     content: "/\00a0";
 }
 #grid-view .single-product, #list-view .single-product{
-    margin-bottom: 30px;
+    margin-bottom: 5px;
 }
 #list-view .sticker-new, #list-view .sticker-sale {
     top: 30px;
@@ -1808,6 +1830,7 @@ ul.ht-dropdown.dropdown-style-two li {
 .add-cart:hover,.add-cart:focus {
     opacity: 0.8;
     color: #fff;
+    cursor: pointer;
 }
 
 .product-link {
@@ -4007,3 +4030,52 @@ legend {
 .has-error .help-block {
     color: #a94442;
 }
+
+/* main-search start */
+.main-search .search-fast-result {
+    margin-top: 50px;
+    margin-left: -70%;
+    position: absolute;
+    background-color: #ffffff;
+    overflow: auto;
+    transition: .4s ease all;
+    z-index: 9999;
+    width: 700px;
+}
+
+.main-search .price-list {
+    font-size: 13px;
+    border: 1px solid #e2e2e2;
+    width: 100%;
+}
+
+.price-list td {
+    border-bottom: 1px solid #e2e2e2;
+}
+
+
+.main-search .price-list thead td {
+    padding: 10px 5px;
+    background-color: #F7F7F7;
+}
+
+.main-search .price-list td {
+    padding: 5px;
+    vertical-align: middle;
+}
+
+.main-search .search-fast-result>p {
+    padding: 15px 10px;
+}
+
+.main-search .search-fast-result>.btn {
+    background-color: #f28b00;
+    color: #ffffff;
+    border: 1px solid transparent;
+    width: 100%;
+}
+
+.main-search .search-fast-result>.btn:hover {
+    color: black;
+}
+
