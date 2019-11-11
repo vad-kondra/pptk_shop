@@ -4079,3 +4079,13 @@ legend {
     color: black;
 }
 
+
+.new-pro-active .pro-img img {
+    width: 235px;
+    height: 235px;
+}
+
+.double-pro .single-product .pro-img img {
+    width: 70px;
+    height: 70px;
+}

@@ -345,4 +345,9 @@ class ProductReadRepository extends BaseObject
             'sort' => false,
         ]);
     }
+
+    public function getAllBestForCarusel()
+    {
+        return Product::find()->active()->top()->with('photo')->limit(15)->orderBy('name');
+    }
 }

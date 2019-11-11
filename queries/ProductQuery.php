@@ -32,5 +32,11 @@ class ProductQuery extends ActiveQuery
             ($alias ? $alias . '.' : '') . 'is_new' => true
         ]);
     }
+    public function top($alias = null)
+    {
+        return $this->andWhere([
+            ($alias ? $alias . '.' : '') . 'is_sale' => true //TODO change for rate
+        ]);
+    }
 
 }
