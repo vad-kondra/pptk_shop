@@ -1,6 +1,5 @@
 <?php
 
-
 namespace app\repositories;
 
 
@@ -8,26 +7,17 @@ use app\models\Brand;
 use app\models\Category;
 use app\models\Product;
 use app\models\search\SearchForm;
-use app\models\search\ValueForm;
 use app\models\Tag;
-use app\models\Value;
-use Elasticsearch\Client;
 use yii\base\BaseObject;
 use yii\data\ActiveDataProvider;
 use yii\data\DataProviderInterface;
-use yii\data\Pagination;
-use yii\data\Sort;
 use yii\db\ActiveQuery;
-use yii\db\Expression;
 use yii\helpers\ArrayHelper;
 
 class ProductReadRepository extends BaseObject
 {
-    private $client;
-
-    public function __construct(Client $client, $config = [])
+    public function __construct( $config = [])
     {
-        $this->client = $client;
         parent::__construct($config);
     }
 
@@ -135,89 +125,6 @@ class ProductReadRepository extends BaseObject
 
     public function search(SearchForm $form): DataProviderInterface
     {
-//        $pagination = new Pagination([
-//            'pageSizeLimit' => [15, 100],
-//            'validatePage' => false,
-//        ]);
-//
-//        $sort = new Sort([
-//            'defaultOrder' => ['id' => SORT_DESC],
-//            'attributes' => [
-//                'id',
-//                'name',
-//                'price',
-//            ],
-//        ]);
-//        $params = [
-//            'index' => 'shop',
-//            'type' => 'products',
-//            'body' => [
-//                '_source' => ['id'],
-//                'from' => $pagination->getOffset(),
-//                'size' => $pagination->getLimit(),
-////                'sort' => array_map(function ($attribute, $direction) {
-////                    return [$attribute => ['order' => $direction === SORT_ASC ? 'asc' : 'desc']];
-////                }, array_keys($sort->getOrders()), $sort->getOrders()),
-//                'query' => [
-//                    'bool' => [
-//                        'must' => array_merge(
-//                            array_filter([
-//                                !empty($form->category) ? ['term' => ['categories' => $form->category]] : false,
-//                                !empty($form->brand) ? ['term' => ['brand' => $form->brand]] : false,
-//                                !empty($form->text) ? ['multi_match' => [
-//                                    'query' => $form->text,
-//                                    'fields' => [ 'name^3', 'description' ]
-//                                ]] : false,
-//                            ]),
-//
-//                            array_map(function (ValueForm $value) {
-//
-//                                return ['nested' => [
-//                                    'path' => 'values',
-//                                    'query' => [
-//                                        'bool' => [
-//                                            'must' => array_filter([
-//                                                ['match' => ['values.characteristic' => $value->getId()]],
-//                                                !empty($value->equal) ? ['match' => ['values.value_string' => $value->equal]] : false,
-//                                                !empty($value->from) ? ['range' => ['values.value_int' => ['gte' => $value->from]]] : false,
-//                                                !empty($value->to) ? ['range' => ['values.value_int' => ['lte' => $value->to]]] : false,
-//                                            ]),
-//                                        ],
-//                                    ],
-//                                ]];
-//                            }, array_filter($form->values, function (ValueForm $value) { return $value->isFilled(); }))
-//                        )
-//                    ],
-//                ],
-//            ],
-//        ];
-//
-//        //debug($params);
-//        $response = $this->client->search($params);
-//
-//
-//
-//
-//        $ids = ArrayHelper::getColumn($response['hits']['hits'], '_source.id');
-//
-//        if ($ids) {
-//            $query = Product::find()
-//                ->active()
-//                ->with('photo')
-//                ->andWhere(['id' => $ids])
-//                ->orderBy(new Expression('FIELD(id,' . implode(',', $ids) . ')'));
-//        } else {
-//            $query = Product::find()->andWhere(['id' => 0]);
-//        }
-//
-//        return new SimpleActiveDateProvider([
-//            'query' => $query,
-//            'totalCount' => $response['hits']['total'],
-//            'pagination' => $pagination,
-//            'sort' => $sort,
-//        ]);
-
-
 
         $query = Product::find()->alias('p')->active('p')->with('photo', 'category');
 
@@ -237,29 +144,6 @@ class ProductReadRepository extends BaseObject
         if ($form->brand) {
             $query->andWhere(['p.brand_id' => $form->brand]);
         }
-
-
-
-
-
-//        if ($form->values) {
-//            $productIds = null;
-//            foreach ($form->values as $value) {
-//                if ($value->isFilled()) {
-//                    $q = Value::find()->andWhere(['characteristic_id' => $value->getId()]);
-//
-//                    $q->andFilterWhere(['>=', 'CAST(value AS SIGNED)', $value->from]);
-//                    $q->andFilterWhere(['<=', 'CAST(value AS SIGNED)', $value->to]);
-//                    $q->andFilterWhere(['value' => $value->equal]);
-//
-//                    $foundIds = $q->select('product_id')->column();
-//                    $productIds = $productIds === null ? $foundIds : array_intersect($productIds, $foundIds);
-//                }
-//            }
-//            if ($productIds !== null) {
-//                $query->andWhere(['p.id' => $productIds]);
-//            }
-//        }
 
         if (!empty($form->text)) {
             $query->andWhere(['or', ['like', 'code', $form->text], ['like', 'name', $form->text]]);

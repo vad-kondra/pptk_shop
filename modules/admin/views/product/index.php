@@ -17,6 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="user-index">
 
     <?= Html::a('Добавить', ['create'], ['class' => 'btn btn-success']) ?>
+    <?= Html::a('Загрузить из файла', ['load'], ['class' => 'btn btn-success']) ?>
     <div class="box">
         <div class="box-body">
             <?= GridView::widget([

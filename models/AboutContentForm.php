@@ -25,7 +25,7 @@ class AboutContentForm extends Model
     {
         return [
             [['about_text'], 'required'],
-            [['about_text', 'about_title'], 'string', 'max' => 255],
+            [['about_text', 'about_title'], 'string'],
             [['about_text', 'about_title'], 'trim'],
         ];
     }

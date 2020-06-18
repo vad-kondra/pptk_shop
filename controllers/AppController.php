@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: twobomb
- * Date: 23.06.2018
- * Time: 17:40
- */
 
 namespace app\controllers;
-
 
 use yii\web\Controller;
 

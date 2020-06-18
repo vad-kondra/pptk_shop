@@ -2,13 +2,12 @@
 
 use app\helpers\PriceHelper;
 use app\helpers\ProductHelper;
-use app\models\Characteristic;
 use app\models\CharacteristicsForm;
 use app\models\PhotoForm;
 use app\models\Product;
-use app\models\Value;
-use kartik\select2\Select2;
+use app\models\ValueForm;
 use yii\bootstrap\ActiveForm;
+use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -18,8 +17,8 @@ use yii\widgets\DetailView;
 /* @var $product Product */
 /* @var $photoForm PhotoForm */
 /* @var $charForm CharacteristicsForm */
-/* @var $newValue \app\models\ValueForm */
-/* @var $modificationsProvider yii\data\ActiveDataProvider */
+/* @var $newValue ValueForm */
+/* @var $modificationsProvider ActiveDataProvider */
 
 $this->title = 'Товар #ID'.$product->id;
 $this->params['breadcrumbs'][] = ['label' => 'Товары', 'url' => ['index']];
@@ -33,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'data' => [
                 'confirm' => 'Вы действительно хотите удалить данный товар?',
                 'method' => 'post',
-            ],
+            ]
         ]) ?>
         <?php if ($product->isActive()): ?>
             <?= Html::a('В черновики', ['draft', 'id' => $product->id], ['class' => 'btn btn-primary', 'data-method' => 'post']) ?>
@@ -41,7 +40,6 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= Html::a('Активировать', ['activate', 'id' => $product->id], ['class' => 'btn btn-success', 'data-method' => 'post']) ?>
         <?php endif; ?>
     </div>
-
 
     <div class="row">
         <div class="col-md-6">
@@ -95,8 +93,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                     return $product->is_sale ? 'Да' : 'Нет';
                                 }
                             ],
-
-
                         ],
                     ]) ?>
                     <br />
@@ -111,34 +107,40 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="box-header">Изображениe</div>
                 <div class="box-body">
 
-                    <?php $form = ActiveForm::begin([
-                        'options' => ['enctype'=>'multipart/form-data'],
-                    ]); ?>
+                    <?php $form = ActiveForm::begin(['options' => ['enctype'=>'multipart/form-data']]); ?>
 
-                    <?php if(empty($product->photo)){ ?>
+                    <?php if(empty($product->photo)): ?>
                         <?=$form->field($photoForm, 'image')->fileInput(['multiple' => false])->label(false)?>
-                    <?php }else{ ?>
+                    <?php else: ?>
                         <div class="row">
                             <div class="col-md-8">
                                 <?=$form->field($photoForm, 'image')->fileInput(['multiple' => false])->label(false)?>
                             </div>
                             <div class="col-md-4">
                                 <div class="float-right">
-                                    <?= Yii::$app->thumbnail->img($product->photo->img_src, [
-                                        'thumbnail' => [
-                                            'width' => 150,
-                                            'height' => 150,
-                                        ],
-                                        'placeholder' => [
-                                            'width' => 100,
-                                            'height' => 100
-                                        ]
-                                    ]); ?>
-
+                                    <?php if (is_file(Yii::getAlias('@webroot').$product->photo->img_src)) :?>
+                                        <?= Yii::$app->thumbnail->img($product->photo->img_src, [
+                                            'thumbnail' => [
+                                                'width' => 150,
+                                                'height' => 150,
+                                            ],
+                                            'placeholder' => [
+                                                'width' => 100,
+                                                'height' => 100
+                                            ]
+                                        ]); ?>
+                                    <?php else:  ?>
+                                        <?= Yii::$app->thumbnail->img(null, [
+                                            'placeholder' => [
+                                                'width' => 350,
+                                                'height' => 350
+                                            ]
+                                        ]); ?>
+                                    <?php endif;  ?>
                                 </div>
                             </div>
                         </div>
-                    <?php } ?>
+                    <?php endif; ?>
 
                     <div class="form-group">
                         <?= Html::submitButton('Загрузить', ['class' => 'btn btn-success']) ?>
@@ -191,10 +193,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'class' => 'yii\grid\ActionColumn',
                                 'template' => '{remove}',
                                 'buttons' => [
-                                        'remove' => function ($url, $model) {
-                                            return Html::a('<span class="glyphicon glyphicon-trash"></span>',
-                                                ['remove-char', 'id' => $model->id]);
-                                        },
+                                    'remove' => function ($url, $model) {
+                                        return Html::a('<span class="glyphicon glyphicon-trash"></span>',
+                                            ['remove-char', 'id' => $model->id]);
+                                    },
                                 ]
                             ]
                         ],

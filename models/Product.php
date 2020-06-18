@@ -1,8 +1,6 @@
 <?php
 
-
 namespace app\models;
-
 
 use app\behaviors\MetaBehavior;
 use app\queries\ProductQuery;
@@ -12,7 +10,6 @@ use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
-use yii\web\UploadedFile;
 
 /**
  * @property integer $id
@@ -52,6 +49,11 @@ class Product extends ActiveRecord
     const STATUS_ACTIVE = 1;
 
     public $meta;
+
+    public static function tableName(): string
+    {
+        return '{{%shop_products}}';
+    }
 
     public static function create($brandId, $categoryId, $art, $code, $name, $description, $is_new, $is_sale, Meta $meta): self
     {
@@ -198,10 +200,6 @@ class Product extends ActiveRecord
         return Value::blank($id);
     }
 
-
-
-    // Categories
-
     public function assignCategory($id): void
     {
         $assignments = $this->categoryAssignments;
@@ -231,8 +229,6 @@ class Product extends ActiveRecord
     {
         $this->categoryAssignments = [];
     }
-
-    // Tags
 
     public function assignTag($id): void
     {
@@ -299,10 +295,6 @@ class Product extends ActiveRecord
         $this->populateRelation('mainPhoto', reset($photos));
     }
 
-
-
-    ##########################
-
     public function getBrand(): ActiveQuery
     {
         return $this->hasOne(Brand::class, ['id' => 'brand_id']);
@@ -339,15 +331,6 @@ class Product extends ActiveRecord
         return $this->hasOne(Photo::class, ['id' => 'photo_id']);
     }
 
-
-
-
-    ##########################
-
-    public static function tableName(): string
-    {
-        return '{{%shop_products}}';
-    }
 
     public function behaviors(): array
     {

@@ -18,7 +18,6 @@ use yii\db\ActiveQuery;
 
 class MainPageWidget extends Widget
 {
-
     private $productRepository;
 
     public $queryBest;
@@ -65,7 +64,5 @@ class MainPageWidget extends Widget
         }
         return '';
     }
-
-
 
 }

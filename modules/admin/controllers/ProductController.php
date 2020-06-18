@@ -14,14 +14,17 @@ use app\models\ProductCreateForm;
 use app\models\ProductEditForm;
 use app\models\QuantityForm;
 use app\models\Value;
+use app\modules\admin\models\ProductLoadForm;
 use app\modules\admin\models\search\ProductSearch;
 use app\services\ProductManageService;
 use DomainException;
+use PHPExcel_IOFactory;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\httpclient\Client;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 
 class ProductController extends Controller
 {
@@ -85,8 +88,6 @@ class ProductController extends Controller
             }
         }
 
-
-
         return $this->render('view', [
             'product' => $product,
             'photoForm' => $photoForm,
@@ -118,6 +119,59 @@ class ProductController extends Controller
             'parseForm' => $parseForm
         ]);
     }
+
+
+    public function actionLoad()
+    {
+        $form = new ProductLoadForm();
+
+        $data = [];
+
+        if (Yii::$app->request->isPost) {
+            $form->file = UploadedFile::getInstance($form, 'file');
+            if ($form->upload()) {
+
+                $xls = PHPExcel_IOFactory::load(Yii::getAlias('@webroot').'/excel/'. $form->file->name);
+
+                $xls->setActiveSheetIndex(1);
+                $sheet = $xls->getActiveSheet();
+
+                $category = Category::find()->where(['name' => 'Промышленная химия'])->one();
+                $brand = Brand::find()->where(['name' => 'ПХ'])->one();
+
+                if($category == null) {
+
+                }
+
+                $rows = ['name', 'category_id', 'brand_id', 'price_new', 'status', 'created_at'];
+                $inserts = [];
+
+                foreach ($sheet->toArray() as $key => $item) {
+                    if ($key >= 2) {
+                        $name = $item[3];
+                        $cat_id = $category->id;
+                        $brand_id = $brand->id;
+                        $new_price = isset($item[7]) ? $item[7] : 0;
+                        $status = Product::STATUS_ACTIVE;
+                        $created_at = time();
+
+                        $inserts[] = [$name, $cat_id, $brand_id, $new_price, $status, $created_at];;
+                    }
+                }
+                $newProductCount = count($inserts);
+                Yii::$app->db
+                    ->createCommand()
+                    ->batchInsert('shop_products', $rows, $inserts)
+                    ->execute();
+                addAlert('success', "Добавлено {$newProductCount} товаров");
+            }
+        }
+        return $this->render('load', [
+            'model' => $form,
+            'data' => $data
+        ]);
+    }
+
 
     /**
      * @param integer $id

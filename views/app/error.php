@@ -1,13 +1,11 @@
 <?php
 
 use app\models\search\SearchForm;
+use yii\helpers\Html;
 
 $this->title = $title;
 $searchForm = new SearchForm();
 ?>
-
-
-<!-- Error 404 Area Start -->
 <div class="error404-area pb-60 pt-20">
     <div class="container">
         <div class="row">
@@ -21,12 +19,12 @@ $searchForm = new SearchForm();
 
 
                     <div class="search-error">
-                        <?= \yii\helpers\Html::beginForm(['/catalog/search'], 'get', ['id' => 'search-form']) ?>
+                        <?= Html::beginForm(['/catalog/search'], 'get', ['id' => 'search-form']) ?>
 
-                            <?=\yii\helpers\Html::input('text', 'text', $searchForm->text, ['class' => 'input-text', 'placeholder' => 'Поиск'])?>
+                            <?= Html::input('text', 'text', $searchForm->text, ['class' => 'input-text', 'placeholder' => 'Поиск'])?>
                             <button><i class="fa fa-search"></i></button>
 
-                        <?= \yii\helpers\Html::endForm() ?>
+                        <?= Html::endForm() ?>
                     </div>
 
                     <div class="error-button">
@@ -37,4 +35,3 @@ $searchForm = new SearchForm();
         </div>
     </div>
 </div>
-<!-- Error 404 Area End -->

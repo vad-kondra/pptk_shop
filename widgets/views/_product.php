@@ -10,17 +10,15 @@ use yii\helpers\Url;
 
 ?>
 
-
-<!-- Single Product Start -->
 <div class="single-product">
-    <!-- Product Image Start -->
     <div class="pro-img">
-        <a href="<?= Html::encode(Url::to(['/catalog/product', 'id' =>$product->id])) ?>">
-            <?php $img_src = null;
-            if($product->photo) {
+        <a href="<?=Url::to(['/catalog/product', 'id' =>$product->id]) ?>">
+            <?php
+            $img_src = null;
+            if(isset($product->photo) && file_exists("@web{$product->photo->img_src}")   ) {
                 $img_src = $product->photo->img_src;
-            }?>
-            <?=Yii::$app->thumbnail->img($img_src, [
+            }
+            echo Yii::$app->thumbnail->img($img_src, [
                 'placeholder' => [
                     'width' => 350,
                     'height' => 350
@@ -29,24 +27,16 @@ use yii\helpers\Url;
                     'width' => 350,
                     'height' => 350,
                 ]
-            ]); ?>
+            ]);
+            ?>
         </a>
     </div>
-    <!-- Product Image End -->
-    <!-- Product Content Start -->
     <div class="pro-content">
-<!--        <div class="product-rating">-->
-<!--            <i class="fa fa-star"></i>-->
-<!--            <i class="fa fa-star"></i>-->
-<!--            <i class="fa fa-star"></i>-->
-<!--            <i class="fa fa-star"></i>-->
-<!--            <i class="fa fa-star"></i>-->
-<!--        </div>-->
-        <h4><a href="<?= Html::encode(Url::to(['/catalog/product', 'id' =>$product->id])) ?>"><?= Html::encode($product->name) ?></a></h4>
+        <h4><?=Html::a($product->name, Url::to(['/catalog/product', 'id' =>$product->id]) )?></h4>
         <p>
-            <span class="price"><?= PriceHelper::format($product->price_new) ?></span>
+            <span class="price"><?=PriceHelper::format($product->price_new) ?></span>
             <?php if (isset($product->price_old)): ?>
-                <del class="prev-price"><?= PriceHelper::format($product->price_old) ?></del>
+                <del class="prev-price"><?=PriceHelper::format($product->price_old) ?></del>
             <?php endif; ?>
         </p>
 <!--        <div class="pro-actions">-->
@@ -55,8 +45,6 @@ use yii\helpers\Url;
 <!--            </div>-->
 <!--        </div>-->
     </div>
-    <!-- Product Content End -->
 </div>
-<!-- Single Product End -->
 
 

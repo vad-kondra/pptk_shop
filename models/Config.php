@@ -49,15 +49,14 @@ class Config extends ActiveRecord
     }
 
     public static $defaultValues = [
-        self::MAIN_TITLE => 'Интернет-магазин электрики и светотехники "ППТК" в Луганске',
+        self::MAIN_TITLE => 'Комплексные поставки электротехники о оборудования',
         self::MAIN_SHORT_TITLE => 'ППТК',
-        self::MAIN_PHONE_1 => '+38 (050) 000-00-00',
-        self::MAIN_PHONE_2 => '+38 (072) 000-00-00',
-        self::MAIN_EMAIL => 'support@pptk-lnr.ru',
-        self::MAIN_ADDRESS => 'г. Луганск',
-
-        self::TIME_WORK => 'Пн – Пт: 8:00 – 18:00',
-        self::ABOUT_TEXT => 'Отредактируйте данный текст в конфигурации сайта в секции "О нас"',
+        self::MAIN_PHONE_1 => '+38 (050) 564-28-71',
+        self::MAIN_PHONE_2 => '+38 (072) 102-44-44',
+        self::MAIN_EMAIL => 'info@pptk-lnr.ru',
+        self::MAIN_ADDRESS => 'г. Луганск, улица Оборонная, дом 24',
+        self::TIME_WORK => 'Пн – Пт: 8:30 – 17:30',
+        self::ABOUT_TEXT => 'ООО «ПРЕДПРИЯТИЕ ПРОИЗВОДСТВЕННО-ТЕХНИЧЕСКОЙ КОМПЛЕКТАЦИИ» – это Республиканский поставщик электротехнической, светотехнической продукции',
         self::PRIVATE_POLICY_TEXT => 'Отредактируйте данный текст в конфигурации сайта в секции "Пользовательское соглашение"',
     ];
 

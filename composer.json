@@ -29,23 +29,23 @@
         "kartik-v/yii2-widget-datetimepicker": "*",
         "kartik-v/yii2-date-range": "dev-master",
         "mihaildev/yii2-ckeditor": "^1.0",
+
         "phpoffice/phpexcel": "^1.8",
         "yiisoft/yii2-httpclient": "^2.0",
         "keltstr/yii2-simplehtmldom": "dev-master",
         "electrolinux/phpquery": "^0.9.6",
-        "elasticsearch/elasticsearch": "~7.0",
         "yii-dream-team/yii2-upload-behavior": "*",
         "rmrevin/yii2-ionicon": "~1.2",
         "kartik-v/yii2-export": "@dev",
         "ext-gd": "*",
         "sadovojav/yii2-image-thumbnail": "dev-master",
-        "wbraganca/yii2-dynamicform": "*"
+        "wbraganca/yii2-dynamicform": "*",
+        "shuchkin/simplexls": "^0.9.5"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
         "yiisoft/yii2-gii": "~2.1.0",
         "yiisoft/yii2-faker": "~2.0.0",
-
         "codeception/base": "~2.3.0",
         "codeception/verify": "~0.4.0",
         "codeception/specify": "~0.4.6",

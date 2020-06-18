@@ -18,20 +18,7 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
-        'thumbnail' => [
-            'class' => 'sadovojav\image\Thumbnail',
-            'cachePath' => '@webroot/thumbnails',
-            'prefixPath' => '@web',
-            'cacheExpire' => '604800',
-            'options' => [
-                'placeholder' => [
-                    'type' => sadovojav\image\Thumbnail::PLACEHOLDER_TYPE_IMAGINE,
-                    'textSize' => 30,
-                    'text' => 'Нет изображения'
-                ],
-                'quality' => 100,
-            ]
-        ],
+
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'u2clGUQ4uS7Bx5a-2P0aQYpApoWCxmq_',
@@ -108,23 +95,20 @@ $config = [
             'class' => 'yii\rbac\DbManager',
             'defaultRoles' => ['guest'],
         ],
-        'elasticsearch' => [
-            'class' => 'yii\elasticsearch\Connection',
-            'nodes' => [
-                ['http_address' => '127.0.0.1:9200'],
-                // configure more hosts if you have a cluster
-            ],
+        'thumbnail' => [
+            'class' => 'sadovojav\image\Thumbnail',
+            'cachePath' => '@webroot/thumbnails',
+            'prefixPath' => '@web',
+            'cacheExpire' => '604800',
+            'options' => [
+                'placeholder' => [
+                    'type' => sadovojav\image\Thumbnail::PLACEHOLDER_TYPE_IMAGINE,
+                    'textSize' => 20,
+                    'text' => 'Нет изображения'
+                ],
+                'quality' => 100,
+            ]
         ],
-
-        'sphinx' => [
-            'class' => 'yii\sphinx\Connection',
-            'dsn' => 'mysql:host=127.0.0.1;port=9306;',
-            'username' => '',
-            'password' => '',
-        ],
-
-
-
     ],
     'modules' => [
         'gridview' => [

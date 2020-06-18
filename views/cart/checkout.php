@@ -69,16 +69,17 @@ use yii\widgets\MaskedInput;
                                     <?= $form->field($model, 'comment')->textarea() ?>
                                 </div>
                             </div>
-
-                            <div class="col-md-12">
-                                <div class="checkout-form-list create-acc mb-30">
-                                    <input id="cbox" type="checkbox" />
-                                    <label>Постоянный клиент?</label>
+                            <?php if (Yii::$app->user->isGuest): ?>
+                                <div class="col-md-12">
+                                    <div class="checkout-form-list create-acc mb-30">
+                                        <input id="cbox" type="checkbox" />
+                                        <label>Постоянный клиент?</label>
+                                    </div>
+                                    <div id="cbox_info" class="checkout-form-list create-accounts mb-25">
+                                        <p class="mb-10">Если у Вас уже есть учетная запись -  <a class="link" title="Войти" href="<?=\yii\helpers\Url::to(['/sign-in'])?>">войдите на странице входа</a> </p>
+                                    </div>
                                 </div>
-                                <div id="cbox_info" class="checkout-form-list create-accounts mb-25">
-                                    <p class="mb-10">Если у Вас уже есть учетная запись -  <a class="link" title="Войти" href="<?=\yii\helpers\Url::to(['/sign-in'])?>">войдите на странице входа</a> </p>
-                                </div>
-                            </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>

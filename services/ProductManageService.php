@@ -1,10 +1,7 @@
 <?php
 
-
 namespace app\services;
 
-
-use app\models\Brand;
 use app\models\Category;
 use app\models\CharacteristicsForm;
 use app\models\Meta;
@@ -15,8 +12,6 @@ use app\models\Product;
 use app\models\ProductCreateForm;
 use app\models\ProductEditForm;
 use app\models\Tag;
-use app\models\temp\CategoryTemp;
-use app\models\temp\ProductTemp;
 use app\repositories\BrandRepository;
 use app\repositories\CategoryRepository;
 use app\repositories\ProductRepository;
@@ -131,7 +126,6 @@ class ProductManageService
         $this->products->save($product);
     }
 
-
     public function activate($id): void
     {
         $product = $this->products->get($id);
@@ -161,7 +155,6 @@ class ProductManageService
         $product->removePhoto($photoId);
         $this->products->save($product);
     }
-
 
     public function remove($id): void
     {

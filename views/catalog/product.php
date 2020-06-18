@@ -30,15 +30,12 @@ $this->params['active_category'] = $product->category;
 
 ?>
 
-<!-- Product Thumbnail Start -->
 <div class="main-product-thumbnail pb-60">
     <div class="container">
         <div class="row">
-            <!-- Main Thumbnail Image Start -->
             <div class="col-lg-3">
-                <!-- Thumbnail Large Image start -->
                 <div class="tab-content">
-                    <?php if($product->photo):?>
+                    <?php if(isset($product->photo)):?>
                         <?=Yii::$app->thumbnail->img($product->photo->img_src, [
                             'placeholder' => [
                                 'width' => 350,
@@ -55,11 +52,8 @@ $this->params['active_category'] = $product->category;
                     <?php endif; ?>
 
                 </div>
-                <!-- Thumbnail Large Image End -->
 
             </div>
-            <!-- Main Thumbnail Image End -->
-            <!-- Thumbnail Description Start -->
             <div class="col-lg-9">
                 <div class="thubnail-desc fix">
                     <h3 class="product-header"><?= Html::encode($product->name) ?></h3>
