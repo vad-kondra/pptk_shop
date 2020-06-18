@@ -66,7 +66,6 @@ class SearchForm extends CompositeForm
     public function initChars($params = null)
     {
         $query = Characteristic::find()->orderBy('sort');
-        //print ('<pre>');print_r($this->category);die();
         if ($this->category) {
             $category = Category::findOne($this->category);
             $ids = ArrayHelper::merge([$category->id], $category->getDescendants()->select('id')->column());

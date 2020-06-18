@@ -106,48 +106,49 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="box">
                 <div class="box-header">Изображениe</div>
                 <div class="box-body">
+                    <div class="row">
 
-                    <?php $form = ActiveForm::begin(['options' => ['enctype'=>'multipart/form-data']]); ?>
-
-                    <?php if(empty($product->photo)): ?>
-                        <?=$form->field($photoForm, 'image')->fileInput(['multiple' => false])->label(false)?>
-                    <?php else: ?>
-                        <div class="row">
+                        <?php if(empty($product->photo)): ?>
+                            <div class="col-md-12">
+                                <?php $form = ActiveForm::begin(['options' => ['enctype'=>'multipart/form-data']]); ?>
+                                    <?=$form->field($photoForm, 'image')->fileInput(['multiple' => false])->label(false)?>
+                                    <div class="form-group">
+                                        <?= Html::submitButton('Загрузить', ['class' => 'btn btn-success']) ?>
+                                    </div>
+                                <?php ActiveForm::end(); ?>
+                            </div>
+                        <?php else: ?>
                             <div class="col-md-8">
-                                <?=$form->field($photoForm, 'image')->fileInput(['multiple' => false])->label(false)?>
+                                <?php $form = ActiveForm::begin(['options' => ['enctype'=>'multipart/form-data']]); ?>
+                                    <?=$form->field($photoForm, 'image')->fileInput(['multiple' => false])->label(false)?>
+                                    <div class="form-group">
+                                        <?= Html::submitButton('Загрузить', ['class' => 'btn btn-success']) ?>
+                                    </div>
+                                <?php ActiveForm::end(); ?>
                             </div>
                             <div class="col-md-4">
-                                <div class="float-right">
-                                    <?php if (is_file(Yii::getAlias('@webroot').$product->photo->img_src)) :?>
-                                        <?= Yii::$app->thumbnail->img($product->photo->img_src, [
-                                            'thumbnail' => [
-                                                'width' => 150,
-                                                'height' => 150,
-                                            ],
-                                            'placeholder' => [
-                                                'width' => 100,
-                                                'height' => 100
-                                            ]
-                                        ]); ?>
-                                    <?php else:  ?>
-                                        <?= Yii::$app->thumbnail->img(null, [
-                                            'placeholder' => [
-                                                'width' => 350,
-                                                'height' => 350
-                                            ]
-                                        ]); ?>
-                                    <?php endif;  ?>
-                                </div>
+                                <?php if (is_file(Yii::getAlias('@webroot').$product->photo->img_src)) :?>
+                                    <?= Yii::$app->thumbnail->img($product->photo->img_src, [
+                                        'thumbnail' => [
+                                            'width' => 150,
+                                            'height' => 150,
+                                        ],
+                                        'placeholder' => [
+                                            'width' => 100,
+                                            'height' => 100
+                                        ]
+                                    ]); ?>
+                                <?php else:  ?>
+                                    <?= Yii::$app->thumbnail->img(null, [
+                                        'placeholder' => [
+                                            'width' => 350,
+                                            'height' => 350
+                                        ]
+                                    ]); ?>
+                                <?php endif;  ?>
                             </div>
-                        </div>
-                    <?php endif; ?>
-
-                    <div class="form-group">
-                        <?= Html::submitButton('Загрузить', ['class' => 'btn btn-success']) ?>
+                        <?php endif; ?>
                     </div>
-
-                    <?php ActiveForm::end(); ?>
-
                 </div>
             </div>
         </div>

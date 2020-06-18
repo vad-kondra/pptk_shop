@@ -14,14 +14,12 @@ $this->params['breadcrumbs'][] = $this->title;
 $count = count($cart->getItems());
 
 ?>
-<!-- Cart Main Area Start -->
 <div class="cart-main-area pb-80 pb-sm-50">
     <div class="container">
         <h2 class="text-capitalize sub-heading"><?=Html::encode($this->title)?></h2>
         <div class="row">
             <div class="col-md-12">
                 <?php if ($count > 0): ?>
-                    <!-- Table Content Start -->
                     <div class="table-content table-responsive mb-50">
                         <table>
                             <thead>
@@ -29,14 +27,11 @@ $count = count($cart->getItems());
                                 <th class="product-thumbnail">Изображение</th>
                                 <th class="product-name">Название</th>
                                 <th class="product-price">Цена</th>
-    <!--                                <th class="product-quantity">Количество</th>-->
-    <!--                                <th class="product-subtotal">Всего</th>-->
                                 <th class="product-remove">Удалить</th>
                             </tr>
                             </thead>
                             <tbody>
                             <?php if ($count > 0): ?>
-
                                 <?php foreach ($cart->getItems() as $item): ?>
                                 <?php
                                 $product = $item->getProduct();
@@ -44,11 +39,12 @@ $count = count($cart->getItems());
                                     <tr>
                                         <td class="product-thumbnail">
                                             <a href="<?=$url?>">
-                                                <?php $img_src = null;
-                                                if($product->photo) {
+                                                <?php
+                                                $img_src = null;
+                                                if(isset($product->photo) && file_exists("@web{$product->photo->img_src}")   ) {
                                                     $img_src = $product->photo->img_src;
-                                                }?>
-                                                <?=Yii::$app->thumbnail->img($img_src, [
+                                                }
+                                                echo Yii::$app->thumbnail->img($img_src, [
                                                     'placeholder' => [
                                                         'width' => 350,
                                                         'height' => 350
@@ -57,13 +53,12 @@ $count = count($cart->getItems());
                                                         'width' => 350,
                                                         'height' => 350,
                                                     ]
-                                                ]); ?>
+                                                ]);
+                                                ?>
                                             </a>
                                         </td>
                                         <td class="product-name"><a href="<?=$url?>"><?= Html::encode($product->name) ?></a></td>
                                         <td class="product-price"><span class="amount"><?= PriceHelper::format($item->getPrice()) ?></span></td>
-    <!--                                        <td class="product-quantity"><input type="number" value="1" /></td>-->
-    <!--                                        <td class="product-subtotal">£165.00</td>-->
                                         <td class="product-remove"> <a class="product-remove" data-id="<?=$item->getId()?>"><i class="fa fa-times" aria-hidden="true"></i></a></td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -71,9 +66,8 @@ $count = count($cart->getItems());
                             </tbody>
                         </table>
                     </div>
-                    <!-- Table Content Start -->
                 <?php else: ?>
-                    <h3 align="center">Ваша корзина пуста</h3>
+                    <h3 class="text-center">Ваша корзина пуста</h3>
                 <?php endif;?>
                 <div class="row">
                     <!-- Cart Button Start -->
@@ -91,16 +85,12 @@ $count = count($cart->getItems());
                             <br />
                             <table>
                                 <tbody>
-                                <!--                                    <tr class="cart-subtotal">-->
-                                <!--                                        <th>Subtotal</th>-->
-                                <!--                                        <td><span class="amount">$215.00</span></td>-->
-                                <!--                                    </tr>-->
-                                <tr class="order-total">
-                                    <th></th>
-                                    <td>
-                                        <strong><span class="amount"><?= PriceHelper::format($cart->getCost()->getTotal()) ?></span></strong>
-                                    </td>
-                                </tr>
+                                    <tr class="order-total">
+                                        <th></th>
+                                        <td>
+                                            <strong><span class="amount"><?= PriceHelper::format($cart->getCost()->getTotal()) ?></span></strong>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                             <div class="wc-proceed-to-checkout">

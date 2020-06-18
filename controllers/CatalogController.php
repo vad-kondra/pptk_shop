@@ -2,21 +2,12 @@
 
 namespace app\controllers;
 
-
-use app\models\Category;
-use app\models\Product;
 use app\models\search\SearchForm;
-use app\models\Value;
 use app\repositories\BrandReadRepository;
 use app\repositories\CategoryReadRepository;
 use app\repositories\ProductReadRepository;
 use app\repositories\TagReadRepository;
-use Elasticsearch\Client;
-use Elasticsearch\ClientBuilder;
-use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Yii;
-use yii\data\Pagination;
-use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 
 
@@ -161,17 +152,8 @@ class CatalogController extends AppController
 
         $this->layout = 'blank';
 
-        //$cartForm = new AddToCartForm($product);
-        //$reviewForm = new ReviewForm();
-
         return $this->render('product', [
             'product' => $product,
-            //'cartForm' => $cartForm,
-            //'reviewForm' => $reviewForm,
         ]);
     }
-
-
-
-
 }

@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] =  ['label' => $this->title,];
                     <!-- Nav tabs -->
                     <ul class="nav flex-column dashboard-list" role="tablist">
                         <li><a class="active"data-toggle="tab" href="#account-details">Детальная информация</a></li>
-                        <li><a data-toggle="tab" href="#orders">История заказов</a></li>
+                        <li><a data-toggle="tab" href="#orders">Заказы</a></li>
                         <li><a data-toggle="tab" href="#change-password">Изменить пароль</a></li>
                         <li><a data-method="post" href="<?=Url::to('/logout')?>">Выход</a></li>
                     </ul>

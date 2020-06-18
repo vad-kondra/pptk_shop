@@ -585,6 +585,7 @@ $('.brand-banner').on('changed.owl.carousel initialized.owl.carousel', function 
                 loadCartbox();
             }
         });
+        this.text = 'Добавлено';
     });
 
 

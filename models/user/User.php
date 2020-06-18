@@ -44,10 +44,10 @@ use yii\web\IdentityInterface;
 class User extends ActiveRecord implements IdentityInterface
 {
     //"name" roles attribute
-    const ROLE_ADMIN="admin";
-    const ROLE_MANAGER="manager";
-    const ROLE_USER="user";
-    const ROLE_GUEST="guest";
+    const ROLE_ADMIN = "admin";
+    const ROLE_MANAGER = "manager";
+    const ROLE_USER = "user";
+    const ROLE_GUEST = "guest";
 
     const USER_NO_GROUP_ID = 1 ;
 
@@ -111,25 +111,6 @@ class User extends ActiveRecord implements IdentityInterface
             'deliveryAdress' => 'Адрес доставки',
         ];
     }
-    /*
-        public function checkEmailList($attribute)
-        {
-            $emailsR = preg_replace('/\s+/', ' ', $this->company_emails);
-            $this->company_emails = $emailsR;
-            $emails = preg_split('/\s+/', $emailsR);
-            $validator = new EmailValidator();
-            if( is_array($emails ) ){
-                foreach ($emails as $email) {
-                    if (!$validator->validate($email)) {
-                        $this->addError($attribute, getRuleMessage('email'));
-                    }
-                }
-            }else{
-                if (!$validator->validate($emails)) {
-                    $this->addError($attribute, getRuleMessage('email'));
-                }
-            }
-        }*/
 
     public function buyerGroupsList(): array
     {
@@ -171,68 +152,30 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->password_hash;
     }
 
-    /**
-     * Finds an identity by the given ID.
-     * @param string|int $id the ID to be looked for
-     * @return IdentityInterface the identity object that matches the given ID.
-     * Null should be returned if such an identity cannot be found
-     * or the identity is not in an active state (disabled, deleted, etc.)
-     */
     public static function findIdentity($id)
     {
         return static::findOne($id);
     }
 
 
-    /**
-     * Finds an identity by the given token.
-     * @param mixed $token the token to be looked for
-     * @param mixed $type the type of the token. The value of this parameter depends on the implementation.
-     * For example, [[\yii\filters\auth\HttpBearerAuth]] will set this parameter to be `yii\filters\auth\HttpBearerAuth`.
-     * @return void the identity object that matches the given token.
-     * Null should be returned if such an identity cannot be found
-     * or the identity is not in an active state (disabled, deleted, etc.)
-     * @throws NotSupportedException
-     */
     public static function findIdentityByAccessToken($token, $type = null)
     {
         throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
     }
 
-    /**
-     * Returns an ID that can uniquely identify a user identity.
-     * @return string|int an ID that uniquely identifies a user identity.
-     */
+
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * Returns a key that can be used to check the validity of a given identity ID.
-     *
-     * The key should be unique for each individual user, and should be persistent
-     * so that it can be used to check the validity of the user identity.
-     *
-     * The space of such keys should be big enough to defeat potential identity attacks.
-     *
-     * This is required if [[User::enableAutoLogin]] is enabled.
-     * @return string a key that is used to check the validity of a given identity ID.
-     * @see validateAuthKey()
-     */
+
     public function getAuthKey()
     {
         return $this->auth_key;
     }
 
-    /**
-     * Validates the given auth key.
-     *
-     * This is required if [[User::enableAutoLogin]] is enabled.
-     * @param string $authKey the given auth key
-     * @return bool whether the given auth key is valid.
-     * @see getAuthKey()
-     */
+
     public function validateAuthKey($authKey)
     {
         return $this->auth_key === $authKey;
@@ -282,13 +225,6 @@ class User extends ActiveRecord implements IdentityInterface
         }
     }
 
-
-    /**
-     * Sends an email with a link, for resetting the password_hash.
-     *
-     * @return bool whether the email was send
-     * @throws \yii\base\UserException
-     */
     public function sendEmailPasswordReset()
     {
 
@@ -315,7 +251,6 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function beforeDelete()
     {
-        //UserSearch::deleteAll(['user_id'=>$this->id]);
         $orders = Order::find()->where(['user_id'=>$this->id])->all();
         if(sizeof($orders) >0){
             foreach ($orders as $order){
@@ -386,15 +321,6 @@ class User extends ActiveRecord implements IdentityInterface
         return isset(Yii::$app->authManager->getRolesByUser($this->id)[$roleName]);
     }
 
-
-    /*public function getFilterProducts(){
-        if($this->id == Yii::$app->user->getId()){
-            $userProducts = Product::find()->where(["user_id" => $this->id])->orderBy([ 'id' => SORT_DESC ])->all();
-        }else{
-            $userProducts = Product::find()->where(["user_id" => $this->id])->andWhere(["is_confirmed"=> true])->orderBy([ 'id' => SORT_DESC ])->all();
-        }
-        return $userProducts;
-    }*/
 
     /**
      * @return ActiveQuery

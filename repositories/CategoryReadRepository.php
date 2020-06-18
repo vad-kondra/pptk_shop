@@ -6,7 +6,6 @@ namespace app\repositories;
 
 use app\models\Category;
 use app\models\CategoryView;
-use Elasticsearch\Client;
 use yii\base\BaseObject;
 use yii\helpers\ArrayHelper;
 

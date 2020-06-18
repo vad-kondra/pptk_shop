@@ -139,9 +139,6 @@ class ProductController extends Controller
                 $category = Category::find()->where(['name' => 'Промышленная химия'])->one();
                 $brand = Brand::find()->where(['name' => 'ПХ'])->one();
 
-                if($category == null) {
-
-                }
 
                 $rows = ['name', 'category_id', 'brand_id', 'price_new', 'status', 'created_at'];
                 $inserts = [];

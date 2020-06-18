@@ -35,21 +35,22 @@ $this->params['active_category'] = $product->category;
         <div class="row">
             <div class="col-lg-3">
                 <div class="tab-content">
-                    <?php if(isset($product->photo)):?>
-                        <?=Yii::$app->thumbnail->img($product->photo->img_src, [
-                            'placeholder' => [
-                                'width' => 350,
-                                'height' => 350
-                            ]
-                        ]); ?>
-                    <?php else: ?>
-                        <?=Yii::$app->thumbnail->img(null, [
-                            'placeholder' => [
-                                'width' => 350,
-                                'height' => 350
-                            ]
-                        ]); ?>
-                    <?php endif; ?>
+                    <?php
+                    $img_src = null;
+                    if(isset($product->photo) && file_exists("@web{$product->photo->img_src}")   ) {
+                        $img_src = $product->photo->img_src;
+                    }
+                    echo Yii::$app->thumbnail->img($img_src, [
+                        'placeholder' => [
+                            'width' => 400,
+                            'height' => 400
+                        ],
+                        'thumbnail' => [
+                            'width' => 400,
+                            'height' => 400,
+                        ]
+                    ]);
+                    ?>
 
                 </div>
 
@@ -64,9 +65,9 @@ $this->params['active_category'] = $product->category;
                         <p><span class="producer">Производитель: <a href="<?= Html::encode(Url::to(['/catalog/search', 'brand' => $product->brand->id])) ?>"><?= Html::encode($product->brand->name) ?></a></span></p>
                     </div>
                     <div class="pro-price mtb-10">
-                        <p><span class="price">Цена: <?= PriceHelper::format($product->price_new) ?></span>
+                        <p><span class="price">Цена: <?=PriceHelper::format($product->price_new) ?></span>
                             <?php if (isset($product->price_old)): ?>
-                                <del class="prev-price"><?= PriceHelper::format($product->price_old) ?></del>
+                                <del class="prev-price"><?=PriceHelper::format($product->price_old) ?></del>
                             <?php endif;?>
                             <a class="add-cart" data-id="<?=$product->id?>">В корзину</a>
                         </p>

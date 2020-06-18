@@ -14,23 +14,23 @@ use yii\helpers\Url;
     <div class="single-product">
         <div class="pro-img">
             <a href="<?= Html::encode(Url::to(['product', 'id' =>$product->id])) ?>">
+
                 <?php
                 $img_src = null;
-                if($product->photo) {
+                if(isset($product->photo) && file_exists("@web{$product->photo->img_src}")   ) {
                     $img_src = $product->photo->img_src;
                 }
                 echo Yii::$app->thumbnail->img($img_src, [
                     'placeholder' => [
-                        'width' => 350,
-                        'height' => 350
+                        'width' => 400,
+                        'height' => 400
                     ],
                     'thumbnail' => [
-                        'width' => 350,
-                        'height' => 350,
+                        'width' => 400,
+                        'height' => 400,
                     ]
                 ]);
                 ?>
-
             </a>
         </div>
         <div class="pro-content">

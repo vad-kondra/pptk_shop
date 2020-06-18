@@ -76,7 +76,12 @@ class Characteristic extends ActiveRecord
 
     public function afterFind(): void
     {
-        $this->variants = array_filter(Json::decode($this->getAttribute('variants_json')));
+        $variants = Json::decode($this->getAttribute('variants_json'));
+        if (is_array($variants)) {
+            $this->variants = array_filter($variants);
+        } else {
+            $this->variants = [];
+        }
         parent::afterFind();
     }
 
@@ -86,20 +91,18 @@ class Characteristic extends ActiveRecord
         return parent::beforeSave($insert);
     }
 
-		public function getCategories(): ActiveQuery {
+    public function getCategories(): ActiveQuery {
 
-				return $this->hasMany(Category::class, ['id' => 'characteristic_id'])
-					->viaTable('shop_characteristics_to_category', ['category_id' => 'id']);
-		}
+        return $this->hasMany(Category::class, ['id' => 'characteristic_id'])
+            ->viaTable('shop_characteristics_to_category', ['category_id' => 'id']);
+    }
 
-		public function attributeLabels()
-		{
-				return [
-						'name' => 'Название',
-						'type' => 'Тип',
-						'required' => 'Обязательный',
-				];
-		}
-
-
+    public function attributeLabels()
+    {
+        return [
+            'name' => 'Название',
+            'type' => 'Тип',
+            'required' => 'Обязательный',
+        ];
+    }
 }
