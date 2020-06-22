@@ -31,5 +31,4 @@ tests/_support/_generated
 
 
 /web/images/*
-/web/images/
 /config/db.php
