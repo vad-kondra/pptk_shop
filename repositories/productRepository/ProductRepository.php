@@ -1,11 +1,12 @@
 <?php
 
-namespace app\repositories;
+namespace app\repositories\productRepository;
 
 use app\models\Product;
+use app\repositories\NotFoundException;
 use RuntimeException;
 
-class ProductRepository
+class ProductRepository implements IProductRepository
 {
     public function get($id): Product
     {
@@ -14,20 +15,24 @@ class ProductRepository
         }
         return $product;
     }
+
     public function existsByBrand($id): bool
     {
         return Product::find()->andWhere(['brand_id' => $id])->exists();
     }
+
     public function existsByMainCategory($id): bool
     {
         return Product::find()->andWhere(['category_id' => $id])->exists();
     }
+
     public function save(Product $product): void
     {
         if (!$product->save(false)) {
             throw new RuntimeException('Ошибка сохранения.');
         }
     }
+
     public function remove(Product $product): void
     {
         if (!$product->delete()) {

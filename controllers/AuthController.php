@@ -12,11 +12,9 @@ namespace app\controllers;
 use app\models\auth\AuthForm;
 use app\models\Config;
 use app\models\user\User;
-use mdm\admin\components\Helper;
 use Yii;
 use yii\base\UserException;
 use yii\filters\VerbFilter;
-use yii\helpers\Url;
 
 class AuthController extends AppController
 {

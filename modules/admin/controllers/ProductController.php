@@ -18,7 +18,6 @@ use app\modules\admin\models\ProductLoadForm;
 use app\modules\admin\models\search\ProductSearch;
 use app\services\ProductManageService;
 use DomainException;
-use PHPExcel_IOFactory;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\httpclient\Client;
@@ -30,7 +29,11 @@ class ProductController extends Controller
 {
     private $productService;
 
-    public function __construct($id, $module, ProductManageService $productManageService, $config = [])
+    public function __construct(
+        $id,
+        $module,
+        ProductManageService $productManageService,
+        $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->productService = $productManageService;
@@ -110,6 +113,7 @@ class ProductController extends Controller
                 addAlert('success', "Товар добавлен");
                 return $this->redirect(['update', 'id' => $product->id]);
             } catch (DomainException $e) {
+
                 Yii::$app->errorHandler->logException($e);
                 Yii::$app->session->setFlash('error', $e->getMessage());
             }
@@ -120,55 +124,66 @@ class ProductController extends Controller
         ]);
     }
 
-
     public function actionLoad()
     {
         $form = new ProductLoadForm();
-
-        $data = [];
 
         if (Yii::$app->request->isPost) {
             $form->file = UploadedFile::getInstance($form, 'file');
             if ($form->upload()) {
 
-                $xls = PHPExcel_IOFactory::load(Yii::getAlias('@webroot').'/excel/'. $form->file->name);
+                $pathToFile = Yii::getAlias('@webroot').'/csv/'. $form->file->name;
 
-                $xls->setActiveSheetIndex(1);
-                $sheet = $xls->getActiveSheet();
+                if (!file_exists($pathToFile) || !is_readable($pathToFile)) {
+                    addAlert('success', "Ошибка добавления файла");
+                }
 
                 $category = Category::find()->where(['name' => 'Промышленная химия'])->one();
                 $brand = Brand::find()->where(['name' => 'ПХ'])->one();
 
+                if ($brand == null) {
+                    $brand = new Brand();
+                    $brand->name = 'ПХ';
+                    $brand->slug = 'phimiya';
+                    $brand->save();
+                }
 
-                $rows = ['name', 'category_id', 'brand_id', 'price_new', 'status', 'created_at'];
-                $inserts = [];
+                $data = [];
 
-                foreach ($sheet->toArray() as $key => $item) {
-                    if ($key >= 2) {
-                        $name = $item[3];
-                        $cat_id = $category->id;
-                        $brand_id = $brand->id;
-                        $new_price = isset($item[7]) ? $item[7] : 0;
-                        $status = Product::STATUS_ACTIVE;
-                        $created_at = time();
+                $handle = fopen($pathToFile, 'r');
+                try {
+                    if ($handle != false) {
+                        while (($row = fgetcsv($handle, 1000, ';')) !== false) {
+                            $data[] = $row;
+                        }
+                    }
+                } finally {
+                    fclose($handle);
+                }
 
-                        $inserts[] = [$name, $cat_id, $brand_id, $new_price, $status, $created_at];;
+                $count = 0;
+                foreach ($data as $key => $row) {
+                    if ($key > 0) {
+                        $product              = new Product();
+                        $product->art         = $row[0];
+                        $product->name        = $row[1];
+                        $product->category_id = $category->id;
+                        $product->brand_id    = $brand->id;
+                        $product->price_new   = $row[3];
+                        $product->status      = Product::STATUS_ACTIVE;
+                        $product->created_at  = time();
+                        if ($product->save()) {
+                            $count++;
+                        }
                     }
                 }
-                $newProductCount = count($inserts);
-                Yii::$app->db
-                    ->createCommand()
-                    ->batchInsert('shop_products', $rows, $inserts)
-                    ->execute();
-                addAlert('success', "Добавлено {$newProductCount} товаров");
+                addAlert('success', "Добавлено {$count} товаров");
             }
         }
         return $this->render('load', [
             'model' => $form,
-            'data' => $data
         ]);
     }
-
 
     /**
      * @param integer $id
@@ -209,7 +224,7 @@ class ProductController extends Controller
             try {
                 $this->productService->changePrice($product->id, $form);
                 return $this->redirect(['view', 'id' => $product->id]);
-            } catch (\DomainException $e) {
+            } catch (DomainException $e) {
                 Yii::$app->errorHandler->logException($e);
                 Yii::$app->session->setFlash('error', $e->getMessage());
             }
@@ -233,7 +248,7 @@ class ProductController extends Controller
             try {
                 $this->productService->changeQuantity($product->id, $form);
                 return $this->redirect(['view', 'id' => $product->id]);
-            } catch (\DomainException $e) {
+            } catch (DomainException $e) {
                 Yii::$app->errorHandler->logException($e);
                 Yii::$app->session->setFlash('error', $e->getMessage());
             }
@@ -256,14 +271,12 @@ class ProductController extends Controller
 
         $charForm = new CharacteristicsForm($product);
 
-
         if (Yii::$app->request->isPost ) {
             if (isset($_POST['ValueForm'])) {
-                for ($i=0; $i<count($charForm->values); $i++) {
-                    $charForm->values[$i]->value = $_POST['ValueForm'][$i]['value'];
-                }
-                foreach ($charForm->values as $value) {
-                    $product->setValue($value->id, $value->value);
+
+                foreach ($charForm->values as $key => $val) {
+                    $charForm->values[$key]->value = $_POST['ValueForm'][$key]['value'];
+                    $product->setValue($val->id, $val->value);
                 }
                 return $this->redirect(['view', 'id' => $product->id]);
             }
@@ -310,8 +323,6 @@ class ProductController extends Controller
         return $this->goHome();
     }
 
-
-
     /**
      * @param integer $id
      * @return mixed
@@ -321,7 +332,7 @@ class ProductController extends Controller
         try {
             $this->productService->remove($id);
             addAlert('success', 'Товар удален');
-        } catch (\DomainException $e) {
+        } catch (DomainException $e) {
             Yii::$app->session->setFlash('error', $e->getMessage());
         }
         return $this->redirect(['index']);
@@ -335,7 +346,7 @@ class ProductController extends Controller
     {
         try {
             $this->productService->activate($id);
-        } catch (\DomainException $e) {
+        } catch (DomainException $e) {
             Yii::$app->session->setFlash('error', $e->getMessage());
         }
         return $this->redirect(['view', 'id' => $id]);
@@ -350,13 +361,11 @@ class ProductController extends Controller
     {
         try {
             $this->productService->draft($id);
-        } catch (\DomainException $e) {
+        } catch (DomainException $e) {
             Yii::$app->session->setFlash('error', $e->getMessage());
         }
         return $this->redirect(['view', 'id' => $id]);
     }
-
-
 
     /**
      * @param integer $id
@@ -367,12 +376,11 @@ class ProductController extends Controller
     {
         try {
             $this->productService->removePhoto($id, $photo_id);
-        } catch (\DomainException $e) {
+        } catch (DomainException $e) {
             Yii::$app->session->setFlash('error', $e->getMessage());
         }
         return $this->redirect(['view', 'id' => $id, '#' => 'photos']);
     }
-
 
     /**
      * @param integer $id
@@ -448,7 +456,4 @@ class ProductController extends Controller
 
         return $form;
     }
-
-
-
 }

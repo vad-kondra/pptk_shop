@@ -1,8 +1,6 @@
 <?php
 
-
 namespace app\widgets;
-
 
 use app\repositories\NewsRepository;
 use yii\base\Widget;
@@ -35,6 +33,4 @@ class NewsWidget extends Widget
             'news' => $news
         ]);
     }
-
-
 }

@@ -6,6 +6,8 @@ use app\models\cart\Cart;
 use app\models\cart\cost\calculator\DynamicCost;
 use app\models\cart\cost\calculator\SimpleCost;
 use app\models\cart\storage\HybridStorage;
+use app\repositories\productRepository\IProductRepository;
+use app\repositories\productRepository\ProductRepository;
 use yii\base\BootstrapInterface;
 
 class Bootstrap implements BootstrapInterface
@@ -21,6 +23,8 @@ class Bootstrap implements BootstrapInterface
                 new DynamicCost(new SimpleCost())
             );
         });
+
+        $container->setSingleton(IProductRepository::class, ProductRepository::class );
 
     }
 }

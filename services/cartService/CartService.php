@@ -1,24 +1,23 @@
 <?php
 
-
-namespace app\services;
-
-
+namespace app\services\cartService;
 
 
 use app\models\cart\Cart;
 use app\models\cart\CartItem;
-use app\repositories\ProductRepository;
+use app\repositories\productRepository\ProductRepository;
 
 class CartService
 {
+    private $_productRepository;
     private $cart;
-    private $productRepository;
 
-    public function __construct(Cart $cart, ProductRepository $products)
+    public function __construct(
+        ProductRepository $productRepository,
+        Cart $cart)
     {
+        $this->_productRepository = $productRepository;
         $this->cart = $cart;
-        $this->productRepository = $products;
     }
 
     public function getCart(): Cart
@@ -28,8 +27,7 @@ class CartService
 
     public function add(int $productId,  int $quantity): Cart
     {
-        $product = $this->productRepository->get($productId);
-
+        $product = $this->_productRepository->get($productId);
         $this->cart->add(new CartItem($product, $quantity));
 
         return $this->cart;

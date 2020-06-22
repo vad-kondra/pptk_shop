@@ -1,8 +1,6 @@
 <?php
 
-
 namespace app\services;
-
 
 use app\models\cart\Cart;
 use app\models\cart\CartItem;
@@ -11,22 +9,26 @@ use app\models\order\Order;
 use app\models\order\OrderItem;
 use app\models\OrderForm;
 use app\repositories\OrderRepository;
-use app\repositories\ProductRepository;
+use app\repositories\productRepository\IProductRepository;
 use app\repositories\UserRepository;
 
 class OrderService
 {
     private $cart;
-    private $orders;
-    private $products;
-    private $users;
+    private $_orderRepository;
+    private $_productRepository;
+    private $_userRepository;
 
-    public function __construct(Cart $cart, OrderRepository $orders, ProductRepository $products, UserRepository $users)
+    public function __construct(
+        Cart $cart,
+        OrderRepository $orderRepository,
+        IProductRepository $productRepository,
+        UserRepository $userRepository)
     {
         $this->cart = $cart;
-        $this->orders = $orders;
-        $this->products = $products;
-        $this->users = $users;
+        $this->_orderRepository = $orderRepository;
+        $this->_productRepository = $productRepository;
+        $this->_userRepository = $userRepository;
     }
 
     public function checkout($userId, OrderForm $form): Order
@@ -60,9 +62,9 @@ class OrderService
         );
 
 
-        $this->orders->save($order);
+        $this->_orderRepository->save($order);
         foreach ($products as $product) {
-            $this->products->save($product);
+            $this->_productRepository->save($product);
         }
         $this->cart->clear();
 

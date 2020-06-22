@@ -33,7 +33,7 @@ $count = count($cart->getItems());
                             <tbody>
                             <?php if ($count > 0): ?>
                                 <?php foreach ($cart->getItems() as $item): ?>
-                                <?php
+                                    <?php
                                 $product = $item->getProduct();
                                 $url = Url::to(['/catalog/product', 'id' => $product->id]); ?>
                                     <tr>
@@ -46,12 +46,12 @@ $count = count($cart->getItems());
                                                 }
                                                 echo Yii::$app->thumbnail->img($img_src, [
                                                     'placeholder' => [
-                                                        'width' => 350,
-                                                        'height' => 350
+                                                        'width' => 400,
+                                                        'height' => 400
                                                     ],
                                                     'thumbnail' => [
-                                                        'width' => 350,
-                                                        'height' => 350,
+                                                        'width' => 400,
+                                                        'height' => 400,
                                                     ]
                                                 ]);
                                                 ?>
@@ -59,7 +59,9 @@ $count = count($cart->getItems());
                                         </td>
                                         <td class="product-name"><a href="<?=$url?>"><?= Html::encode($product->name) ?></a></td>
                                         <td class="product-price"><span class="amount"><?= PriceHelper::format($item->getPrice()) ?></span></td>
-                                        <td class="product-remove"> <a class="product-remove" data-id="<?=$item->getId()?>"><i class="fa fa-times" aria-hidden="true"></i></a></td>
+                                        <td class="product-remove">
+                                            <a class="product-remove" data-id="<?=$item->getId()?>"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                        </td>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php endif;?>
@@ -70,15 +72,12 @@ $count = count($cart->getItems());
                     <h3 class="text-center">Ваша корзина пуста</h3>
                 <?php endif;?>
                 <div class="row">
-                    <!-- Cart Button Start -->
                     <div class="col-lg-8 col-md-7">
                         <div class="buttons-cart">
                             <a href="<?=Url::toRoute(['/catalog'])?>">Продолжить покупки</a>
                         </div>
                     </div>
-                    <!-- Cart Button Start -->
                     <?php if ($count > 0): ?>
-                    <!-- Cart Totals Start -->
                     <div class="col-lg-4 col-md-12">
                         <div class="cart_totals">
                             <h2>Итого в корзине </h2>
@@ -98,15 +97,11 @@ $count = count($cart->getItems());
                             </div>
                         </div>
                     </div>
-                    <!-- Cart Totals End -->
                     <?php else: ?>
 
                     <?php endif;?>
                 </div>
-                <!-- Row End -->
             </div>
         </div>
-        <!-- Row End -->
     </div>
 </div>
-<!-- Cart Main Area End -->

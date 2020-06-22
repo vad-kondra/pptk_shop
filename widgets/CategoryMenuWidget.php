@@ -5,7 +5,6 @@ namespace app\widgets;
 
 
 use app\repositories\CategoryReadRepository;
-use app\repositories\CategoryRepository;
 use yii\base\Widget;
 
 class CategoryMenuWidget extends Widget{

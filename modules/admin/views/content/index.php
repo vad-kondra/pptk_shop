@@ -1,6 +1,7 @@
 <?php
 
 use app\models\AboutContentForm;
+use app\models\ContactsContentForm;
 use app\models\PhotoForm;
 use app\models\TermsContentForm;
 use app\modules\admin\models\FooterContentForm;
@@ -8,12 +9,14 @@ use app\modules\admin\models\HeaderContentForm;
 use app\modules\admin\models\MainContentForm;
 use mihaildev\ckeditor\CKEditor;
 use yii\bootstrap\ActiveForm;
+use yii\helpers\Html;
 
 /* @var $main_logo PhotoForm */
 /* @var $main MainContentForm */
 /* @var $header HeaderContentForm */
 /* @var $footer FooterContentForm */
 /* @var $about AboutContentForm */
+/* @var $contacts ContactsContentForm */
 /* @var $terms TermsContentForm */
 
 $this->title = 'Конфигурация сайта';
@@ -29,6 +32,7 @@ $this->params['breadcrumbs'][] =  [
 <!--        <li class="header-config-tab-label"><a href="#header-config" data-toggle="tab">Заголовок сайта</a></li>-->
 <!--        <li class="footer-config-tab-label"><a href="#footer-config" data-toggle="tab">Нижняя часть сайта</a></li>-->
         <li class="about-config-tab-label"><a href="#about-config" data-toggle="tab">О нас</a></li>
+        <li class="contacts-config-tab-label"><a href="#contacts-config" data-toggle="tab">Контакты</a></li>
         <li class="terms-config-tab-label"><a href="#terms-config" data-toggle="tab">Пользовательское соглашение</a></li>
     </ul>
 
@@ -78,7 +82,7 @@ $this->params['breadcrumbs'][] =  [
                                 </div>
                             </div>
 
-                            <?= \yii\helpers\Html::submitButton( 'Cохранить', ['class' => 'btn btn-success']) ?>
+                            <?= Html::submitButton( 'Cохранить', ['class' => 'btn btn-success']) ?>
                         </div>
                     </div>
                 </div>
@@ -88,7 +92,6 @@ $this->params['breadcrumbs'][] =  [
         <div class="tab-pane" id="header-config"></div>
         <div class="tab-pane" id="footer-config"></div>
         <div class="tab-pane" id="about-config">
-
             <div class="row">
                 <div class="col-md-12">
                     <div class="box box-primary">
@@ -100,7 +103,28 @@ $this->params['breadcrumbs'][] =  [
 
                                 <?= $aboutForm->field($about, 'about_text')->widget(CKEditor::class) ?>
 
-                                <?= \yii\helpers\Html::submitButton( 'Cохранить', ['class' => 'btn btn-success']) ?>
+                                <?= Html::submitButton( 'Cохранить', ['class' => 'btn btn-success']) ?>
+
+                            <?php ActiveForm::end(); ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="tab-pane" id="contacts-config">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">Контакты</div>
+                        <div class="box-body">
+                            <?php $contactsForm = ActiveForm::begin([
+                                'options' => ['method' => 'post', 'enctype'=>'multipart/form-data']
+                            ]); ?>
+
+                            <?= $contactsForm->field($contacts, 'contacts_text')->widget(CKEditor::class) ?>
+
+                            <?= Html::submitButton( 'Cохранить', ['class' => 'btn btn-success']) ?>
 
                             <?php ActiveForm::end(); ?>
                         </div>
@@ -121,7 +145,7 @@ $this->params['breadcrumbs'][] =  [
 
                             <?= $termsForm->field($terms, 'terms_text')->widget(CKEditor::class) ?>
 
-                            <?= \yii\helpers\Html::submitButton( 'Cохранить', ['class' => 'btn btn-success']) ?>
+                            <?= Html::submitButton( 'Cохранить', ['class' => 'btn btn-success']) ?>
 
                             <?php ActiveForm::end(); ?>
                         </div>

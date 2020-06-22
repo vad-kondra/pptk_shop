@@ -6,7 +6,6 @@ namespace app\widgets;
 
 use app\models\Product;
 use yii\base\Widget;
-use yii\data\DataProviderInterface;
 
 /**
  * Class CatalogFilterWidget

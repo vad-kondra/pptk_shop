@@ -5,17 +5,21 @@ use app\models\Brand;
 use app\models\BrandForm;
 use app\models\Meta;
 use app\repositories\BrandRepository;
-use app\repositories\ProductRepository;
+use app\repositories\productRepository\IProductRepository;
 
 class BrandManageService
 {
-    private $brands;
-    private $products;
-    public function __construct(BrandRepository $brands, ProductRepository $products)
+    private $_brandRepository;
+    private $_productRepository;
+
+    public function __construct(
+        BrandRepository $brands,
+        IProductRepository $products)
     {
-        $this->brands = $brands;
-        $this->products = $products;
+        $this->_brandRepository = $brands;
+        $this->_productRepository = $products;
     }
+
     public function create(BrandForm $form): Brand
     {
         $brand = Brand::create(
@@ -27,12 +31,13 @@ class BrandManageService
                 $form->meta->keywords
             )
         );
-        $this->brands->save($brand);
+        $this->_brandRepository->save($brand);
         return $brand;
     }
+
     public function edit($id, BrandForm $form): void
     {
-        $brand = $this->brands->get($id);
+        $brand = $this->_brandRepository->get($id);
         $brand->edit(
             $form->name,
             transliterate($form->name),
@@ -42,14 +47,15 @@ class BrandManageService
                 $form->meta->keywords
             )
         );
-        $this->brands->save($brand);
+        $this->_brandRepository->save($brand);
     }
+
     public function remove($id): void
     {
-        $brand = $this->brands->get($id);
-        if ($this->products->existsByBrand($brand->id)) {
+        $brand = $this->_brandRepository->get($id);
+        if ($this->_productRepository->existsByBrand($brand->id)) {
             throw new \DomainException('Невозможно удалить производителя с товарами существующими в базе.');
         }
-        $this->brands->remove($brand);
+        $this->_brandRepository->remove($brand);
     }
 }

@@ -1,8 +1,5 @@
 <?php
-
-
 namespace app\repositories;
-
 
 use yii\base\InvalidConfigException;
 use yii\data\ActiveDataProvider;

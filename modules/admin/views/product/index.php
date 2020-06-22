@@ -17,25 +17,19 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="user-index">
 
     <?= Html::a('Добавить', ['create'], ['class' => 'btn btn-success']) ?>
-    <?= Html::a('Загрузить из файла', ['load'], ['class' => 'btn btn-success']) ?>
+    <?= Html::a('Загрузить из файла csv', ['load'], ['class' => 'btn btn-success']) ?>
     <div class="box">
         <div class="box-body">
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
                 'filterModel' => $searchModel,
-//                'rowOptions' => function (Product $model) {
-//                    return $model->quantity <= 0 ? ['style' => 'background: #fdc'] : [];
-//                },
                 'columns' => [
                     [
                         'label' => 'Изображение',
                         'value' => function (Product $model) {
                             return $model->photo ?
                                 Html::img("/".$model->photo->img_src, ['width' => '70', 'height' => '70']) :
-                                Html::img('/images/empty-img.png', [
-                                        'width' => '70',
-                                        'height' => '70'
-                                ]) ;
+                                Html::img('/images/empty-img.png', ['width' => '70', 'height' => '70']) ;
                         },
                         'format' => 'raw',
                         'contentOptions' => ['style' => 'width: 100px'],
@@ -45,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'attribute' => 'name',
                         'value' => function (Product $model) {
-                            return Html::a(Html::encode($model->name), ['view', 'id' => $model->id]);
+                            return Html::a($model->name, ['view', 'id' => $model->id]);
                         },
                         'format' => 'raw',
                     ],

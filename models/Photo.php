@@ -24,6 +24,7 @@ class Photo extends ActiveRecord
         $photo = new static();
         try {
             $photo->img_src = Photo::saveImage(self::PATH_TO_SAVE, $file, $newName, ["extension" => ["jpg", "png", "jpeg"]]);
+
         } catch (ForbiddenHttpException $e) {}
         return $photo;
     }
@@ -47,14 +48,14 @@ class Photo extends ActiveRecord
 
         $ext = pathinfo($file->name)["extension"];
         if(isset($options["extension"]) && !in_array($ext,$options["extension"]))
-            throw new \yii\web\ForbiddenHttpException("Расширение файла ".$ext." доступные расширения(".implode(",",$options["extension"]).")");
+            throw new ForbiddenHttpException("Расширение файла ".$ext." доступные расширения(".implode(",",$options["extension"]).")");
         if(!file_exists($pathToSave))
-            throw new \yii\web\ForbiddenHttpException("Не существующая директория ".$pathToSave);
+            throw new ForbiddenHttpException("Не существующая директория ".$pathToSave);
 
         $filepath = $pathToSave . $newName . "." . $ext;
 
         if(!move_uploaded_file($file->tempName, $filepath))
-            throw new \yii\web\ForbiddenHttpException("Ошибка перемещения файла '".$file->tempName ."' в '". $filepath."''");
+            throw new ForbiddenHttpException("Ошибка перемещения файла '".$file->tempName ."' в '". $filepath."''");
 
         return $filepath;
     }
@@ -73,6 +74,5 @@ class Photo extends ActiveRecord
         }
         return false;
     }
-
 
 }

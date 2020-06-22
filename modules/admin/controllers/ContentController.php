@@ -28,6 +28,7 @@ class ContentController extends Controller
         $header = $this->contentManageService->getHeader();
         $footer = $this->contentManageService->getFooter();
         $about = $this->contentManageService->getAbout();
+        $contacts = $this->contentManageService->getContacts();
         $terms = $this->contentManageService->getTerms();
 
         if ($main->load(Yii::$app->request->post()) && $main->validate()) {
@@ -72,6 +73,20 @@ class ContentController extends Controller
                 Yii::$app->session->setFlash('error', $e->getMessage());
             }
         }
+
+        if ($contacts->load(Yii::$app->request->post()) && $contacts->validate()) {
+            try {
+
+                $this->contentManageService->updateContacts($contacts);
+                addAlert('success', 'Информация секции "Контакты" сохранена!');
+                return $this->redirect('index');
+            } catch (DomainException $e) {
+                Yii::$app->errorHandler->logException($e);
+                Yii::$app->session->setFlash('error', $e->getMessage());
+            }
+        }
+
+
         if ($terms->load(Yii::$app->request->post()) && $terms->validate()) {
             try {
 
@@ -89,6 +104,7 @@ class ContentController extends Controller
             'header' => $header,
             'footer' => $footer,
             'about' => $about,
+            'contacts' => $contacts,
             'terms' => $terms
         ]);
     }

@@ -4,7 +4,7 @@
 namespace app\widgets;
 
 
-use app\services\CartService;
+use app\services\cartService\CartService;
 use yii\base\Widget;
 
 class CartWidget extends Widget

@@ -1,20 +1,17 @@
 <?php
+
 $this->title = $title;
-$this->params['breadcrumbs'][] =  [
-    'label' => $this->title,
-];
+$this->params['breadcrumbs'][] =  [ 'label' => $this->title ];
 
 use app\models\Config;
 use yii\bootstrap\Html; ?>
 
-
-<!-- About Main Area Start -->
 <div class="about-main-area">
     <div class="container">
         <div class="row">
             <div class="col-lg-7 col-md-12">
                 <div class="about-img">
-                    <img alt="Electrro" src="images/logo2.png">
+                    <img alt src="images/logo2.png">
                 </div>
             </div>
             <div class="col-lg-5 col-md-12">
@@ -32,4 +29,3 @@ use yii\bootstrap\Html; ?>
         </div>
     </div>
 </div>
-<!-- About Main Area End -->

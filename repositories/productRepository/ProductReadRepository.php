@@ -1,6 +1,6 @@
 <?php
 
-namespace app\repositories;
+namespace app\repositories\productRepository;
 
 
 use app\models\Brand;
@@ -40,7 +40,6 @@ class ProductReadRepository extends BaseObject
     {
         return Product::find()->active()->sale()->with('photo')->limit(8)->orderBy('id');
     }
-
 
     /**
      * @return iterable|Product[]
@@ -182,7 +181,6 @@ class ProductReadRepository extends BaseObject
 
         $query = Product::find()->alias('p')->active('p')->with('photo', 'category');
 
-
         if ($form->brand) {
             $query->andWhere(['p.brand_id' => $form->brand]);
         }
@@ -208,8 +206,7 @@ class ProductReadRepository extends BaseObject
             ]);
         }
 
-        $query->groupBy('p.id')
-        ->limit(10);
+        $query->groupBy('p.id')->limit(10);
 
 
         return new ActiveDataProvider([
@@ -218,7 +215,6 @@ class ProductReadRepository extends BaseObject
         ]);
     }
 
-
     public function getWishList($userId): ActiveDataProvider
     {
         return new ActiveDataProvider([
@@ -226,7 +222,7 @@ class ProductReadRepository extends BaseObject
                 ->alias('p')->active('p')
                 ->joinWith('wishlistItems w', false, 'INNER JOIN')
                 ->andWhere(['w.user_id' => $userId]),
-            'sort' => false,
+            'sort' => false
         ]);
     }
 

@@ -4,16 +4,11 @@ namespace app\services;
 
 use app\models\Category;
 use app\models\CategoryForm;
-use app\models\Characteristic;
-use app\models\CharacteristicsToCategory;
-use app\models\CharToCatForm;
 use app\models\Meta;
-use app\models\temp\CategoryTemp;
 use app\repositories\CategoryRepository;
 use app\repositories\CharacteristicRepository;
-use app\repositories\ProductRepository;
+use app\repositories\productRepository\ProductRepository;
 use yii\base\BaseObject;
-use yii\db\StaleObjectException;
 
 class CategoryManageService extends BaseObject
 {
@@ -21,7 +16,11 @@ class CategoryManageService extends BaseObject
     private $products;
     private $characteristics;
 
-    public function __construct(CategoryRepository $categories, CharacteristicRepository $characteristics, ProductRepository $products, $config = [])
+    public function __construct(
+        CategoryRepository $categories,
+        CharacteristicRepository $characteristics,
+        ProductRepository $products,
+        $config = [])
     {
         parent::__construct($config);
         $this->categories = $categories;
@@ -107,32 +106,4 @@ class CategoryManageService extends BaseObject
         }
     }
 
-//TODO     temp DELETE THIS
-    public function createFromTemp(CategoryTemp $temp): Category
-    {
-        $tempParent = CategoryTemp::findOne($temp->parent_id);
-
-        $parent = $this->categories->getByName($tempParent->name);
-
-        $category = Category::create(
-            $temp->name,
-            $temp->name,
-            null,
-            new Meta(
-                $temp->name,
-                null,
-                null
-            )
-        );
-        $category->slug = transliterate($temp->name);
-
-
-        if (!$this->categories->getByName($category->name)) {
-            $category->appendTo($parent);
-            $this->categories->save($category);
-        }
-
-        return $category;
-    }
-//TODO     temp DELETE THIS
 }

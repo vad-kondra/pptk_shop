@@ -128,23 +128,20 @@ $this->params['breadcrumbs'][] = $this->title;
                             </div>
                             <div class="col-md-4">
                                 <?php if (is_file(Yii::getAlias('@webroot').$product->photo->img_src)) :?>
-                                    <?= Yii::$app->thumbnail->img($product->photo->img_src, [
-                                        'thumbnail' => [
+                                    <?= Yii::$app->thumbnail->img($product->photo->img_src, ['thumbnail' => [
                                             'width' => 150,
                                             'height' => 150,
-                                        ],
-                                        'placeholder' => [
+                                        ], 'placeholder' => [
                                             'width' => 100,
                                             'height' => 100
-                                        ]
-                                    ]); ?>
+                                        ]], ['style' => 'width:200px; height:200px']); ?>
                                 <?php else:  ?>
                                     <?= Yii::$app->thumbnail->img(null, [
                                         'placeholder' => [
                                             'width' => 350,
                                             'height' => 350
                                         ]
-                                    ]); ?>
+                                    ], ['style' => 'width:200px; height:200px']); ?>
                                 <?php endif;  ?>
                             </div>
                         <?php endif; ?>

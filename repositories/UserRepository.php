@@ -1,8 +1,6 @@
 <?php
 
-
 namespace app\repositories;
-
 
 use app\models\user\User;
 
@@ -46,7 +44,6 @@ class UserRepository
             ->andWhere(['w.product_id' => $productId])
             ->each();
     }
-
 
     private function getBy(array $condition): User
     {

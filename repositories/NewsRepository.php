@@ -40,5 +40,4 @@ class NewsRepository
             throw new \RuntimeException('Ошибка удаления.');
         }
     }
-
 }

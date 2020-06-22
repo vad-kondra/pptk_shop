@@ -32,12 +32,12 @@ $count = count($cart->getItems());
                     }
                     echo Yii::$app->thumbnail->img($img_src, [
                         'placeholder' => [
-                            'width' => 350,
-                            'height' => 350
+                            'width' => 400,
+                            'height' => 400
                         ],
                         'thumbnail' => [
-                            'width' => 350,
-                            'height' => 350,
+                            'width' => 400,
+                            'height' => 400,
                         ]
                     ]);
                     ?>

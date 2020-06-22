@@ -2,13 +2,11 @@
 
 namespace app\controllers;
 
-use app\models\AddToCartForm;
 use app\models\OrderForm;
-use app\repositories\ProductReadRepository;
-use app\services\CartService;
+use app\repositories\productRepository\ProductReadRepository;
+use app\services\cartService\CartService;
 use app\services\OrderService;
 use Yii;
-use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 
 
@@ -73,21 +71,6 @@ class CartController extends AppController
 
         return true;
 
-
-//        $form = new AddToCartForm($product);
-//        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
-//            try {
-//                $this->cartService->add($product->id, $form->quantity);
-//                return $this->redirect(['index']);
-//            } catch (\DomainException $e) {
-//                Yii::$app->errorHandler->logException($e);
-//                Yii::$app->session->setFlash('error', $e->getMessage());
-//            }
-//        }
-//        return $this->render('add', [
-//            'product' => $product,
-//            'model' => $form,
-//        ]);
     }
 
 

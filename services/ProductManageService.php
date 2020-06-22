@@ -13,32 +13,32 @@ use app\models\ProductEditForm;
 use app\models\Tag;
 use app\repositories\BrandRepository;
 use app\repositories\CategoryRepository;
-use app\repositories\ProductRepository;
+use app\repositories\productRepository\IProductRepository;
 use app\repositories\TagRepository;
 
 class ProductManageService
 {
-    private $products;
-    private $brands;
-    private $categories;
-    private $tags;
+    private $_categoryRepository;
+    private $_productRepository;
+    private $_brandRepository;
+    private $_tagRepository;
 
     public function __construct(
-        ProductRepository $products,
-        BrandRepository $brands,
-        CategoryRepository $categories,
-        TagRepository $tags)
+        CategoryRepository $categoryRepository,
+        IProductRepository $productRepository,
+        BrandRepository $brandRepository,
+        TagRepository $tagRepository)
     {
-        $this->products = $products;
-        $this->brands = $brands;
-        $this->categories = $categories;
-        $this->tags = $tags;
+        $this->_categoryRepository = $categoryRepository;
+        $this->_productRepository = $productRepository;
+        $this->_brandRepository = $brandRepository;
+        $this->_tagRepository = $tagRepository;
     }
 
     public function create(ProductCreateForm $form): Product
     {
-        $brand = $this->brands->get($form->brandId);
-        $category = $this->categories->get($form->categories->main);
+        $brand = $this->_brandRepository->get($form->brandId);
+        $category = $this->_categoryRepository->get($form->categories->main);
         $product = Product::create(
             $brand->id,
             $category->id,
@@ -62,27 +62,27 @@ class ProductManageService
             $product->setPhoto($photo->id);
         }
         foreach ($form->tags->existing as $tagId) {
-            $tag = $this->tags->get($tagId);
+            $tag = $this->_tagRepository->get($tagId);
             $product->assignTag($tag->id);
         }
 
         foreach ($form->tags->newNames as $tagName) {
-            if (!$tag = $this->tags->findByName($tagName)) {
+            if (!$tag = $this->_tagRepository->findByName($tagName)) {
                 $tag = Tag::create($tagName, $tagName);
-                $this->tags->save($tag);
+                $this->_tagRepository->save($tag);
             }
             $product->assignTag($tag->id);
         }
-        $this->products->save($product);
+        $this->_productRepository->save($product);
 
         return $product;
     }
 
     public function edit($id, ProductEditForm $form): void
     {
-        $product = $this->products->get($id);
-        $brand = $this->brands->get($form->brandId);
-        $category = $this->categories->get($form->categories->main);
+        $product = $this->_productRepository->get($id);
+        $brand = $this->_brandRepository->get($form->brandId);
+        $category = $this->_categoryRepository->get($form->categories->main);
 
         $product->edit(
             $brand->id,
@@ -100,70 +100,70 @@ class ProductManageService
         $product->changeCategory($category->id);
 
         $product->revokeTags();
-        $this->products->save($product);
+        $this->_productRepository->save($product);
 
 
         foreach ($form->tags->existing as $tagId) {
-            $tag = $this->tags->get($tagId);
+            $tag = $this->_tagRepository->get($tagId);
             $product->assignTag($tag->id);
         }
         foreach ($form->tags->newNames as $tagName) {
-            if (!$tag = $this->tags->findByName($tagName)) {
+            if (!$tag = $this->_tagRepository->findByName($tagName)) {
                 $tag = Tag::create($tagName, $tagName);
-                $this->tags->save($tag);
+                $this->_tagRepository->save($tag);
             }
             $product->assignTag($tag->id);
         }
 
-        $this->products->save($product);
+        $this->_productRepository->save($product);
     }
 
     public function changePrice($id, PriceForm $form): void
     {
-        $product = $this->products->get($id);
+        $product = $this->_productRepository->get($id);
         $product->setPrice($form->new, $form->old);
-        $this->products->save($product);
+        $this->_productRepository->save($product);
     }
 
     public function activate($id): void
     {
-        $product = $this->products->get($id);
+        $product = $this->_productRepository->get($id);
         $product->activate();
-        $this->products->save($product);
+        $this->_productRepository->save($product);
     }
 
     public function draft($id): void
     {
-        $product = $this->products->get($id);
+        $product = $this->_productRepository->get($id);
         $product->draft();
-        $this->products->save($product);
+        $this->_productRepository->save($product);
     }
 
     public function addPhoto($id, PhotoForm $form): void
     {
-        $product = $this->products->get($id);
+        $product = $this->_productRepository->get($id);
         $photo = Photo::create($form->image, $product->code);
         $photo->save();
         $product->setPhoto($photo->id);
-        $this->products->save($product);
+        $this->_productRepository->save($product);
     }
 
     public function removePhoto($id, $photoId): void
     {
-        $product = $this->products->get($id);
+        $product = $this->_productRepository->get($id);
         $product->removePhoto($photoId);
-        $this->products->save($product);
+        $this->_productRepository->save($product);
     }
 
     public function remove($id): void
     {
-        $product = $this->products->get($id);
-        $this->products->remove($product);
+        $product = $this->_productRepository->get($id);
+        $this->_productRepository->remove($product);
     }
 
     public function changeValues(int $id, CharacteristicsForm $form)
     {
-        $product = $this->products->get($id);
+        $product = $this->_productRepository->get($id);
         foreach ($form->values as $value) {
             $product->setValue($value->id, $value->value);
         }
@@ -171,16 +171,16 @@ class ProductManageService
 
     public function makeSale($id)
     {
-        $product = $this->products->get($id);
+        $product = $this->_productRepository->get($id);
         $product->makeSale();
-        $this->products->save($product);
+        $this->_productRepository->save($product);
     }
 
     public function makeNew($id)
     {
-        $product = $this->products->get($id);
+        $product = $this->_productRepository->get($id);
         $product->makeNew();
-        $this->products->save($product);
+        $this->_productRepository->save($product);
     }
 
 }

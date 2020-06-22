@@ -56,7 +56,6 @@ class ProductCreateForm extends CompositeForm
             [['code', 'name', 'art',], 'trim'],
             [['brandId'], 'integer'],
             [['is_new', 'is_sale'], 'boolean'],
-            [['code'], 'unique', 'targetClass' => Product::class],
             ['description', 'string'],
         ];
     }

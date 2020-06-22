@@ -6,11 +6,11 @@ namespace app\services;
 
 use app\models\AboutContentForm;
 use app\models\Config;
+use app\models\ContactsContentForm;
 use app\models\TermsContentForm;
 use app\modules\admin\models\FooterContentForm;
 use app\modules\admin\models\HeaderContentForm;
 use app\modules\admin\models\MainContentForm;
-use app\modules\admin\models\ModelHeader;
 use yii\web\ForbiddenHttpException;
 
 class ContentManageService
@@ -18,7 +18,6 @@ class ContentManageService
 
     public function updateMain(MainContentForm $main)
     {
-
         Config::setValue(Config::MAIN_TITLE, $main->main_title);
         Config::setValue(Config::MAIN_SHORT_TITLE, $main->main_short_title);
         Config::setValue(Config::MAIN_PHONE_1, $main->main_phone_1);
@@ -83,6 +82,24 @@ class ContentManageService
         Config::setValue(Config::ABOUT_TEXT, $about->about_text);
     }
 
+    /**
+     * @return ContactsContentForm
+     * @throws ForbiddenHttpException
+     */
+    public function getContacts()
+    {
+        $contact = new ContactsContentForm();
+
+        $contact->contacts_text = Config::getValue(Config::CONTACTS_TEXT);
+
+        return $contact;
+    }
+
+    public function updateContacts(ContactsContentForm $contactForm)
+    {
+        Config::setValue(Config::CONTACTS_TEXT, $contactForm->contacts_text);
+    }
+
     public function getTerms()
     {
         $terms = new TermsContentForm();
@@ -93,10 +110,8 @@ class ContentManageService
         return $terms;
     }
 
-
     public function updateTerms(TermsContentForm $terms)
     {
         Config::setValue(Config::PRIVATE_POLICY_TEXT, $terms->terms_text);
     }
-
 }

@@ -5,7 +5,7 @@ namespace app\controllers;
 use app\models\search\SearchForm;
 use app\repositories\BrandReadRepository;
 use app\repositories\CategoryReadRepository;
-use app\repositories\ProductReadRepository;
+use app\repositories\productRepository\ProductReadRepository;
 use app\repositories\TagReadRepository;
 use Yii;
 use yii\web\NotFoundHttpException;

@@ -4,8 +4,7 @@
 namespace app\widgets;
 
 
-use app\models\Product;
-use app\repositories\ProductReadRepository;
+use app\repositories\productRepository\ProductReadRepository;
 use yii\base\InvalidConfigException;
 use yii\base\Widget;
 use yii\db\ActiveQuery;

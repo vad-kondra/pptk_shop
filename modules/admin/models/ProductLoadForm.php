@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\models;
 
+use Yii;
 use yii\base\Model;
 use yii\web\UploadedFile;
 
@@ -18,14 +19,17 @@ class ProductLoadForm extends Model
     public function rules()
     {
         return [
-            [['file'], 'file', 'checkExtensionByMimeType' => false, 'skipOnEmpty' => false, 'extensions' => ['xls']],
+            [['file'], 'file', 'checkExtensionByMimeType' => false, 'skipOnEmpty' => false, 'extensions' => ['csv']],
         ];
     }
 
     public function upload()
     {
         if ($this->validate()) {
-            $this->file->saveAs('excel/' . $this->file->baseName . '.' . $this->file->extension);
+            if (!is_dir(Yii::getAlias('@webroot').'/csv')) {
+                mkdir((Yii::getAlias('@webroot').'/csv'));
+            }
+            $this->file->saveAs('csv/' . $this->file->baseName . '.' . $this->file->extension);
             return true;
         } else {
             return false;

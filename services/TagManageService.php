@@ -1,8 +1,6 @@
 <?php
 
-
 namespace app\services;
-
 
 use app\models\Tag;
 use app\models\TagForm;
@@ -10,8 +8,8 @@ use app\repositories\TagRepository;
 
 class TagManageService
 {
-
     private $tags;
+
     public function __construct(TagRepository $tags)
     {
         $this->tags = $tags;

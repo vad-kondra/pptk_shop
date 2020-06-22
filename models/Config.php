@@ -41,6 +41,11 @@ class Config extends ActiveRecord
 
     const TIME_WORK = 'time_work';
     const ABOUT_TEXT = 'about_text';
+
+
+    const CONTACTS_TEXT = 'contacts_text';
+
+
     const PRIVATE_POLICY_TEXT = 'private_policy_text';
 
     public static function tableName()
@@ -57,6 +62,7 @@ class Config extends ActiveRecord
         self::MAIN_ADDRESS => 'г. Луганск, улица Оборонная, дом 24',
         self::TIME_WORK => 'Пн – Пт: 8:30 – 17:30',
         self::ABOUT_TEXT => 'ООО «ПРЕДПРИЯТИЕ ПРОИЗВОДСТВЕННО-ТЕХНИЧЕСКОЙ КОМПЛЕКТАЦИИ» – это Республиканский поставщик электротехнической, светотехнической продукции',
+        self::CONTACTS_TEXT => 'Отредактируйте данный текст в конфигурации сайта в секции "Контакты"',
         self::PRIVATE_POLICY_TEXT => 'Отредактируйте данный текст в конфигурации сайта в секции "Пользовательское соглашение"',
     ];
 

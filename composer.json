@@ -40,7 +40,8 @@
         "ext-gd": "*",
         "sadovojav/yii2-image-thumbnail": "dev-master",
         "wbraganca/yii2-dynamicform": "*",
-        "shuchkin/simplexls": "^0.9.5"
+        "shuchkin/simplexls": "^0.9.5",
+        "costa-rico/yii2-images": "^1.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
