@@ -53,9 +53,13 @@ class InfoController extends AppController
     public function actionContact(){
         $title = 'Контакты';
 
+        $main_title = Config::getValue(Config::MAIN_TITLE);
+        $contacts_text = Config::getValue(Config::CONTACTS_TEXT);
+
         return $this->render('contact', [
             'title' => $title,
-            'permission' => '',
+            'main_title' => $main_title,
+            'contacts_text' => $contacts_text
         ]);
     }
 

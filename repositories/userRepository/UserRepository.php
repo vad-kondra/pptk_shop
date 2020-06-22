@@ -1,8 +1,9 @@
 <?php
 
-namespace app\repositories;
+namespace app\repositories\userRepository;
 
 use app\models\user\User;
+use app\repositories\NotFoundException;
 
 class UserRepository
 {
@@ -45,6 +46,10 @@ class UserRepository
             ->each();
     }
 
+    /**
+     * @param array $condition
+     * @return User
+     */
     private function getBy(array $condition): User
     {
         if (!$user = User::find()->andWhere($condition)->limit(1)->one()) {

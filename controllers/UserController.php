@@ -11,13 +11,17 @@ use yii\filters\AccessControl;
 
 class UserController extends AppController
 {
+    private $_orderService;
 
-    private $orderService;
-
-    public function __construct($id, $module, OrderManageService $orderService, $config = [])
+    public function __construct(
+        $id,
+        $module,
+        OrderManageService $orderService,
+        $config = []
+    )
     {
         parent::__construct($id, $module, $config);
-        $this->orderService = $orderService;
+        $this->_orderService = $orderService;
     }
 
     public function behaviors()
@@ -64,19 +68,11 @@ class UserController extends AppController
 
         return $this->render('profile', [
             'user' => $user,
-            'orders' => $this->orderService->getAllUserOrders($user->id),
+            'orders' => $this->_orderService->getAllUserOrders($user->id),
             'profileInfoForm' => $profileInfoForm,
             'profileChangePassForm' => $profileChangePassForm,
         ]);
     }
-
-//    public function actionWishList(){
-//        return $this->render('wishlist', ['title'=>'Избранное']);
-//    }
-//
-//    public function actionStatus(){
-//        return $this->render('status', ['title'=>'Статус заказа']);
-//    }
 
     private function findModel()
     {

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Stewi
- * Date: 22.12.2018
- * Time: 0:42
- */
 
 $this->title = $title;
 $this->params['breadcrumbs'][] =  [

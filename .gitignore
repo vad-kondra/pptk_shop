@@ -29,8 +29,7 @@ phpunit.phar
 tests/_output/*
 tests/_support/_generated
 
-#vagrant folder
-/.vagrant
-/web/images/images/
+
+/web/images/*
+/web/images/
 /config/db.php
-/web/images/upload/

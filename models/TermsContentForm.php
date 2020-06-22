@@ -1,8 +1,6 @@
 <?php
 
-
 namespace app\models;
-
 
 use yii\base\Model;
 
@@ -26,5 +24,4 @@ class TermsContentForm extends Model
             [['terms_text'], 'trim'],
         ];
     }
-
 }

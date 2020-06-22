@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: twobomb
- * Date: 09.08.2018
- * Time: 14:38
- */
 
 namespace app\models;
 
@@ -42,9 +36,7 @@ class Config extends ActiveRecord
     const TIME_WORK = 'time_work';
     const ABOUT_TEXT = 'about_text';
 
-
     const CONTACTS_TEXT = 'contacts_text';
-
 
     const PRIVATE_POLICY_TEXT = 'private_policy_text';
 
@@ -91,7 +83,11 @@ class Config extends ActiveRecord
      * @throws ForbiddenHttpException
      */
     public static function getValue($key){
-        $find  = Config::find()->where(["key"=>$key])->cache(3600,new TagDependency(["tags"=>[self::CLASS_CACHE_TAG]]))->all();
+        $find  = Config::find()
+            ->where(["key"=> $key])
+            ->cache(3600, new TagDependency(["tags"=>[self::CLASS_CACHE_TAG]]))
+            ->all();
+
 
         if(count($find) == 0) {
             if(!array_key_exists($key,Config::$defaultValues))

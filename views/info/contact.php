@@ -1,10 +1,15 @@
 <?php
 
-$this->title = $title;
-$this->params['breadcrumbs'][] =  ['label' => $this->title,];
-
-use app\models\Config;
 use yii\helpers\Html;
+use yii\web\View;
+
+/* @var $this View */
+/* @var $main_title string */
+/* @var $contacts_text string */
+
+$this->title = $title;
+$this->params['breadcrumbs'][] = ['label' => $this->title];
+
 ?>
 
 <!--<div class="container">-->
@@ -13,13 +18,13 @@ use yii\helpers\Html;
 <!--    </div>-->
 <!--</div>-->
 
-<div class="align-center pb-5 ">
+<div class="align-center pb-5">
     <div class="container">
         <div class="contact-info">
             <div class="row">
                 <div class="col">
-                    <h3><?=Html::encode(Config::getValue(Config::MAIN_TITLE))?></h3>
-                    <?= Yii::$app->formatter->asHtml(Config::getValue(Config::CONTACTS_TEXT), [
+                    <h3><?=Html::encode($main_title)?></h3>
+                    <?= Yii::$app->formatter->asHtml($contacts_text, [
                         'Attr.AllowedRel' => array('nofollow'),
                         'HTML.SafeObject' => true,
                         'Output.FlashCompat' => true,

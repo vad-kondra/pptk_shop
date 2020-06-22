@@ -15,7 +15,7 @@ use yii\helpers\Url;
         <a href="<?=Url::to(['/catalog/product', 'id' =>$product->id]) ?>">
             <?php
             $img_src = null;
-            if(isset($product->photo) && file_exists("@web{$product->photo->img_src}")   ) {
+            if(isset($product->photo)) {
                 $img_src = $product->photo->img_src;
             }
             echo Yii::$app->thumbnail->img($img_src, [

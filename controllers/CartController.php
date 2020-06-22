@@ -17,7 +17,13 @@ class CartController extends AppController
     private $orderService;
     private $cart;
 
-    public function __construct($id, $module, OrderService $orderService, CartService $cartService, ProductReadRepository $products, $config = [])
+    public function __construct(
+        $id,
+        $module,
+        OrderService $orderService,
+        CartService $cartService,
+        ProductReadRepository $products,
+        $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->products = $products;
@@ -70,9 +76,7 @@ class CartController extends AppController
         $this->layout = false;
 
         return true;
-
     }
-
 
     /**
      * @param $id
