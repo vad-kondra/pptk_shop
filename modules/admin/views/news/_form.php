@@ -31,7 +31,7 @@ use yii\helpers\Html;
             </div>
             <div class="row">
                 <div class="col-md-12">
-            <?= $form->field($model, 'description')->widget(CKEditor::class) ?>
+            <?= $form->field($model, 'body')->widget(CKEditor::class) ?>
                 </div>
             </div>
         </div>

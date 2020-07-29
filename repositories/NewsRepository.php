@@ -1,22 +1,33 @@
 <?php
 
-
 namespace app\repositories;
-
 
 use app\models\news\News;
 
 class NewsRepository
 {
-
-    public function getAllPublicNews(): array
+    public function getAllPublicNews($limit = 3): array
     {
-        return News::find()->public()->with('photo')->limit(3)->all();
+        return News::find()
+            ->public()
+            ->onlyPublish()
+            ->orderBy(['created_at' => SORT_DESC])
+            ->limit($limit)
+            ->all();
+    }
+
+    public function getAllNewsOrderByDate(): array
+    {
+        return News::find()
+            ->public()
+            ->onlyPublish()
+            ->orderBy(['created_at' => SORT_DESC])
+            ->all();
     }
 
     public function getAll(): array
     {
-        return News::find()->where(['is_public' => true])->limit(3)->all();
+        return News::find()->all();
     }
 
     public function get($id): News

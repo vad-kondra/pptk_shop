@@ -37,8 +37,8 @@ use yii\widgets\LinkPager;
                 ];
                 $current = Yii::$app->request->get('sort');
                 ?>
-                <?php foreach ($values as $value => $label): ?>
-                    <option value="<?= Html::encode(Url::current(['sort' => $value ?: null])) ?>" <?php if ($current == $value): ?>selected="selected"<?php endif; ?>><?= $label ?></option>
+                <?php foreach ($values as $key => $label): ?>
+                    <option value="<?= Html::encode(Url::current(['sort' => $key ?: null])) ?>" <?php if ($current == $key): ?>selected="selected"<?php endif; ?>><?= $label ?></option>
                 <?php endforeach; ?>
             </select>
 <!--            <span><a href="#"><i class="fa fa-arrow-up"></i></a></span>-->

@@ -98,11 +98,14 @@ class NewsController extends Controller
      */
     public function actionCreate()
     {
-        $form = new NewsForm();
 
+        $form = new NewsForm();
         if ($form->load(Yii::$app->request->post()) && $form->validate() )
         {
+
             $news = $this->service->create($form);
+            //print ('<pre>');print_r($news);die();
+            addAlert('success', 'Новость добавлена');
             return $this->redirect(['view', 'id' => $news->id]);
         }
 
@@ -124,6 +127,7 @@ class NewsController extends Controller
         if ($form->load(Yii::$app->request->post()) && $form->validate() )
         {
             $news = $this->service->edit($news->id, $form);
+            addAlert('success', 'Новость отредактирована');
             return $this->redirect(['view', 'id' => $news->id]);
         }
 

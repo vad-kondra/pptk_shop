@@ -64,7 +64,6 @@ class Cart
             if ($current->getId() == $id) {
 
                 $this->items[$i] = $current->changeQuantity($quantity);
-                //print ('<pre>');print_r($current);die;
                 $this->saveItems();
                 return;
             }

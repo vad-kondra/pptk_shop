@@ -11,7 +11,6 @@
 select.form-control:not([size]):not([multiple]){height:34px}
 .content-wrapper select, .dropdown-menu{font-size:1.1em}
 .content-wrapper .container{max-width:100%; }
-.content-header>.breadcrumb{left:8px;font-size:14px}
 .content-header{margin-bottom:30px; padding-left:10px}
 .add-remove-btn{position:absolute;bottom:12px;height:34px}
 div.required label.control-label:after{content: " *";color:red}
@@ -175,3 +174,19 @@ div.required label.control-label:after{content: " *";color:red}
 .view_request_history{ background-color: #fafafa; padding: 18px 10px; margin: 4px 0;}
 .navbar.navbar-static-top{display: flow-root;}
 .main-header .navbar-custom-menu{margin-top:12px;}
+
+.publish-wrapp {
+    max-width: 550px;
+    padding: 10px;
+}
+.radio-btn-publish-wrapper {
+    max-width: 600px;
+    display: flex;
+    justify-content: space-between;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 15px;
+}
+.field-newsform-publish_at > label {
+    display: none;
+}

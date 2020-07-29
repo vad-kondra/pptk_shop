@@ -17,8 +17,8 @@ use yii\helpers\Url;
 
             <?php
             $img_src = null;
-            if(isset($product->photo)) {
-                $img_src = $product->photo->img_src;
+            if(isset($product->photo) && file_exists($product->photo->img_src)) {
+                $img_src = Html::encode($product->photo->img_src);
             }
             echo Yii::$app->thumbnail->img($img_src, [
                 'placeholder' => [
@@ -26,7 +26,7 @@ use yii\helpers\Url;
                     'height' => 400
                 ],
                 'thumbnail' => [
-                    'width' => 400,
+                    'width' =>400,
                     'height' => 400,
                 ]
             ]);

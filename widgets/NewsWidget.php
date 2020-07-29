@@ -2,35 +2,49 @@
 
 namespace app\widgets;
 
-use app\repositories\NewsRepository;
+use app\models\news\News;
+use app\services\NewsManageService;
 use yii\base\Widget;
 
+/**
+ * Class NewsWidget
+ * @package app\widgets
+ *
+ * @property NewsManageService $newsService
+ * @property News[] $news
+ * @property string $header
+ */
 class NewsWidget extends Widget
 {
-    private $newsRepository;
+    private $newsService;
+    public $news;
+    public $header;
 
-    /**
-     * NewsWidget constructor.
-     * @param NewsRepository $newsRepository
-     * @param array $config
-     */
-    public function __construct(NewsRepository $newsRepository, $config = [])
+    public function __construct(NewsManageService $newsService, $config = [])
     {
-        $this->newsRepository = $newsRepository;
+        $this->newsService = $newsService;
         parent::__construct($config);
     }
 
     public function init()
     {
         parent::init();
+        $this->news = $this->newsService->getAllPublicNews();
     }
 
-    function run()
+    public function run()
     {
-        $news = $this->newsRepository->getAllPublicNews();
+        if (empty($this->news)) {
 
-        return $this->render('news', [
-            'news' => $news
-        ]);
+            return "";
+
+        } else {
+            $this->header = "Новости";
+
+            return $this->render('news', [
+                'header' => $this->header,
+                'news' => $this->news
+            ]);
+        }
     }
 }

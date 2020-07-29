@@ -1,15 +1,12 @@
 <?php
 
-
 namespace app\widgets;
-
 
 use app\services\cartService\CartService;
 use yii\base\Widget;
 
 class CartWidget extends Widget
 {
-
     private $cartService;
 
     public function __construct(CartService $cartService, $config = [])
@@ -30,7 +27,5 @@ class CartWidget extends Widget
         return $this->render('cart', [
             'cart' => $cart,
         ]);
-
     }
-
 }

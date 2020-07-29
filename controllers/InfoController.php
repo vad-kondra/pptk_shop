@@ -23,7 +23,12 @@ class InfoController extends AppController
         ];
     }
 
-    public function actionMain(){
+    public function actionMain()
+    {
+
+
+
+
         return $this->render('main', [
             'title' => Config::getValue(Config::MAIN_TITLE)
         ]);
@@ -77,7 +82,6 @@ class InfoController extends AppController
             'permission' => '',
         ]);
     }
-
 
     public function actionDelivery(){
         $title = 'Условие доставки';

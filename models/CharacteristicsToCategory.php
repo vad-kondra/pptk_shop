@@ -13,21 +13,21 @@ use yii\db\ActiveRecord;
 
 class CharacteristicsToCategory extends ActiveRecord
 {
-		public static function create($charId): self
-		{
-				$charToCat = new static();
-				$charToCat->characteristic_id = $charId;
-				return $charToCat;
-		}
+    public static function create($charId): self
+    {
+        $charToCat = new static();
+        $charToCat->characteristic_id = $charId;
+        return $charToCat;
+    }
 
 
-		public static function tableName(): string
-		{
-				return '{{%shop_characteristics_to_category}}';
-		}
+    public static function tableName(): string
+    {
+        return '{{%shop_characteristics_to_category}}';
+    }
 
-		public function isForChar($id)
-		{
-				return $this->characteristic_id == $id;
-		}
+    public function isForChar($id)
+    {
+        return $this->characteristic_id == $id;
+    }
 }

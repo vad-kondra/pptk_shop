@@ -4,16 +4,20 @@
 /* @var $model NewsForm */
 /* @var $news News */
 /* @var $form yii\widgets\ActiveForm */
+/* @var $photoForm PhotoForm */
 
-$this->title = 'Добавление новости';
 $this->params['breadcrumbs'][] = ['label' => 'Новости', 'url' => ['/'.Yii::$app->controller->module->id.'/'.Yii::$app->controller->id]];
 $this->params['breadcrumbs'][] =  [
     'template' => "<li class=\"breadcrumb-item active\" aria-current=\"page\">{link}</li>",
-    'label' => $this->title
+    'label' => $this->title,
+    'class' => "admin-bread"
 ];
+$this->title = 'Добавление новости';
 
 use app\models\news\News;
 use app\models\NewsForm;
+use app\models\PhotoForm;
+use kartik\datetime\DateTimePicker;
 use mihaildev\ckeditor\CKEditor;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html; ?>
@@ -39,35 +43,55 @@ use yii\helpers\Html; ?>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <?= $form->field($model, 'description')->widget(CKEditor::class) ?>
+                        <?= $form->field($model, 'body')->widget(CKEditor::class) ?>
                     </div>
                 </div>
             </div>
         </div>
         <div class="box box-default">
-            <div class="box-header with-border">Изображение</div>
             <div class="box-body">
-                <?php if(empty($news->photo)){ ?>
-                    <?=$form->field($model->photo, 'image')->fileInput(['multiple' => false])->label(false)?>
-                <?php }else{ ?>
-                    <div class="row">
-                        <div class="col-md-8">
-                            <?=$form->field($model->photo, 'image')->fileInput(['multiple' => false])->label(false)?>
+                <div class="publish-wrapp">
+                    <div class="radio-btn-publish-wrapper">
+                        <label for="rcpl">
+                            <input type="radio" id="rcpl" name="radioCheckPublish" value="1"> Опубликовать сейчас
+                        </label>
+                        <label for="rcpr">
+                            <input type="radio" id="rcpr" name="radioCheckPublish" value="2"> Выбрать дату публикации
+                        </label>
+                    </div>
+                    <div class="sub-check-block" id="block-1">
+                        <?= $form->field($model, 'is_public')->checkbox() ?>
+                    </div>
+                    <div class="sub-check-block" id="block-2" style="display: none;">
+                        <div class="date-picker-wrapper">
+                            <?= $form->field($model, 'publish_at')->widget(DateTimePicker::class, [
+                                'options' => ['placeholder' => 'Выберите дату'],
+                            ]); ?>
                         </div>
-                        <div class="col-md-4">
-                            <div class="float-right">
-                                <a href="/<?=$news->photo->img_src ?>" target="_blank">
-                                    <?=Html::img('/'.$news->photo->img_src, ['width' => '150', 'height' => '100', 'class' => 'image-mini'])?>
-                                </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box box-default">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-default">
+                            <div class="box-header with-border">Изображение</div>
+                            <div class="box-body">
+                                <?= $form->field($model->photo, 'image')->fileInput(['multiple' => false])->label(false) ?>
                             </div>
                         </div>
                     </div>
-                <?php } ?>
-            </div>
-        </div>
-        <div class="box box-default">
-            <div class="box-body">
-                <?= $form->field($model, 'is_public')->checkbox() ?>
+                    <!--                            <div class="col-md-4">-->
+                    <!--                                <div class="float-right">-->
+                    <!--                                    <a href="/--><?//=$model->photo->img_src ?><!--" target="_blank">-->
+                    <!--                                        --><?//=Html::img('/'.$model->photo->img_src, ['width' => '150', 'height' => '100', 'class' => 'image-mini'])?>
+                    <!--                                    </a>-->
+                    <!--                                </div>-->
+                    <!--                            </div>-->
+                </div>
             </div>
         </div>
 
@@ -86,4 +110,3 @@ use yii\helpers\Html; ?>
 
         <?php ActiveForm::end(); ?>
     </div>
-</div>

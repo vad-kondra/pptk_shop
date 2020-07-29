@@ -53,7 +53,7 @@ class MainContentForm extends Model
             [['main_title','main_short_title', 'main_phone_1', 'main_email','main_address', 'time_work'], 'required'],
             [['main_title', 'main_phone_1','main_phone_2', 'main_email','main_address', 'time_work'], 'string', 'max' => 255],
             [['time_work'], 'string', 'max' => 25],
-            [['main_short_title'], 'string', 'max' => 35],
+            [['main_short_title'], 'string', 'max' => 120],
             [['main_title','main_short_title', 'main_phone_1','main_phone_2', 'main_email','main_address', 'time_work'], 'trim'],
         ];
     }

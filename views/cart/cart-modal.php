@@ -27,7 +27,7 @@ $count = count($cart->getItems());
                 <a href="#">
                     <?php
                     $img_src = null;
-                    if(isset($product->photo) ) {
+                    if(isset($product->photo) && file_exists($product->photo->img_src)) {
                         $img_src = $product->photo->img_src;
                     }
                     echo Yii::$app->thumbnail->img($img_src, [

@@ -7,12 +7,13 @@
 $this->title = 'Редактирование новости';
 $this->params['breadcrumbs'][] = ['label' => 'Новости', 'url' => ['/'.Yii::$app->controller->module->id.'/'.Yii::$app->controller->id]];
 $this->params['breadcrumbs'][] =  [
-	'template' => "<li class=\"breadcrumb-item active\" aria-current=\"page\">{link}</li>",
-	'label' => $this->title
+    'template' => "<li class=\"breadcrumb-item active\" aria-current=\"page\">{link}</li>",
+    'label' => $this->title
 ];
 
 use app\models\news\News;
 use app\models\NewsForm;
+use kartik\datetime\DateTimePicker;
 use mihaildev\ckeditor\CKEditor;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html; ?>
@@ -38,14 +39,35 @@ use yii\helpers\Html; ?>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <?= $form->field($model, 'description')->widget(CKEditor::class) ?>
+                        <?= $form->field($model, 'body')->widget(CKEditor::class) ?>
                     </div>
                 </div>
             </div>
         </div>
         <div class="box box-default">
             <div class="box-body">
-                <?= $form->field($model, 'is_public')->checkbox() ?>
+                <div class="publish-wrapp">
+                    <div class="radio-btn-publish-wrapper">
+                        <label for="rcpl">
+                            <input type="radio" id="rcpl" name="radioCheckPublish" value="1"> Опубликовать сейчас
+                        </label>
+                        <label for="rcpr">
+                            <input type="radio" id="rcpr" name="radioCheckPublish" value="2"> Выбрать дату публикации
+                        </label>
+                    </div>
+                    <div class="sub-check-block" id="block-1">
+                        <?= $form->field($model, 'is_public')->checkbox() ?>
+                    </div>
+                    <div class="sub-check-block" id="block-2" style="display: none;">
+                        <div class="date-picker-wrapper">
+                            <?= $form->field($model, 'publish_at')->widget(DateTimePicker::class, [
+                                'options' => [
+                                    'value' => Yii::$app->formatter->asDate($model->publish_at),
+                                ],
+                            ]); ?>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 

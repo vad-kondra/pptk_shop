@@ -29,5 +29,4 @@ class PhotoForm extends Model
         return true;
     }
 
-
 }

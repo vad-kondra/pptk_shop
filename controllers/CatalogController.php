@@ -42,6 +42,11 @@ class CatalogController extends AppController
         $dataProvider = $this->products->getAll();
         $category = $this->categories->getRoot();
 
+
+        $a = '123';
+        $b = "123{$a}";
+
+
         return $this->render('category', [
             'category' => $category,
             'dataProvider' => $dataProvider,

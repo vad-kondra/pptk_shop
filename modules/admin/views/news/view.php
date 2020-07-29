@@ -37,6 +37,7 @@ $this->params['breadcrumbs'][] =  [
                         'attributes' => [
                             'title',
                             'created_at:datetime',
+                            'publish_at:datetime',
                             'author.username',
                             [
                                 'attribute' => 'is_public',
@@ -94,7 +95,7 @@ $this->params['breadcrumbs'][] =  [
             <div class="box">
                 <div class="box-header with-border">Детальное описание</div>
                 <div class="box-body">
-                    <?= $model->description ?>
+                    <?= $model->body ?>
                 </div>
             </div>
         </div>

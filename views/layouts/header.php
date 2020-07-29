@@ -93,6 +93,7 @@ use yii\helpers\Url;
                                 <?= CategoryMenuWidget::widget() ?>
 
 <!--                                <li><a href="blog.html">Blog<i class="fa fa-angle-down"></i></a></li>-->
+                                <li><a href="<?=Url::to('/news/index')?>">Новости</a></li>
                                 <li><a href="<?=Url::to('/about')?>">О нас</a></li>
                                 <li><a href="<?=Url::to('/contact')?>">Контакты</a></li>
                             </ul>
@@ -137,6 +138,7 @@ use yii\helpers\Url;
 <!--                                    </ul>-->
 <!--                                     Mobile Menu Dropdown End -->
 <!--                                </li>-->
+                                <li><a href="<?=Url::to('/news')?>">Новости</a></li>
                                 <li><a href="<?=Url::to('/about')?>">О нас</a></li>
                                 <li><a href="<?=Url::to('/contact')?>">Контакты</a></li>
                             </ul>

@@ -390,6 +390,4 @@ class Product extends ActiveRecord
     {
         $this->is_sale = !$this->is_sale;
     }
-
-
 }

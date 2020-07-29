@@ -26,7 +26,7 @@
         "kartik-v/yii2-widget-growl": "*",
         "kartik-v/yii2-widget-select2": "@dev",
         "kartik-v/yii2-widget-datepicker": "@dev",
-        "kartik-v/yii2-widget-datetimepicker": "*",
+        "kartik-v/yii2-widget-datetimepicker": "^1.4",
         "kartik-v/yii2-date-range": "dev-master",
         "mihaildev/yii2-ckeditor": "^1.0",
 

@@ -64,7 +64,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                ""=>"info/main",
+                '' => 'info/main',
                 '/delivery' => '/info/delivery',
                 '/payment' => '/info/payment',
                 '/about' => '/info/about',
@@ -95,10 +95,11 @@ $config = [
             'class' => 'yii\rbac\DbManager',
             'defaultRoles' => ['guest'],
         ],
+
         'thumbnail' => [
             'class' => 'sadovojav\image\Thumbnail',
             'cachePath' => '@webroot/thumbnails',
-            'prefixPath' => '@web',
+            'basePath' => '@webroot',
             'cacheExpire' => '604800',
             'options' => [
                 'placeholder' => [
@@ -109,6 +110,12 @@ $config = [
                 'quality' => 100,
             ]
         ],
+
+        'formatter' => [
+            'dateFormat'     => 'php:Y-m-d H:i',
+            'datetimeFormat' => 'php:Y-m-d в H:i',
+            'timeFormat'     => 'php:H:i',
+        ]
     ],
     'modules' => [
         'gridview' => [

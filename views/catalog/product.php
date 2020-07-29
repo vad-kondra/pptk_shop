@@ -37,7 +37,7 @@ $this->params['active_category'] = $product->category;
                 <div class="tab-content">
                     <?php
                     $img_src = null;
-                    if(isset($product->photo)) {
+                    if(isset($product->photo) ) {
                         $img_src = $product->photo->img_src;
                     }
                     echo Yii::$app->thumbnail->img($img_src, [

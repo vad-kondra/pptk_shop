@@ -16,10 +16,11 @@ class AppAdminAsset extends AssetWrapper
 
 
     public $css = [
+        "css/admin/admin.css",
 
     ];
     public $js = [
-
+        "js/admin.js",
     ];
 
     public $jsOptions = [

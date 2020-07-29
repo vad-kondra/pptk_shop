@@ -17,7 +17,7 @@ use yii\helpers\Url;
 
                 <?php
                 $img_src = null;
-                if(isset($product->photo)) {
+                if(isset($product->photo) && file_exists($product->photo->img_src)) {
                     $img_src = $product->photo->img_src;
                 }
                 echo Yii::$app->thumbnail->img($img_src, [
@@ -41,6 +41,7 @@ use yii\helpers\Url;
                     <del class="prev-price"><?=PriceHelper::format($product->price_old) ?></del>
                 <?php endif; ?>
             </p>
+
             <div class="pro-actions">
                 <div class="actions-secondary">
                     <a class="add-cart" href="<?= Url::to(['/cart/add', 'id' => $product->id]) ?>" data-id="<?=$product->id?>" data-toggle="tooltip" title="В корзину">В корзину</a>

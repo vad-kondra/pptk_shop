@@ -18,9 +18,10 @@ use yii\db\ActiveRecord;
  *
  * @property int $id
  * @property integer $created_at
+ * @property integer $publish_at
  * @property string $title
  * @property string $short_desc
- * @property string $description
+ * @property string $body
  * @property boolean $is_public
  * @property integer $photo_id
  * @property integer $user_id
@@ -42,26 +43,29 @@ class News extends ActiveRecord
         return 'shop_news';
     }
 
-    public static function create(string $title, string $short_desc, string $description, $is_public, Meta $meta): self
+    public static function create( $title, $short_desc, $body, $publish_at, $is_public, Meta $meta): self
     {
         $news = new static();
         $news->title = $title;
-        $news->description = $description;
         $news->short_desc = $short_desc;
         $news->meta = $meta;
+        $news->body = $body;
         $news->created_at = time();
+        $news->publish_at = $publish_at;
         $news->is_public = $is_public;
         $news->user_id = Yii::$app->user->identity->getId();
         return $news;
     }
 
-    public function edit(string $title, string $short_desc, string $description, bool $is_public, Meta $meta)
+    public function edit( $title, $short_desc, $body, $publish_at, $is_public, Meta $meta)
     {
         $this->title = $title;
-        $this->description = $description;
         $this->short_desc = $short_desc;
         $this->meta = $meta;
+        $this->body = $body;
+        $this->publish_at = $publish_at;
         $this->is_public = $is_public;
+
     }
 
 
@@ -71,10 +75,10 @@ class News extends ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'short_desc', 'description'], 'required'],
+            [['title', 'short_desc', 'body'], 'required'],
             [['title'], 'string', 'max' => 65],
             [['short_desc'], 'string', 'max' => 100],
-            [['description', 'img_src'], 'string', 'max' => 255],
+            [['body'], 'string'],
         ];
     }
 
@@ -87,10 +91,11 @@ class News extends ActiveRecord
             'id' => 'ID',
             'title' => 'Заголовок',
             'short_desc' => 'Краткое описание',
-            'description' => 'Полное описание',
+            'body' => 'Полное описание',
             'img_src' => 'Изображение',
             'is_public' => 'Показывать на основном сайте?',
             'created_at' => 'Создана',
+            'publish_at' => 'Дата публикации',
             'author.username' => 'Создатель'
         ];
     }
@@ -132,4 +137,16 @@ class News extends ActiveRecord
     {
         return new NewsQuery(static::class);
     }
+
+    public function beforeSave($insert)
+    {
+        $this->body = strip_tags($this->body);
+
+        if ($this->publish_at == null) {
+            $this->publish_at = $this->created_at;
+        }
+        return parent::beforeSave($insert);
+    }
+
+
 }
