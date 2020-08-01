@@ -60,9 +60,19 @@ $this->params['active_category'] = $product->category;
                     <h3 class="product-header"><?= Html::encode($product->name) ?></h3>
 
                     <div class="pro-price mtb-10">
-                        <p><span class="code">Код товара: <?= Html::encode($product->code) ?></span></p>
+
+                        <?php if ($product->code !== '0'): ?>
+                            <p><span class="code">Код товара: <?= Html::encode($product->code) ?></span></p>
+                        <?php endif;?>
+
+                        <?php if (!preg_match('/ПХ/', $product->art)): ?>
                         <p><span class="art">Артикул: <?= Html::encode($product->art) ?></span></p>
-                        <p><span class="producer">Производитель: <a href="<?= Html::encode(Url::to(['/catalog/search', 'brand' => $product->brand->id])) ?>"><?= Html::encode($product->brand->name) ?></a></span></p>
+                        <?php endif;?>
+
+                        <?php if ($product->brand->name !== 'ПХ'): ?>
+                            <p><span class="producer">Производитель: <a href="<?= Html::encode(Url::to(['/catalog/search', 'brand' => $product->brand->id])) ?>"><?= Html::encode($product->brand->name) ?></a></span></p>
+                        <?php endif;?>
+
                     </div>
                     <div class="pro-price mtb-10">
                         <p><span class="price">Цена: <?=PriceHelper::format($product->price_new) ?></span>

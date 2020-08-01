@@ -65,7 +65,9 @@ use yii\helpers\Html; ?>
                     <div class="sub-check-block" id="block-2" style="display: none;">
                         <div class="date-picker-wrapper">
                             <?= $form->field($model, 'publish_at')->widget(DateTimePicker::class, [
-                                'options' => ['placeholder' => 'Выберите дату'],
+                                'options' => [
+                                    'placeholder' => 'Выберите дату',
+                                    'autocomplete' => 'off'],
                             ]); ?>
                         </div>
                     </div>
@@ -84,13 +86,6 @@ use yii\helpers\Html; ?>
                             </div>
                         </div>
                     </div>
-                    <!--                            <div class="col-md-4">-->
-                    <!--                                <div class="float-right">-->
-                    <!--                                    <a href="/--><?//=$model->photo->img_src ?><!--" target="_blank">-->
-                    <!--                                        --><?//=Html::img('/'.$model->photo->img_src, ['width' => '150', 'height' => '100', 'class' => 'image-mini'])?>
-                    <!--                                    </a>-->
-                    <!--                                </div>-->
-                    <!--                            </div>-->
                 </div>
             </div>
         </div>

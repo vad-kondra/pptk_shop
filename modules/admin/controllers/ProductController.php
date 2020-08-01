@@ -76,7 +76,7 @@ class ProductController extends Controller
     public function actionView($id)
     {
         $product = $this->findModel($id);
-
+        print ('<pre>');print_r($product);die();
         $photoForm = new PhotoForm();
         if ($photoForm->load(Yii::$app->request->post()) && $photoForm->validate()) {
             if ($photoForm->image) {
