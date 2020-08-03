@@ -2,6 +2,7 @@
 
 use app\models\AboutContentForm;
 use app\models\ContactsContentForm;
+use app\models\employ\Employ;
 use app\models\PhotoForm;
 use app\models\TermsContentForm;
 use app\modules\admin\models\FooterContentForm;
@@ -9,14 +10,19 @@ use app\modules\admin\models\HeaderContentForm;
 use app\modules\admin\models\MainContentForm;
 use mihaildev\ckeditor\CKEditor;
 use yii\bootstrap\ActiveForm;
+use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
+/* @var $this yii\web\View */
+/* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $main_logo PhotoForm */
 /* @var $main MainContentForm */
 /* @var $header HeaderContentForm */
 /* @var $footer FooterContentForm */
 /* @var $about AboutContentForm */
 /* @var $contacts ContactsContentForm */
+/* @var $employees Employ */
 /* @var $terms TermsContentForm */
 
 $this->title = 'Конфигурация сайта';
@@ -127,6 +133,34 @@ $this->params['breadcrumbs'][] =  [
                             <?= Html::submitButton( 'Cохранить', ['class' => 'btn btn-success']) ?>
 
                             <?php ActiveForm::end(); ?>
+                        </div>
+                        <div class="box-body">
+                            <h2 class="text-center mt-2 mb-2">Сотрудники</h2>
+                            <?=Html::a('Добавить сотрудника', ['employ/create'], ['class' => 'btn btn-success'])?>
+
+                            <?= GridView::widget([
+                                'dataProvider' => $dataProvider,
+                                'columns' => [
+                                    ['class' => 'yii\grid\SerialColumn'],
+                                    ['attribute'=>'profileLink', 'format'=>'raw'],
+
+                                    'surname',
+                                    'name',
+                                    'first_name',
+                                    'position',
+                                    'tel_1',
+                                    'tel_2',
+                                    'email:email',
+                                    'skype',
+
+                                    ['class' => 'yii\grid\ActionColumn',
+                                        'urlCreator' => function ($action, $model) {
+                                            return Url::to(['employ/'.$action, 'id' => $model->id]);
+                                        }
+                                    ],
+                                ],
+                            ]); ?>
+
                         </div>
                     </div>
                 </div>

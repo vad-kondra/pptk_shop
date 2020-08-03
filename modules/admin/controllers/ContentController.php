@@ -4,10 +4,12 @@
 namespace app\modules\admin\controllers;
 
 
+use app\models\employ\Employ;
 use app\models\Photo;
 use app\services\ContentManageService;
 use DomainException;
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -99,13 +101,25 @@ class ContentController extends Controller
             }
         }
 
+        $dataProvider = new ActiveDataProvider([
+            'query' => Employ::find(),
+        ]);
+
         return $this->render('index', [
             'main' => $main,
             'header' => $header,
             'footer' => $footer,
             'about' => $about,
             'contacts' => $contacts,
+            'dataProvider' => $dataProvider,
             'terms' => $terms
+        ]);
+    }
+
+    public function actionView($id)
+    {
+        return $this->render('view', [
+            'model' => $this->findModel($id),
         ]);
     }
 
