@@ -2,17 +2,17 @@
 
 namespace app\modules\admin\controllers;
 
-use app\models\Department;
-use app\models\employ\Employ;
 use Yii;
+use app\models\Department;
 use yii\data\ActiveDataProvider;
-use yii\db\StaleObjectException;
-use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-class EmployController extends Controller
+/**
+ * DepartmentController implements the CRUD actions for Department model.
+ */
+class DepartmentController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -21,7 +21,7 @@ class EmployController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::class,
+                'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -30,13 +30,13 @@ class EmployController extends Controller
     }
 
     /**
-     * Lists all Employ models.
+     * Lists all Department models.
      * @return mixed
      */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Employ::find(),
+            'query' => Department::find(),
         ]);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class EmployController extends Controller
     }
 
     /**
-     * Displays a single Employ model.
+     * Displays a single Department model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,13 +58,13 @@ class EmployController extends Controller
     }
 
     /**
-     * Creates a new Employ model.
+     * Creates a new Department model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Employ();
+        $model = new Department();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -76,7 +76,7 @@ class EmployController extends Controller
     }
 
     /**
-     * Updates an existing Employ model.
+     * Updates an existing Department model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -96,13 +96,11 @@ class EmployController extends Controller
     }
 
     /**
-     * Deletes an existing Employ model.
+     * Deletes an existing Department model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
-     * @throws \Throwable
-     * @throws StaleObjectException
      */
     public function actionDelete($id)
     {
@@ -112,41 +110,18 @@ class EmployController extends Controller
     }
 
     /**
-     * Finds the Employ model based on its primary key value.
+     * Finds the Department model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Employ the loaded model
+     * @return Department the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Employ::findOne($id)) !== null) {
+        if (($model = Department::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
-    }
-
-    public function actionSetDepartment($id)
-    {
-        $employ = $this->findModel($id);
-        $selectedDepartment = ($employ->department) ? $employ->department->id : '0';
-        $departments = ArrayHelper::map(Department::find()->all(), 'id', 'title');
-
-        if (Yii::$app->request->isPost)
-        {
-            $department = Yii::$app->request->post('department');
-            if ($employ->saveDepartment($department))
-            {
-                return $this->redirect(['view', 'id' => $employ->id]);
-            }
-        }
-
-        return $this->render('department', [
-           'employ' => $employ,
-            'selectedDepartment' => $selectedDepartment,
-            'departments' => $departments,
-        ]);
-
     }
 }

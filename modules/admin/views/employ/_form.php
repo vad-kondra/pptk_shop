@@ -19,11 +19,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'first_name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'role')->dropDownList([
-        'admins' => 'Руководство',
-        'commerce' => 'Менеджеры по оптовой торговле',
-        'trade' => 'Менеджеры по поставкам',
-    ]) ?>
+<!--    --><?//= $form->field($model, 'role')->dropDownList([
+//        'admins' => 'Руководство',
+//        'commerce' => 'Менеджеры по оптовой торговле',
+//        'trade' => 'Менеджеры по поставкам',
+//    ]) ?>
 
     <?= $form->field($model, 'position')->textInput(['maxlength' => true]) ?>
 

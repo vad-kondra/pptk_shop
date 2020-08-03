@@ -2,6 +2,7 @@
 
 namespace app\models\employ;
 
+use app\models\Department;
 use Yii;
 use yii\db\ActiveRecord;
 
@@ -9,7 +10,6 @@ use yii\db\ActiveRecord;
  * This is the model class for table "employ".
  *
  * @property int $id
- * @property string $role
  * @property string $name
  * @property string $surname
  * @property string $first_name
@@ -18,6 +18,7 @@ use yii\db\ActiveRecord;
  * @property string $tel_2
  * @property string $email
  * @property string $skype
+ * @property integer $department_id
  */
 
 class Employ extends ActiveRecord
@@ -36,8 +37,9 @@ class Employ extends ActiveRecord
     public function rules()
     {
         return [
-            [['role', 'name', 'surname', 'first_name', 'position', 'tel_1', 'email'], 'required'],
+            [['name', 'surname', 'first_name', 'position', 'tel_1', 'email'], 'required'],
             [['name', 'surname', 'first_name', 'position', 'tel_1', 'tel_2', 'email', 'skype'], 'string', 'max' => 255],
+            [['department_id'], 'number']
         ];
     }
 
@@ -47,7 +49,6 @@ class Employ extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'role' => 'Роль',
             'name' => 'Имя',
             'surname' => 'Фамилия',
             'first_name' => 'Отчество',
@@ -57,5 +58,20 @@ class Employ extends ActiveRecord
             'email' => 'Email',
             'skype' => 'Skype',
         ];
+    }
+
+    public function getDepartment()
+    {
+        return $this->hasOne(Department::class, ['id' => 'department_id']);
+    }
+
+    public function saveDepartment($department_id)
+    {
+        $department = Department::find()->one($department_id);
+        if ($department !== null)
+        {
+            $this->link('department', $department);
+            return true;
+        }
     }
 }
