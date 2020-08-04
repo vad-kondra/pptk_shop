@@ -137,13 +137,13 @@ $this->params['breadcrumbs'][] =  [
                         <div class="box-body">
                             <h2 class="text-center mt-2 mb-2">Сотрудники</h2>
                             <?=Html::a('Добавить сотрудника', ['employ/create'], ['class' => 'btn btn-success'])?>
+                            <?=Html::a('Добавить отдел', ['department/create'], ['class' => 'btn btn-success'])?>
 
                             <?= GridView::widget([
                                 'dataProvider' => $dataProvider,
                                 'columns' => [
                                     ['class' => 'yii\grid\SerialColumn'],
-                                    ['attribute'=>'profileLink', 'format'=>'raw'],
-
+                                    'department.title',
                                     'surname',
                                     'name',
                                     'first_name',

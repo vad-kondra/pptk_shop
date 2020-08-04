@@ -2,10 +2,17 @@
 
 namespace app\models;
 
+use app\models\employ\Employ;
 use Yii;
+use yii\db\ActiveRecord;
 
+/**
+ * @property integer $id
+ * @property string $title
+ * @property Employ[] $employees
+ */
 
-class Department extends \yii\db\ActiveRecord
+class Department extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -22,6 +29,7 @@ class Department extends \yii\db\ActiveRecord
     {
         return [
             [['title'], 'string', 'max' => 255],
+            [['id'], 'integer'],
         ];
     }
 
@@ -34,5 +42,10 @@ class Department extends \yii\db\ActiveRecord
             'id' => 'ID',
             'title' => 'Title',
         ];
+    }
+
+    public function getEmployees()
+    {
+        return $this->hasMany(Employ::class, ['department_id' => 'id']);
     }
 }

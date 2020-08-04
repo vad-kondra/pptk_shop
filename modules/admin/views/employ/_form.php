@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Department;
 use app\models\employ\Employ;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -13,17 +14,13 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?= $form->field($model, 'department_id')->dropDownList(Department::find()->select(['title', 'id'])->indexBy('id')->column()) ?>
+
     <?= $form->field($model, 'surname')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'first_name')->textInput(['maxlength' => true]) ?>
-
-<!--    --><?//= $form->field($model, 'role')->dropDownList([
-//        'admins' => 'Руководство',
-//        'commerce' => 'Менеджеры по оптовой торговле',
-//        'trade' => 'Менеджеры по поставкам',
-//    ]) ?>
 
     <?= $form->field($model, 'position')->textInput(['maxlength' => true]) ?>
 

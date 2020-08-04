@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Config;
+use app\models\Department;
 use app\models\news\News;
 use Yii;
 use yii\filters\VerbFilter;
@@ -60,11 +61,13 @@ class InfoController extends AppController
 
         $main_title = Config::getValue(Config::MAIN_TITLE);
         $contacts_text = Config::getValue(Config::CONTACTS_TEXT);
+        $departments = Department::find()->all();
 
         return $this->render('contact', [
             'title' => $title,
             'main_title' => $main_title,
-            'contacts_text' => $contacts_text
+            'contacts_text' => $contacts_text,
+            'departments' => $departments,
         ]);
     }
 

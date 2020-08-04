@@ -9,7 +9,7 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "employ".
  *
- * @property int $id
+ * @property integer $id
  * @property string $name
  * @property string $surname
  * @property string $first_name
@@ -39,7 +39,7 @@ class Employ extends ActiveRecord
         return [
             [['name', 'surname', 'first_name', 'position', 'tel_1', 'email'], 'required'],
             [['name', 'surname', 'first_name', 'position', 'tel_1', 'tel_2', 'email', 'skype'], 'string', 'max' => 255],
-            [['department_id'], 'number']
+            [['department_id'], 'integer']
         ];
     }
 
@@ -67,11 +67,8 @@ class Employ extends ActiveRecord
 
     public function saveDepartment($department_id)
     {
-        $department = Department::find()->one($department_id);
-        if ($department !== null)
-        {
-            $this->link('department', $department);
-            return true;
-        }
+        $this->department_id = $department_id;
+        return $this->save(false);
     }
+    
 }

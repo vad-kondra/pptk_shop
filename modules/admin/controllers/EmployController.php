@@ -108,7 +108,7 @@ class EmployController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['content/index']);
     }
 
     /**
@@ -129,17 +129,16 @@ class EmployController extends Controller
 
     public function actionSetDepartment($id)
     {
+
         $employ = $this->findModel($id);
-        $selectedDepartment = ($employ->department) ? $employ->department->id : '0';
+        $selectedDepartment = $employ->department->id;
         $departments = ArrayHelper::map(Department::find()->all(), 'id', 'title');
 
         if (Yii::$app->request->isPost)
         {
             $department = Yii::$app->request->post('department');
-            if ($employ->saveDepartment($department))
-            {
-                return $this->redirect(['view', 'id' => $employ->id]);
-            }
+            $employ->saveDepartment($department);
+            return $this->redirect(['view', 'id' => $employ->id]);
         }
 
         return $this->render('department', [
