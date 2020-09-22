@@ -38,8 +38,9 @@ class Employ extends ActiveRecord
     {
         return [
             [['name', 'surname', 'first_name', 'position', 'tel_1', 'email'], 'required'],
-            [['name', 'surname', 'first_name', 'position', 'tel_1', 'tel_2', 'email', 'skype'], 'string', 'max' => 255],
-            [['department_id'], 'integer']
+            [['name', 'surname', 'first_name', 'position', 'tel_1', 'tel_2', 'email', 'skype'], 'string', 'min' => 2, 'max' => 255],
+            [['department_id'], 'integer'],
+            [['email'], 'email'],
         ];
     }
 
@@ -49,12 +50,13 @@ class Employ extends ActiveRecord
     public function attributeLabels()
     {
         return [
+            'department_id' => 'Отдел',
             'name' => 'Имя',
             'surname' => 'Фамилия',
             'first_name' => 'Отчество',
             'position' => 'Должность',
-            'tel_1' => 'Tel 1',
-            'tel_2' => 'Tel 2',
+            'tel_1' => 'Телефон 1',
+            'tel_2' => 'Телефон 2',
             'email' => 'Email',
             'skype' => 'Skype',
         ];
@@ -62,7 +64,7 @@ class Employ extends ActiveRecord
 
     public function getDepartment()
     {
-        return $this->hasOne(Department::class, ['id' => 'department_id']);
+        return $this->hasOne(Department::class, ['id' => 'department_id'])->orderBy(['id' => SORT_DESC]);
     }
 
     public function saveDepartment($department_id)
@@ -70,5 +72,5 @@ class Employ extends ActiveRecord
         $this->department_id = $department_id;
         return $this->save(false);
     }
-    
+
 }

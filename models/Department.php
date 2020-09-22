@@ -28,7 +28,9 @@ class Department extends ActiveRecord
     public function rules()
     {
         return [
-            [['title'], 'string', 'max' => 255],
+            [['title'], 'string', 'min' => 2, 'max' => 255],
+            [['title'], 'required'],
+	[['title'], 'unique'],
             [['id'], 'integer'],
         ];
     }
@@ -40,7 +42,7 @@ class Department extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
+            'title' => 'Отдел',
         ];
     }
 

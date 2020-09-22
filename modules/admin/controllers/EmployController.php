@@ -67,7 +67,8 @@ class EmployController extends Controller
         $model = new Employ();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            addAlert('success', 'Сотрудник добавлен!');
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [
@@ -87,7 +88,8 @@ class EmployController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            addAlert('success', 'Информация сохранена!');
+            return $this->redirect(['content/index', 'id' => $model->id]);
         }
 
         return $this->render('update', [

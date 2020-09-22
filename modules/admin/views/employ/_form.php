@@ -16,6 +16,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'department_id')->dropDownList(Department::find()->select(['title', 'id'])->indexBy('id')->column()) ?>
 
+    <?= Html::a('Добавить Отдел', ['department/create'], ['class' => 'btn btn-primary', 'target' => '_blank', 'style' => 'margin-bottom: 20px;']) ?>
+
     <?= $form->field($model, 'surname')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
@@ -33,7 +35,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'skype')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

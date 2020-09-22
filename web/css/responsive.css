@@ -409,7 +409,7 @@
     width: 110px;
 }
 .cart-box > ul > li > a {
-    padding-left:15px;
+    padding-left: 0 0 0 15px;
     line-height: 31px;
     font-size: 22px;
 }
@@ -514,7 +514,7 @@
 .header-bottom-style-two .mean-container a.meanmenu-reveal span {
     background: #fed700;
 }
-.group-title h2{
+.group-title h2,{
     font-weight: 500;
 }
 .slider-style-three .single-banner:first-child {

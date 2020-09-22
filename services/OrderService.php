@@ -10,7 +10,7 @@ use app\models\order\OrderItem;
 use app\models\OrderForm;
 use app\repositories\OrderRepository;
 use app\repositories\productRepository\IProductRepository;
-use app\repositories\userRepository\UserRepository;
+use app\repositories\UserRepository;
 
 class OrderService
 {

@@ -31,26 +31,29 @@ $this->params['breadcrumbs'][] = ['label' => $this->title];
             </div>
 
             <?php foreach ($departments as $department): ?>
-            <div class="department-wrap">
-                <h2 class="department-title text-center mt-5 mb-3"><?=$department->title?></h2>
-                <?php foreach ($department->employees as $employee): ?>
-                <div class="wraper-employ mt-3 mb-3">
-                    <div class="full-name">
-                        <span class="font-weight-bold"><?= $employee->surname ?></span>
-                        <span class="font-weight-bold"><?= $employee->name ?></span>
-                        <span class="font-weight-bold"><?= $employee->first_name ?></span>
-                    </div>
-                    <div class="contact-info-employ">
-                        <p><?= $employee->position ?></p>
-                        <p><?= $employee->tel_1 ?></p>
-                        <p><?= $employee->tel_2 ?></p>
-                        <p><?= $employee->email ?></p>
-                        <p><?= $employee->skype ?></p>
-                    </div>
-                </div>
-                <?php endforeach;?>
-            </div>
+                <?php if (!empty($department->employees)):?>
+                    <div class="department-wrap">
+                        <h2 class="department-title text-center mt-5 mb-3"><?=$department->title?></h2>
 
+                        <?php foreach ($department->employees as $employee): ?>
+                            <div class="wraper-employ mt-3 mb-3">
+                                <div class="full-name">
+                                    <span class="font-weight-bold"><?= $employee->surname ?></span>
+                                    <span class="font-weight-bold"><?= $employee->name ?></span>
+                                    <span class="font-weight-bold"><?= $employee->first_name ?></span>
+                                </div>
+                                <div class="contact-info-employ">
+                                    <p><?= $employee->position ?></p>
+                                    <p><?= $employee->tel_1 ?></p>
+                                    <p><?= $employee->tel_2 ?></p>
+                                    <p><?= $employee->email ?></p>
+                                    <p><?= $employee->skype ?></p>
+                                </div>
+                            </div>
+
+                        <?php endforeach;?>
+                    </div>
+                <?php endif;?>
             <?php endforeach;?>
 
             <div class="row pt-40">

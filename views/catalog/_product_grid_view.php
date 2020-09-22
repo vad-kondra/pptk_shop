@@ -17,7 +17,7 @@ use yii\helpers\Url;
 
                 <?php
                 $img_src = null;
-                if(isset($product->photo) && file_exists($product->photo->img_src)) {
+                if(isset($product->photo)) {
                     $img_src = $product->photo->img_src;
                 }
                 echo Yii::$app->thumbnail->img($img_src, [

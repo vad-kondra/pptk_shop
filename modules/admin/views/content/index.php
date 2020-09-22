@@ -137,29 +137,31 @@ $this->params['breadcrumbs'][] =  [
                         <div class="box-body">
                             <h2 class="text-center mt-2 mb-2">Сотрудники</h2>
                             <?=Html::a('Добавить сотрудника', ['employ/create'], ['class' => 'btn btn-success'])?>
-                            <?=Html::a('Добавить отдел', ['department/create'], ['class' => 'btn btn-success'])?>
 
-                            <?= GridView::widget([
-                                'dataProvider' => $dataProvider,
-                                'columns' => [
-                                    ['class' => 'yii\grid\SerialColumn'],
-                                    'department.title',
-                                    'surname',
-                                    'name',
-                                    'first_name',
-                                    'position',
-                                    'tel_1',
-                                    'tel_2',
-                                    'email:email',
-                                    'skype',
+                            <div class="employees-wrap" style="margin-top: 20px">
+                                <?= GridView::widget([
+                                    'dataProvider' => $dataProvider,
+                                    'columns' => [
+                                        ['class' => 'yii\grid\SerialColumn'],
 
-                                    ['class' => 'yii\grid\ActionColumn',
-                                        'urlCreator' => function ($action, $model) {
-                                            return Url::to(['employ/'.$action, 'id' => $model->id]);
-                                        }
+                                        ['attribute' =>'department.title'],
+                                        'surname',
+                                        'name',
+                                        'first_name',
+                                        'position',
+                                        'tel_1',
+                                        'tel_2',
+                                        'email:email',
+                                        'skype',
+
+                                        ['class' => 'yii\grid\ActionColumn',
+                                            'urlCreator' => function ($action, $model) {
+                                                return Url::to(['employ/'.$action, 'id' => $model->id]);
+                                            }
+                                        ],
                                     ],
-                                ],
-                            ]); ?>
+                                ]); ?>
+                            </div>
 
                         </div>
                     </div>

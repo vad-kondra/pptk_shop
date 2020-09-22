@@ -7,14 +7,16 @@ use yii\helpers\Html;
 /* @var $model Employ */
 
 $this->title = 'Редактировать информацию сотрудника';
-$this->params['breadcrumbs'][] = ['label' => 'Employs', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Сотрудники', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Редактировать';
 ?>
-<div class="employ-update">
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+<div class="employ-wrap" style="max-width: 600px; margin-left: 15px; margin-right: 15px">
+    <div class="employ-create">
 
+        <?= $this->render('_form', [
+            'model' => $model,
+        ]) ?>
+    </div>
 </div>

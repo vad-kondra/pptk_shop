@@ -58,7 +58,15 @@ use yii\helpers\Url; ?>
                         ],
                 ],
 
-
+            [
+                'label' => 'Сотрудники',
+                'icon' => 'suitcase',
+                'url' => '#',
+                'items' => [
+                    ['label' => 'Отделы', 'icon' => 'file-o', 'url' => ['/admin/department/index'], 'active' => $this->context->id == 'admin/product'],
+                    ['label' => 'Управление сотрудниками', 'icon' => 'file-o', 'url' => ['/admin/employ/index'], 'active' => $this->context->id == 'admin/tag'],
+                ],
+            ],
 
             /*['label' => 'Ссылки', 'icon' => 'fa fa-link', 'url' => ['/admin/link/index']],
             [

@@ -60,7 +60,7 @@ $this->params['active_category'] = $product->category;
                     <h3 class="product-header"><?= Html::encode($product->name) ?></h3>
 
                     <div class="pro-price mtb-10">
-
+                    	
                         <?php if ($product->code !== '0'): ?>
                             <p><span class="code">Код товара: <?= Html::encode($product->code) ?></span></p>
                         <?php endif;?>
