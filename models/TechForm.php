@@ -3,39 +3,33 @@
 
 namespace app\models;
 
-
-
-use app\models\news\News;
+use app\models\tech\Tech;
 
 /**
  * @property string $title
  * @property string $short_desc
  * @property string $body
  * @property boolean $is_public
- * @property integer $publish_at
- *
  * @property MetaForm $meta
  * @property Photo $photo
  */
 
-class NewsForm extends CompositeForm
+class TechForm extends CompositeForm
 {
     public $title;
     public $short_desc;
     public $body;
     public $is_public;
-    public $publish_at;
 
-    public function __construct(News $news = null, $config = [])
+    public function __construct(Tech $techArticles = null, $config = [])
     {
-        if ($news) {
-            $this->title = $news->title;
-            $this->short_desc = $news->short_desc;
-            $this->body = $news->body;
-            $this->is_public = $news->is_public;
-            $this->publish_at = $news->publish_at;
-            $this->meta = new MetaForm($news->meta);
-//            $this->photo = new PhotoForm($news->photo);
+        if ($techArticles) {
+            $this->title = $techArticles->title;
+            $this->short_desc = $techArticles->short_desc;
+            $this->body = $techArticles->body;
+            $this->is_public = $techArticles->is_public;
+            $this->meta = new MetaForm($techArticles->meta);
+//            $this->photo = new PhotoForm($techArticles->photo);
         }
 //        $this->photo = new PhotoForm();
         $this->meta = new MetaForm();
@@ -50,7 +44,6 @@ class NewsForm extends CompositeForm
             'body' => 'Текст статьи',
             'photo' => 'Изображение',
             'is_public' => 'Показывать на основном сайте?',
-            'publish_at' => 'Время публикации'
         ];
     }
 
@@ -59,7 +52,6 @@ class NewsForm extends CompositeForm
         return [
             [['title', 'short_desc', 'body'], 'required'],
             [['title', 'short_desc'], 'string', 'max' => 255],
-            ['publish_at', 'datetime', 'timestampAttribute' => 'publish_at', 'format' => 'php:Y-m-d H:i'],
             [['title', 'short_desc'], 'trim'],
             [['body'], 'string'],
             [['is_public'], 'boolean'],

@@ -17,7 +17,7 @@ use yiidreamteam\upload\ImageUploadBehavior;
  */
 class Photo extends ActiveRecord
 {
-    const PATH_TO_SAVE = 'images/upload/';
+    const PATH_TO_SAVE = 'images/';
 
     public static function create(UploadedFile $file, string $newName): self
     {

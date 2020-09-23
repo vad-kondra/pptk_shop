@@ -4109,9 +4109,6 @@ padding: 5px 10px;
     transition: 0.3s;
     min-height: 240px;
 }
-.news-elem .sub-banner:hover {
-    transform: scale(1.03);
-}
 .sub-banner-detail {
     padding: 5px 13px;
 }
