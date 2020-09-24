@@ -77,14 +77,14 @@ use yii\helpers\Url;
     <div class="header-bottom header-sticky">
         <div class="container">
             <div class="row">
-                <div class="col-xl-3 col-lg-2 col-sm-5 col-5">
+                <div class="col-xl-2 col-lg-2 col-sm-5 col-5">
                     <div class="logo">
                         <a href="<?=Url::home()?>"><?=Html::img('@web/images/logo.png', ['alt' => Config::getValue(Config::MAIN_TITLE)]) ?></a>
                     </div>
                 </div>
                 <!-- Primary Vertical-Menu End -->
                 <!-- Search Box Start -->
-                <div class="col-xl-6 col-lg-7 d-none d-lg-block">
+                <div class="col-xl-8 col-lg-7 d-none d-lg-block">
                     <div class="middle-menu pull-right">
                         <nav>
                             <ul class="middle-menu-list">
@@ -103,7 +103,7 @@ use yii\helpers\Url;
                 </div>
                 <!-- Search Box End -->
                 <!-- Cartt Box Start -->
-                <div class="col-lg-3 col-sm-7 col-7">
+                <div class="col-lg-2 col-sm-7 col-7">
                     <div class="cart-box text-right">
                         <ul>
                             <li><a href="#"><i class="fa fa-cog"></i></a>

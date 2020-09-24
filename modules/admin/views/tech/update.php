@@ -3,7 +3,6 @@
 /* @var $this yii\web\View */
 /* @var $model TechForm */
 /* @var $techArticles Tech */
-/* @var $photoForm PhotoForm */
 
 $this->title = 'Редактирование статьи';
 $this->params['breadcrumbs'][] = ['label' => 'Техническая информация', 'url' => ['/'.Yii::$app->controller->module->id.'/'.Yii::$app->controller->id]];

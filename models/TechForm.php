@@ -29,9 +29,10 @@ class TechForm extends CompositeForm
             $this->body = $techArticles->body;
             $this->is_public = $techArticles->is_public;
             $this->meta = new MetaForm($techArticles->meta);
-//            $this->photo = new PhotoForm($techArticles->photo);
+            $this->photo = new PhotoForm();
+
         }
-//        $this->photo = new PhotoForm();
+        $this->photo = new PhotoForm();
         $this->meta = new MetaForm();
         parent::__construct($config);
     }

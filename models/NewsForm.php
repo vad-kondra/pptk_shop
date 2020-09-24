@@ -35,9 +35,9 @@ class NewsForm extends CompositeForm
             $this->is_public = $news->is_public;
             $this->publish_at = $news->publish_at;
             $this->meta = new MetaForm($news->meta);
-//            $this->photo = new PhotoForm($news->photo);
+            $this->photo = new PhotoForm();
         }
-//        $this->photo = new PhotoForm();
+        $this->photo = new PhotoForm();
         $this->meta = new MetaForm();
         parent::__construct($config);
     }

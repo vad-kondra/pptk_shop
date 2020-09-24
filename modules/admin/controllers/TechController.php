@@ -131,12 +131,15 @@ class TechController extends Controller
             $techArticles = $this->service->edit($techArticles->id, $form);
             addAlert('success', 'Статья отредактирована');
             return $this->redirect(['view', 'id' => $techArticles->id]);
-        }
+        } else
+            {
+                return $this->render('update', [
+                    'model' => $form,
+                    'techArticles' => $techArticles
+                ]);
+            }
 
-        return $this->render('update', [
-            'model' => $form,
-            'techArticles' => $techArticles
-        ]);
+
     }
 
     /**

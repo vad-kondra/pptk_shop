@@ -496,7 +496,7 @@ ul.ht-dropdown.dropdown-style-two li {
     font-size: 14px;
     font-weight: 400;
     line-height: 25px;
-    padding: 37px 0 37px 30px;
+    padding: 37px 0 37px 20px;
     text-transform: uppercase;
 }
 .middle-menu-list > li:first-child > a{
@@ -3655,7 +3655,11 @@ legend {
     box-shadow: none;
     position: relative;
 }
-
+.youtube-video {
+    width: 100%;
+    padding: 40px 0;
+    text-align: center;
+}
 .progress-bar .text-top {
     background: #363f4d none repeat scroll 0 0;
     border-radius: 50%;
