@@ -7,7 +7,7 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $informationArticles Information[] */
 
-$this->title = 'Техническая информация';
+$this->title = 'Полезная  информация';
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>

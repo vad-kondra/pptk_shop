@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Техническая информация';
+$this->title = 'Полезная  информация';
 $this->params['breadcrumbs'][] =  [
     'template' => "<li class=\"breadcrumb-item active\" aria-current=\"page\">{link}</li>",
     'label' => $this->title

@@ -60,7 +60,7 @@ class InformationForm extends CompositeForm
             [['title', 'short_desc'], 'trim'],
             [['body'], 'string'],
             [['is_public'], 'boolean'],
-            [['title', 'slug'], 'unique', 'targetClass' => Information::class, 'filter' => $this->title ? ['<>', 'id', $this->id] : null]
+            [['title', 'slug'], 'unique', 'targetClass' => Information::class, 'filter' => $this->title]
         ];
     }
 

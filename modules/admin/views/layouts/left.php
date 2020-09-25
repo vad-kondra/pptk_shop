@@ -43,7 +43,7 @@ use yii\helpers\Url; ?>
                 ['label' => 'Рабочий стол', 'icon' => 'home', 'url' => [Url::to('/admin/default/index')]],
                 ['label' => 'Заказы', 'icon' => 'stack-exchange', 'url' => [Url::to('/admin/order/index')]],
                 ['label' => 'Новости', 'icon' => 'file-text', 'url' => [Url::to('/admin/news/index')]],
-                ['label' => 'Техническая информация', 'icon' => 'file-text', 'url' => [Url::to('/admin/information/index')]],
+                ['label' => 'Полезная  информация', 'icon' => 'file-text', 'url' => [Url::to('/admin/information/index')]],
                 ['label' => 'Обратный звонок', 'icon' => 'file-text', 'url' => [Url::to('/admin/callback/index')]],
                 [
                         'label' => 'Управление товарами',

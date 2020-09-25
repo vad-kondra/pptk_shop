@@ -2,7 +2,7 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'Техническая информация';
+$this->title = 'Полезная  информация';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

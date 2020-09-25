@@ -14,7 +14,7 @@ use yii\helpers\Html;
 /* @var $form yii\widgets\ActiveForm */
 /* @var $photoForm PhotoForm */
 
-$this->params['breadcrumbs'][] = ['label' => 'Техническая информация', 'url' => ['/'.Yii::$app->controller->module->id.'/'.Yii::$app->controller->id]];
+$this->params['breadcrumbs'][] = ['label' => 'Полезная  информация', 'url' => ['/'.Yii::$app->controller->module->id.'/'.Yii::$app->controller->id]];
 $this->params['breadcrumbs'][] =  [
     'template' => "<li class=\"breadcrumb-item active\" aria-current=\"page\">{link}</li>",
     'label' => $this->title,
