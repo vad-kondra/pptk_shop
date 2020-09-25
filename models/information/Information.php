@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models\tech;
+namespace app\models\information;
 
 use app\behaviors\MetaBehavior;
 use app\models\Meta;
@@ -12,6 +12,7 @@ use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\helpers\Inflector;
 
 /**
  * This is the model class for table "shop_tech_info".
@@ -21,6 +22,7 @@ use yii\db\ActiveRecord;
  * @property string $title
  * @property string $short_desc
  * @property string $body
+ * @property string $slug
  * @property boolean $is_public
  * @property integer $photo_id
  * @property integer $user_id
@@ -29,8 +31,10 @@ use yii\db\ActiveRecord;
  * @property Photo $photo
  * @property User $author
  */
-class Tech extends ActiveRecord
+class Information extends ActiveRecord
 {
+
+    private $_post;
 
     public $meta;
 
@@ -42,25 +46,27 @@ class Tech extends ActiveRecord
         return 'shop_tech_info';
     }
 
-    public static function create( $title, $short_desc, $body, $is_public, Meta $meta): self
+    public static function create( $title, $short_desc, $body, $is_public, $slug, Meta $meta): self
     {
         $techArticles = new static();
         $techArticles->title = $title;
         $techArticles->short_desc = $short_desc;
         $techArticles->meta = $meta;
         $techArticles->body = $body;
+        $techArticles->slug = Inflector::slug($techArticles->title);
         $techArticles->created_at = time();
         $techArticles->is_public = $is_public;
         $techArticles->user_id = Yii::$app->user->identity->getId();
         return $techArticles;
     }
 
-    public function edit( $title, $short_desc, $body, $is_public, Meta $meta)
+    public function edit( $title, $short_desc, $body, $is_public, $slug, Meta $meta)
     {
         $this->title = $title;
         $this->short_desc = $short_desc;
         $this->meta = $meta;
         $this->body = $body;
+        $this->slug = Inflector::slug($this->title);
         $this->is_public = $is_public;
 
     }
@@ -73,6 +79,7 @@ class Tech extends ActiveRecord
     {
         return [
             [['title', 'short_desc', 'body'], 'required'],
+            [['title'], 'unique'],
             [['title'], 'string', 'max' => 65],
             [['short_desc'], 'string', 'max' => 100],
             [['body'], 'string'],

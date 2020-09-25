@@ -6,7 +6,7 @@ namespace app\queries;
 
 use yii\db\ActiveQuery;
 
-class TechQuery extends ActiveQuery
+class InformationQuery extends ActiveQuery
 {
 
     public function public()

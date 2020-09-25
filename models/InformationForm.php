@@ -3,32 +3,36 @@
 
 namespace app\models;
 
-use app\models\tech\Tech;
+use app\models\information\Information;
 
 /**
+ * @property integer $id
  * @property string $title
  * @property string $short_desc
  * @property string $body
+ * @property string $slug
  * @property boolean $is_public
  * @property MetaForm $meta
  * @property Photo $photo
  */
 
-class TechForm extends CompositeForm
+class InformationForm extends CompositeForm
 {
     public $title;
     public $short_desc;
     public $body;
+    public $slug;
     public $is_public;
 
-    public function __construct(Tech $techArticles = null, $config = [])
+    public function __construct(Information $informationArticles = null, $config = [])
     {
-        if ($techArticles) {
-            $this->title = $techArticles->title;
-            $this->short_desc = $techArticles->short_desc;
-            $this->body = $techArticles->body;
-            $this->is_public = $techArticles->is_public;
-            $this->meta = new MetaForm($techArticles->meta);
+        if ($informationArticles) {
+            $this->title = $informationArticles->title;
+            $this->short_desc = $informationArticles->short_desc;
+            $this->body = $informationArticles->body;
+            $this->slug = $informationArticles->slug;
+            $this->is_public = $informationArticles->is_public;
+            $this->meta = new MetaForm($informationArticles->meta);
             $this->photo = new PhotoForm();
 
         }
@@ -56,6 +60,7 @@ class TechForm extends CompositeForm
             [['title', 'short_desc'], 'trim'],
             [['body'], 'string'],
             [['is_public'], 'boolean'],
+            [['title', 'slug'], 'unique', 'targetClass' => Information::class, 'filter' => $this->title ? ['<>', 'id', $this->id] : null]
         ];
     }
 

@@ -1,29 +1,24 @@
 <?php
 
-use app\models\PhotoForm;
-use app\models\tech\Tech;
-use app\models\TechForm;
-use kartik\datetime\DateTimePicker;
-use mihaildev\ckeditor\CKEditor;
-use yii\bootstrap\ActiveForm;
-use yii\helpers\Html;
-
 /* @var $this yii\web\View */
-/* @var $model TechForm */
-/* @var $techArticles Tech */
-/* @var $form yii\widgets\ActiveForm */
-/* @var $photoForm PhotoForm */
+/* @var $model InformationForm */
+/* @var $techArticles Information */
 
+$this->title = 'Редактирование статьи';
 $this->params['breadcrumbs'][] = ['label' => 'Техническая информация', 'url' => ['/'.Yii::$app->controller->module->id.'/'.Yii::$app->controller->id]];
 $this->params['breadcrumbs'][] =  [
     'template' => "<li class=\"breadcrumb-item active\" aria-current=\"page\">{link}</li>",
-    'label' => $this->title,
-    'class' => "admin-bread"
+    'label' => $this->title
 ];
-$this->title = 'Добавление статьи';
-?>
 
-<div class="news-create">
+use app\models\PhotoForm;
+use app\models\tech\Information;
+use app\models\InformationForm;
+use mihaildev\ckeditor\CKEditor;
+use yii\bootstrap\ActiveForm;
+use yii\helpers\Html; ?>
+
+<div class="news-update">
 
     <div class="news-form">
         <?php $form = ActiveForm::begin([
@@ -55,20 +50,9 @@ $this->title = 'Добавление статьи';
                     <div class="sub-check-block" id="block-1">
                         <?= $form->field($model, 'is_public')->checkbox() ?>
                     </div>
+                </div>
             </div>
         </div>
-        </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="box box-default">
-                            <div class="box-header with-border">Изображение</div>
-                            <div class="box-body">
-                                <?= $form->field($model->photo, 'image')->fileInput(['multiple' => false])->label(false) ?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
         <div class="box box-default">
             <div class="box-header with-border">SEO</div>
@@ -85,3 +69,5 @@ $this->title = 'Добавление статьи';
 
         <?php ActiveForm::end(); ?>
     </div>
+
+</div>

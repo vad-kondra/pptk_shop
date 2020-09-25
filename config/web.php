@@ -61,6 +61,7 @@ $config = [
         ],
         'db' => $db,
         'urlManager' => [
+            'class' => 'yii\web\UrlManager',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
@@ -89,6 +90,12 @@ $config = [
                 '/profile' => '/user/profile',
                 '/wish-list' => '/user/wish-list',
                 '/status' => '/user/status',
+
+                [
+                    'pattern' => '/information/<slug:[\w-]+>',
+                    'route' => '/information/view',
+                ],
+
             ],
         ],
         'authManager' => [

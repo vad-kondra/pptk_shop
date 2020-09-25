@@ -1,14 +1,14 @@
 <?php
 
-use app\models\tech\Tech;
-use app\models\TechForm;
+use app\models\tech\Information;
+use app\models\InformationForm;
 use mihaildev\ckeditor\CKEditor;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model TechForm */
-/* @var $techArticles Tech */
+/* @var $model InformationForm */
+/* @var $techArticles Information */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -60,6 +60,12 @@ use yii\helpers\Html;
     <div class="box box-default">
         <div class="box-body">
             <?= $form->field($model, 'is_public')->checkbox() ?>
+        </div>
+    </div>
+
+    <div class="box box-default">
+        <div class="box-body">
+            <?= $form->field($model, 'slug')->textInput(['maxlength' => true]) ?>
         </div>
     </div>
 

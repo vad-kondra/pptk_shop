@@ -2,13 +2,13 @@
 
 namespace app\repositories;
 
-use app\models\tech\Tech;
+use app\models\information\Information;
 
-class TechRepository
+class InformationRepository
 {
     public function getAllPublicTechArticles($limit = 3): array
     {
-        return Tech::find()
+        return Information::find()
             ->public()
             ->orderBy(['created_at' => SORT_DESC])
             ->limit($limit)
@@ -17,7 +17,7 @@ class TechRepository
 
     public function getAllTechArticlesOrderByDate(): array
     {
-        return Tech::find()
+        return Information::find()
             ->public()
             ->orderBy(['created_at' => SORT_DESC])
             ->all();
@@ -25,27 +25,27 @@ class TechRepository
 
     public function getAll(): array
     {
-        return Tech::find()->all();
+        return Information::find()->all();
     }
 
-    public function get($id): Tech
+    public function get($id): Information
     {
-        if (!$techArticles = Tech::findOne($id)) {
+        if (!$informationArticles = Information::findOne($id)) {
             throw new NotFoundException('Новость не найдена.');
         }
-        return $techArticles;
+        return $informationArticles;
     }
 
-    public function save(Tech $techArticles): void
+    public function save(Information $informationArticles): void
     {
-        if (!$techArticles->save()) {
+        if (!$informationArticles->save()) {
             throw new \RuntimeException('Ошибка сохранения.');
         }
     }
 
-    public function remove(Tech $techArticles): void
+    public function remove(Information $informationArticles): void
     {
-        if (!$techArticles->delete()) {
+        if (!$informationArticles->delete()) {
             throw new \RuntimeException('Ошибка удаления.');
         }
     }

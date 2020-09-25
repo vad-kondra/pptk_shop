@@ -1,11 +1,11 @@
 <?php
 
-use app\models\tech\Tech;
+use app\models\information\Information;
 use yii\bootstrap\Html;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
-/* @var $techArticles Tech[] */
+/* @var $informationArticles Information[] */
 
 $this->title = 'Техническая информация';
 $this->params['breadcrumbs'][] = $this->title;
@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="container">
-    <?php foreach ($techArticles as $item):?>
+    <?php foreach ($informationArticles as $item):?>
         <div class="news-main-wrapper">
             <div class="row mb-5 mt-5 news-item-wrapper">
                 <div class="news-left-info-wrapper col-lg-4 col-7">
@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                     <div class="date-info-inner">
                         <div class="btn-read-more">
-                            <?=Html::a('Читать далее', Url::to(['tech/view', 'id'=> $item->id]))?>
+                            <a href="<?= Url::to(['/information/view', 'slug' => $item->slug]) ?>">Читать далее</a>
                         </div>
                         <div class="publication-news-date">
                             <span>Дата Публикации:

@@ -1,14 +1,14 @@
 <?php
 
 use app\models\PhotoForm;
-use app\models\tech\Tech;
+use app\models\tech\Information;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model Tech */
+/* @var $model Information */
 /* @var $photoForm PhotoForm */
 
 $this->title = $model->title;

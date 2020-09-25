@@ -1,24 +1,29 @@
 <?php
 
-/* @var $this yii\web\View */
-/* @var $model TechForm */
-/* @var $techArticles Tech */
+use app\models\PhotoForm;
+use app\models\information\Information;
+use app\models\InformationForm;
+use kartik\datetime\DateTimePicker;
+use mihaildev\ckeditor\CKEditor;
+use yii\bootstrap\ActiveForm;
+use yii\helpers\Html;
 
-$this->title = 'Редактирование статьи';
+/* @var $this yii\web\View */
+/* @var $model InformationForm */
+/* @var $informationArticles Information */
+/* @var $form yii\widgets\ActiveForm */
+/* @var $photoForm PhotoForm */
+
 $this->params['breadcrumbs'][] = ['label' => 'Техническая информация', 'url' => ['/'.Yii::$app->controller->module->id.'/'.Yii::$app->controller->id]];
 $this->params['breadcrumbs'][] =  [
     'template' => "<li class=\"breadcrumb-item active\" aria-current=\"page\">{link}</li>",
-    'label' => $this->title
+    'label' => $this->title,
+    'class' => "admin-bread"
 ];
+$this->title = 'Добавление статьи';
+?>
 
-use app\models\PhotoForm;
-use app\models\tech\Tech;
-use app\models\TechForm;
-use mihaildev\ckeditor\CKEditor;
-use yii\bootstrap\ActiveForm;
-use yii\helpers\Html; ?>
-
-<div class="news-update">
+<div class="news-create">
 
     <div class="news-form">
         <?php $form = ActiveForm::begin([
@@ -50,9 +55,20 @@ use yii\helpers\Html; ?>
                     <div class="sub-check-block" id="block-1">
                         <?= $form->field($model, 'is_public')->checkbox() ?>
                     </div>
-                </div>
             </div>
         </div>
+        </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-default">
+                            <div class="box-header with-border">Изображение</div>
+                            <div class="box-body">
+                                <?= $form->field($model->photo, 'image')->fileInput(['multiple' => false])->label(false) ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
         <div class="box box-default">
             <div class="box-header with-border">SEO</div>
@@ -69,5 +85,3 @@ use yii\helpers\Html; ?>
 
         <?php ActiveForm::end(); ?>
     </div>
-
-</div>

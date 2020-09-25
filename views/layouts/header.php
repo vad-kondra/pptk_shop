@@ -94,7 +94,7 @@ use yii\helpers\Url;
 
 <!--                                <li><a href="blog.html">Blog<i class="fa fa-angle-down"></i></a></li>-->
                                 <li><a href="<?=Url::to('/news/index')?>">Новости</a></li>
-                                <li><a href="<?=Url::to('/tech')?>">Техническая информация</a></li>
+                                <li><a href="<?=Url::to('/information')?>">Техническая информация</a></li>
                                 <li><a href="<?=Url::to('/about')?>">О нас</a></li>
                                 <li><a href="<?=Url::to('/contact')?>">Контакты</a></li>
                             </ul>

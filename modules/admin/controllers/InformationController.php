@@ -4,25 +4,23 @@
 namespace app\modules\admin\controllers;
 
 
-use app\models\news\News;
-use app\models\NewsForm;
+use app\models\information\Information;
 use app\models\PhotoForm;
-use app\models\tech\Tech;
-use app\models\TechForm;
-use app\services\NewsManageService;
-use app\services\TechManageService;
+use app\models\InformationForm;
+use app\services\InformationManageService;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
+use yii\helpers\Inflector;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\web\UploadedFile;
 
 /**
- * @property TechManageService $service
+ * @property InformationManageService $service
  */
-class TechController extends Controller
+class InformationController extends Controller
 {
     public $service;
 
@@ -45,10 +43,10 @@ class TechController extends Controller
      * TechController constructor.
      * @param $id
      * @param $module
-     * @param TechManageService $service
+     * @param InformationManageService $service
      * @param array $config
      */
-    public function __construct($id, $module,TechManageService $service, $config = [])
+    public function __construct($id, $module, InformationManageService $service, $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->service = $service;
@@ -60,7 +58,7 @@ class TechController extends Controller
     public function actionIndex(){
 
         $dataProvider = new ActiveDataProvider([
-            'query' => Tech::find(),
+            'query' => Information::find(),
             'pagination' => [
                 'pageSize' => 22
             ],
@@ -102,11 +100,11 @@ class TechController extends Controller
     public function actionCreate()
     {
 
-        $form = new TechForm();
+        $form = new InformationForm();
         if ($form->load(Yii::$app->request->post()) && $form->validate() )
         {
-
             $techArticles = $this->service->create($form);
+//            print "<pre>";print_r($techArticles);die();
             addAlert('success', 'Статья добавлена');
             return $this->redirect(['view', 'id' => $techArticles->id]);
         }
@@ -124,10 +122,11 @@ class TechController extends Controller
     public function actionUpdate($id)
     {
         $techArticles = $this->findModel($id);
-        $form = new TechForm($techArticles);
+        $form = new InformationForm($techArticles);
 
         if ($form->load(Yii::$app->request->post()) && $form->validate() )
         {
+            $form->slug = $form->slug ?: Inflector::slug($form->title);
             $techArticles = $this->service->edit($techArticles->id, $form);
             addAlert('success', 'Статья отредактирована');
             return $this->redirect(['view', 'id' => $techArticles->id]);
@@ -160,12 +159,12 @@ class TechController extends Controller
 
     /**
      * @param $id
-     * @return Tech
+     * @return Information
      * @throws NotFoundHttpException
      */
-    protected function findModel($id): Tech
+    protected function findModel($id): Information
     {
-        if (($model = Tech::findOne($id)) !== null) {
+        if (($model = Information::findOne($id)) !== null) {
             return $model;
         }
         throw new NotFoundHttpException('The requested page does not exist.');
