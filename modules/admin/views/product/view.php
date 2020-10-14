@@ -111,30 +111,31 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?php if(empty($product->photo)): ?>
                             <div class="col-md-12">
                                 <?php $form = ActiveForm::begin(['options' => ['enctype'=>'multipart/form-data']]); ?>
-                                    <?=$form->field($photoForm, 'image')->fileInput(['multiple' => false])->label(false)?>
-                                    <div class="form-group">
-                                        <?= Html::submitButton('Загрузить', ['class' => 'btn btn-success']) ?>
-                                    </div>
+                                <?=$form->field($photoForm, 'image')->fileInput(['multiple' => false])->label(false)?>
+                                <div class="form-group">
+                                    <?= Html::submitButton('Загрузить', ['class' => 'btn btn-success']) ?>
+                                </div>
                                 <?php ActiveForm::end(); ?>
                             </div>
                         <?php else: ?>
                             <div class="col-md-8">
                                 <?php $form = ActiveForm::begin(['options' => ['enctype'=>'multipart/form-data']]); ?>
-                                    <?=$form->field($photoForm, 'image')->fileInput(['multiple' => false])->label(false)?>
-                                    <div class="form-group">
-                                        <?= Html::submitButton('Загрузить', ['class' => 'btn btn-success']) ?>
-                                    </div>
+                                <?=$form->field($photoForm, 'image')->fileInput(['multiple' => false])->label(false)?>
+                                <div class="form-group">
+                                    <?= Html::submitButton('Загрузить', ['class' => 'btn btn-success']) ?>
+                                </div>
                                 <?php ActiveForm::end(); ?>
                             </div>
                             <div class="col-md-4">
-                                <?php if (is_file(Yii::getAlias('@webroot').$product->photo->img_src)) :?>
+<!--                                --><?php //print "<pre>";print_r($product->photo->img_src);die(); ?>
+                                <?php if (is_file(Yii::getAlias('@webroot') . '/' . $product->photo->img_src)) :?>
                                     <?= Yii::$app->thumbnail->img($product->photo->img_src, ['thumbnail' => [
-                                            'width' => 150,
-                                            'height' => 150,
-                                        ], 'placeholder' => [
-                                            'width' => 100,
-                                            'height' => 100
-                                        ]], ['style' => 'width:200px; height:200px']); ?>
+                                        'width' => 250,
+                                        'height' => 250,
+                                    ], 'placeholder' => [
+                                        'width' => 250,
+                                        'height' => 250
+                                    ]], ['style' => 'width:200px; height:200px']); ?>
                                 <?php else:  ?>
                                     <?= Yii::$app->thumbnail->img(null, [
                                         'placeholder' => [
@@ -214,12 +215,12 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="box">
                 <div class="box-header with-border">Описание</div>
                 <div class="box-body">
-                <?= Yii::$app->formatter->asHtml($product->description, [
-                    'Attr.AllowedRel' => array('nofollow'),
-                    'HTML.SafeObject' => true,
-                    'Output.FlashCompat' => true,
-                    'HTML.SafeIframe' => true,
-                    'URI.SafeIframeRegexp'=>'%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
+                    <?= Yii::$app->formatter->asHtml($product->description, [
+                        'Attr.AllowedRel' => array('nofollow'),
+                        'HTML.SafeObject' => true,
+                        'Output.FlashCompat' => true,
+                        'HTML.SafeIframe' => true,
+                        'URI.SafeIframeRegexp'=>'%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
                     ]) ?>
                 </div>
             </div>

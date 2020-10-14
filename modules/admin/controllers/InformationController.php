@@ -5,6 +5,7 @@ namespace app\modules\admin\controllers;
 
 
 use app\models\information\Information;
+use app\models\InformationEditForm;
 use app\models\PhotoForm;
 use app\models\InformationForm;
 use app\services\InformationManageService;
@@ -104,7 +105,6 @@ class InformationController extends Controller
         if ($form->load(Yii::$app->request->post()) && $form->validate() )
         {
             $techArticles = $this->service->create($form);
-//            print "<pre>";print_r($techArticles);die();
             addAlert('success', 'Статья добавлена');
             return $this->redirect(['view', 'id' => $techArticles->id]);
         }
@@ -122,7 +122,7 @@ class InformationController extends Controller
     public function actionUpdate($id)
     {
         $techArticles = $this->findModel($id);
-        $form = new InformationForm($techArticles);
+        $form = new InformationEditForm($techArticles);
 
         if ($form->load(Yii::$app->request->post()) && $form->validate() )
         {

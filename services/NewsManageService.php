@@ -4,6 +4,7 @@ namespace app\services;
 
 use app\models\Meta;
 use app\models\news\News;
+use app\models\NewsEditForm;
 use app\models\NewsForm;
 use app\models\Photo;
 use app\models\PhotoForm;
@@ -63,10 +64,10 @@ class NewsManageService
 
     /**
      * @param $id
-     * @param NewsForm $form
+     * @param NewsEditForm $form
      * @return News
      */
-    public function edit($id, NewsForm $form): News
+    public function edit($id, NewsEditForm $form): News
     {
         $news = $this->newsRepository->get($id);
 

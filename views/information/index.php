@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                         <div class="publication-news-date">
                             <span>Дата Публикации:
-                            <?= Yii::$app->formatter->asDate($item->created_at)?></span>
+                            <?= date("d-m-Y", $item->created_at) ?></span>
                         </div>
                     </div>
                 </div>

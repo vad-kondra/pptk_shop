@@ -80,8 +80,8 @@ class Information extends ActiveRecord
         return [
             [['title', 'short_desc', 'body'], 'required'],
             [['title'], 'unique'],
-            [['title'], 'string', 'max' => 65],
-            [['short_desc'], 'string', 'max' => 100],
+            [['title'], 'string', 'max' => 255],
+            [['short_desc'], 'string', 'max' => 255],
             [['body'], 'string'],
         ];
     }

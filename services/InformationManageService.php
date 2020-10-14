@@ -2,6 +2,7 @@
 
 namespace app\services;
 
+use app\models\InformationEditForm;
 use app\models\Meta;
 use app\models\Photo;
 use app\models\PhotoForm;
@@ -66,7 +67,7 @@ class InformationManageService
      * @param InformationForm $form
      * @return Information
      */
-    public function edit($id, InformationForm $form): Information
+    public function edit($id, InformationEditForm $form): Information
     {
         $informationArticles = $this->informationRepository->get($id);
 

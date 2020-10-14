@@ -1,7 +1,5 @@
 <?PHP
 
-
-
 $this->title = $model->name;
 $this->params['breadcrumbs'][] =  [
     'template' => "<li>/ <span>{link}</span></li>",

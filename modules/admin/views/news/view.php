@@ -12,12 +12,9 @@ use yii\widgets\DetailView;
 /* @var $photoForm PhotoForm */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Новости', 'url' => ['/'.Yii::$app->controller->module->id.'/'.Yii::$app->controller->id]];
-$this->params['breadcrumbs'][] =  [
-    'template' => "<li class=\"breadcrumb-item active\" aria-current=\"page\">{link}</li>",
-    'label' => $this->title
-];
-
+$this->title = 'Новость #ID'.$model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Новости', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="news-view">
     <div class="row">

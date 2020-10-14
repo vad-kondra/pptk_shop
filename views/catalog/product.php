@@ -35,22 +35,22 @@ $this->params['active_category'] = $product->category;
         <div class="row">
             <div class="col-lg-3">
                 <div class="tab-content">
-                    <?php
-                    $img_src = null;
-                    if(isset($product->photo) ) {
-                        $img_src = $product->photo->img_src;
-                    }
-                    echo Yii::$app->thumbnail->img($img_src, [
-                        'placeholder' => [
-                            'width' => 400,
-                            'height' => 400
-                        ],
-                        'thumbnail' => [
-                            'width' => 400,
-                            'height' => 400,
-                        ]
-                    ]);
-                    ?>
+                    <?php if (is_file(Yii::getAlias('@webroot') . '/' . $product->photo->img_src)) :?>
+                        <?= Yii::$app->thumbnail->img($product->photo->img_src, ['thumbnail' => [
+                            'width' => 250,
+                            'height' => 250,
+                        ], 'placeholder' => [
+                            'width' => 250,
+                            'height' => 250
+                        ]], ['style' => 'width:200px; height:200px']); ?>
+                    <?php else:  ?>
+                        <?= Yii::$app->thumbnail->img(null, [
+                            'placeholder' => [
+                                'width' => 350,
+                                'height' => 350
+                            ]
+                        ], ['style' => 'width:200px; height:200px']); ?>
+                    <?php endif;  ?>
 
                 </div>
 
@@ -98,25 +98,12 @@ $this->params['active_category'] = $product->category;
         <div class="row">
             <div class="col-sm-12">
                 <ul class="main-thumb-desc nav">
-                    <li><a class="active" data-toggle="tab" href="#dtail">Описание</a></li>
-                    <li><a data-toggle="tab" href="#review">Характеристики</a></li>
+                    <li><a class="active" data-toggle="tab" href="#review">Характеристики</a></li>
+                    <li><a data-toggle="tab" href="#dtail">Описание</a></li>
                 </ul>
                 <!-- Product Thumbnail Tab Content Start -->
                 <div class="tab-content thumb-content border-default">
-                    <div id="dtail" class="tab-pane in active">
-                        <p>
-                            <?php if ($product->description): ?>
-                                <?= Yii::$app->formatter->asHtml($product->description, [
-                                    'Attr.AllowedRel' => array('nofollow'),
-                                    'HTML.SafeObject' => true,
-                                    'Output.FlashCompat' => true,
-                                    'HTML.SafeIframe' => true,
-                                    'URI.SafeIframeRegexp'=>'%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
-                                ]) ?>
-                            <?php endif; ?>
-                        </p>
-                    </div>
-                    <div id="review" class="tab-pane ">
+                    <div id="review" class="tab-pane in active">
                         <div class="review">
                             <div class="table-responsive">
                                 <table class="table">
@@ -134,6 +121,19 @@ $this->params['active_category'] = $product->category;
                             </div>
                         </div>
 
+                    </div>
+                    <div id="dtail" class="tab-pane">
+                        <p>
+                            <?php if ($product->description): ?>
+                                <?= Yii::$app->formatter->asHtml($product->description, [
+                                    'Attr.AllowedRel' => array('nofollow'),
+                                    'HTML.SafeObject' => true,
+                                    'Output.FlashCompat' => true,
+                                    'HTML.SafeIframe' => true,
+                                    'URI.SafeIframeRegexp'=>'%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%',
+                                ]) ?>
+                            <?php endif; ?>
+                        </p>
                     </div>
                 </div>
                 <!-- Product Thumbnail Tab Content End -->

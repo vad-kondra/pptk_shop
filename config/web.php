@@ -74,6 +74,9 @@ $config = [
                 '/producers' => '/info/producers',
                 '/terms' => '/info/terms',
 
+                '/information' => '/information/index',
+                '/news' => '/news/index',
+
                 '/sign-in' => '/auth/sign-in',
                 '/sign-up' => '/auth/sign-up',
                 '/logout' => '/auth/logout',

@@ -1,7 +1,7 @@
 <?php
 
+use app\models\information\Information;
 use app\models\PhotoForm;
-use app\models\tech\Information;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] =  [
         <div class="col-md-6">
             <?= Html::a('Редактировать', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
             <?= Html::a('Удалить', ['delete', 'id' => $model->id], ['class' => 'btn btn-danger', 'data' => ['confirm' => 'Подтвердите действие', 'method' => 'post',]]) ?>
-            <?= Html::a('На сайте', Url::to(['/news', 'id'=>$model->id]), ['class' => 'btn btn-secondary']) ?>
+            <?= Html::a('На сайте', Url::to(['/information']), ['class' => 'btn btn-secondary']) ?>
         </div>
     </div>
     <div class="row">

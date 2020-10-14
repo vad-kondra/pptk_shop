@@ -7,8 +7,8 @@ use yii\helpers\Html;
 /* @var $news News */
 
 $this->title = $news->title;
-$this->params['breadcrumbs'][] = $this->title;
-
+$this->params['breadcrumbs'][] = ['label' => 'Новости', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $news->title;
 ?>
 
 <div class="container">

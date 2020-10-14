@@ -5,6 +5,7 @@ namespace app\modules\admin\controllers;
 
 
 use app\models\news\News;
+use app\models\NewsEditForm;
 use app\models\NewsForm;
 use app\models\PhotoForm;
 use app\services\NewsManageService;
@@ -104,7 +105,6 @@ class NewsController extends Controller
         {
 
             $news = $this->service->create($form);
-            //print ('<pre>');print_r($news);die();
             addAlert('success', 'Новость добавлена');
             return $this->redirect(['view', 'id' => $news->id]);
         }
@@ -122,7 +122,7 @@ class NewsController extends Controller
     public function actionUpdate($id)
     {
         $news = $this->findModel($id);
-        $form = new NewsForm($news);
+        $form = new NewsEditForm($news);
 
         if ($form->load(Yii::$app->request->post()) && $form->validate() )
         {

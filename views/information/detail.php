@@ -7,7 +7,8 @@ use yii\helpers\Html;
 /* @var $informationArticles Information */
 
 $this->title = $informationArticles->title;
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => 'Полезная информация', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $informationArticles->title;
 
 ?>
 
